@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-dark;
+}
+
+.section-padding {
+  @apply py-24 px-4 sm:px-6 lg:px-8;
+}
+
+.partners-carousel .swiper-slide {
+  @apply transition duration-300;
+}
+
+.partners-carousel .swiper-slide:hover {
+  opacity: 1;
+}
