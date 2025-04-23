@@ -7,7 +7,7 @@ export const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
-            <h3 className="text-2xl font-bold mb-6">Go Freelance</h3>
+            <img src="./images/logo.png" alt="Logo" className="w-60 mb-4" />
             <p className="text-neutral-300 mb-4">
               Votre partenaire pour une croissance digitale durable et
               mesurable.
