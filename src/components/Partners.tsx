@@ -21,11 +21,11 @@ export const Partners: React.FC = () => {
           }}
           loop={true}
           breakpoints={{
-            640: {
-              slidesPerView: 3,
+            320: {
+              slidesPerView: 2,
             },
             1024: {
-              slidesPerView: 6,
+              slidesPerView: 4,
             },
           }}
           className="partners-carousel"
