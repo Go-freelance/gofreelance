@@ -1,5 +1,5 @@
 import React from "react";
-import { Linkedin, Twitter, Instagram } from "lucide-react";
+import { Linkedin, Twitter, Facebook } from "lucide-react";
 
 export const Footer: React.FC = () => {
   return (
@@ -14,25 +14,28 @@ export const Footer: React.FC = () => {
             </p>
             <div className="flex space-x-4">
               <a
-                href="#"
+                href="https://www.linkedin.com/company/go-freelancerdc"
+                target="_blank"
                 className="text-neutral-300 hover:text-primary transition"
               >
                 <Linkedin className="w-5 h-5" />
                 <span className="sr-only">LinkedIn</span>
               </a>
               <a
-                href="#"
+                href="https://twitter.com/gof_rdc"
+                target="_blank"
                 className="text-neutral-300 hover:text-primary transition"
               >
                 <Twitter className="w-5 h-5" />
                 <span className="sr-only">Twitter</span>
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/gofreelancerdc"
+                target="_blank"
                 className="text-neutral-300 hover:text-primary transition"
               >
-                <Instagram className="w-5 h-5" />
-                <span className="sr-only">Instagram</span>
+                <Facebook className="w-5 h-5" />
+                <span className="sr-only">Facebook</span>
               </a>
             </div>
           </div>
@@ -112,13 +115,13 @@ export const Footer: React.FC = () => {
           </div>
           <div>
             <h4 className="font-bold mb-4">Contact</h4>
-            <p className="text-neutral-300 mb-2">hello@gofreelance.com</p>
-            <p className="text-neutral-300 mb-4">+33 1 23 45 67 89</p>
-            <p className="text-neutral-300">Paris, France</p>
+            <p className="text-neutral-300 mb-2">contact@gofreelance.com</p>
+            <p className="text-neutral-300 mb-4">+243 990 776 509</p>
+            <p className="text-neutral-300">RDC, Kinshasa/Gombe</p>
           </div>
         </div>
         <div className="border-t border-neutral-700 mt-12 pt-8 text-neutral-300 text-sm">
-          <p>© 2024 Go Freelance. Tous droits réservés.</p>
+          <p>© 2025 Go Freelance. Tous droits réservés.</p>
         </div>
       </div>
     </footer>
