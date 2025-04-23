@@ -48,7 +48,7 @@ export const WhyUs: React.FC = () => {
   ];
 
   return (
-    <div className="mt-16">
+    <div className="md:py-16 md:px-20 mt-16">
       <h3 className="text-3xl font-bold text-center mb-12">
         Pourquoi nous choisir ?
       </h3>

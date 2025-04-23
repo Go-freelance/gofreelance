@@ -35,7 +35,7 @@ export const Partners: React.FC = () => {
               <img
                 src={partner.image}
                 alt={partner.name}
-                className="w-32 mx-auto brightness-0 invert opacity-50 hover:opacity-100 transition duration-300"
+                className="w-full brightness-0 invert opacity-50 hover:opacity-100 transition duration-300"
               />
             </SwiperSlide>
           ))}

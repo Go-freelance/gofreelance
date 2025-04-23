@@ -8,37 +8,85 @@ export const partners: Partner[] = [
   {
     id: 1,
     image:
-      "https://images.unsplash.com/photo-1603342585467-b8c49e11c731?auto=format&fit=crop&w=200&q=80",
-    name: "Partner 1",
+      "./images/bcdc.png",
+    name: "BCDC",
   },
   {
     id: 2,
     image:
-      "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?auto=format&fit=crop&w=200&q=80",
-    name: "Partner 2",
+      "./images/western.png",
+    name: "WesternUnion",
   },
   {
     id: 3,
     image:
-      "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?auto=format&fit=crop&w=200&q=80",
-    name: "Partner 3",
+      "./images/bralima.png",
+    name: "Bralima",
   },
   {
     id: 4,
     image:
-      "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?auto=format&fit=crop&w=200&q=80",
-    name: "Partner 4",
+      "./images/dkt.png",
+    name: "DKT",
   },
   {
     id: 5,
     image:
-      "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?auto=format&fit=crop&w=200&q=80",
-    name: "Partner 5",
+      "./images/africana.png",
+    name: "Africana Palace",
   },
   {
     id: 6,
     image:
-      "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?auto=format&fit=crop&w=200&q=80",
-    name: "Partner 6",
+      "./images/ascitech.png",
+    name: "Ascitech",
+  },
+  {
+    id: 7,
+    image:
+      "./images/kenben.png",
+    name: "KenBen",
+  },
+  {
+    id: 8,
+    image:
+      "./images/k24.png",
+    name: "K24 Records",
+  },
+  {
+    id: 9,
+    image:
+      "./images/rva.png",
+    name: "RVA",
+  },
+  {
+    id: 10,
+    image:
+      "./images/moma.png",
+    name: "Moma",
+  },
+  {
+    id: 11,
+    image:
+      "./images/aspim.png",
+    name: "Aspim",
+  },
+  {
+    id: 12,
+    image:
+      "./images/infordc.png",
+    name: "Infordc",
+  },
+  {
+    id: 13,
+    image:
+      "./images/krismasi.png",
+    name: "Krismasi",
+  },
+  {
+    id: 14,
+    image:
+      "./images/spicy.png",
+    name: "Spicy Dressing",
   },
 ];
