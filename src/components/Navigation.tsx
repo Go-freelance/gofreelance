@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Circle } from "lucide-react";
 
 const NavSeparator = () => <Circle className="w-1.5 h-1.5 text-neutral-300" />;
