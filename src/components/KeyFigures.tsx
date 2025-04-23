@@ -3,8 +3,8 @@ import { KeyFigureProps } from "../types/common";
 
 const KeyFigure: React.FC<KeyFigureProps> = ({ number, label }) => (
   <div className="text-center">
-    <p className="text-4xl font-bold text-primary mb-2">{number}</p>
-    <p className="text-text">{label}</p>
+    <p className="text-5xl font-bold text-primary mb-2">{number}</p>
+    <p className="text-text font-medium">{label}</p>
   </div>
 );
 

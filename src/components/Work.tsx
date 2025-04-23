@@ -3,26 +3,28 @@ import { ArrowUpRight } from "lucide-react";
 import { WorkCardProps } from "../types/common";
 
 const WorkCard: React.FC<WorkCardProps> = ({ image, title, client, tags }) => (
-  <div className="group">
-    <div className="relative overflow-hidden rounded-xl mb-4">
+  <div className="group cursor-pointer">
+    <div className="overflow-hidden rounded-2xl mb-4">
       <img
         src={image}
         alt={title}
-        className="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500"
+        className="w-full h-64 object-cover transform group-hover:scale-105 transition duration-500"
       />
     </div>
-    <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
+    <h3 className="text-xl font-bold mb-2">{title}</h3>
     <p className="text-neutral-300 mb-4">{client}</p>
-    <div className="flex flex-wrap gap-2">
-      {tags.map((tag, index) => (
-        <span
-          key={index}
-          className="bg-white/10 text-white px-3 py-1 rounded-full text-sm"
-        >
-          {tag}
-        </span>
-      ))}
-    </div>
+    {tags && (
+      <div className="flex gap-2">
+        {tags.map((tag, index) => (
+          <span
+            key={index}
+            className="text-xs px-3 py-1 bg-secondary-light rounded-full text-neutral-300"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
   </div>
 );
 

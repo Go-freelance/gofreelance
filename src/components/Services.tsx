@@ -8,6 +8,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { ServiceCard } from "./ServiceCard";
+import { WhyUs } from "./WhyUs";
 
 export const Services: React.FC = () => {
   return (
@@ -23,7 +24,7 @@ export const Services: React.FC = () => {
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <ServiceCard
-            icon={<Target className="w-6 h-6 text-primary" />}
+            icon={<Target className="w-6 h-6" />}
             title="Stratégie & Conseil"
             description="Définissez votre vision digitale et atteignez vos objectifs avec un plan d'action précis."
             features={[
@@ -37,7 +38,7 @@ export const Services: React.FC = () => {
             duration="2-3 semaines"
           />
           <ServiceCard
-            icon={<Rocket className="w-6 h-6 text-primary" />}
+            icon={<Rocket className="w-6 h-6" />}
             title="Growth Marketing"
             description="Boostez votre acquisition et maximisez votre ROI avec nos stratégies data-driven."
             features={[
@@ -52,7 +53,7 @@ export const Services: React.FC = () => {
             popular={true}
           />
           <ServiceCard
-            icon={<Layout className="w-6 h-6 text-primary" />}
+            icon={<Layout className="w-6 h-6" />}
             title="Web & E-commerce"
             description="Créez une présence en ligne impactante avec un site web optimisé pour la conversion."
             features={[
@@ -114,6 +115,7 @@ export const Services: React.FC = () => {
           </div>
         </div>
       </div>
+      <WhyUs />
     </section>
   );
 };
