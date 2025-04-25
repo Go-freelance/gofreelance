@@ -25,7 +25,7 @@ export const Partners: React.FC = () => {
               slidesPerView: 2,
             },
             1024: {
-              slidesPerView: 4,
+              slidesPerView: 5,
             },
           }}
           className="partners-carousel"
@@ -35,7 +35,7 @@ export const Partners: React.FC = () => {
               <img
                 src={partner.image}
                 alt={partner.name}
-                className="w-full brightness-0 invert opacity-50 hover:opacity-100 transition duration-300"
+                className="w-36 hover:opacity-100 transition duration-300"
               />
             </SwiperSlide>
           ))}

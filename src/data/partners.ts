@@ -7,86 +7,27 @@ export interface Partner {
 export const partners: Partner[] = [
   {
     id: 1,
-    image:
-      "./images/bcdc.svg",
-    name: "BCDC",
+    image: "./images/silikin.png",
+    name: "Silikin Village",
   },
   {
     id: 2,
-    image:
-      "./images/wester.svg",
-    name: "WesternUnion",
+    image: "./images/fonarev.png",
+    name: "Fonarev",
   },
   {
     id: 3,
-    image:
-      "./images/bralima.svg",
-    name: "Bralima",
+    image: "./images/open-access.png",
+    name: "Open Access",
   },
   {
     id: 4,
-    image:
-      "./images/dkt.svg",
-    name: "DKT",
+    image: "./images/sababalar.png",
+    name: "Saba ba lar",
   },
   {
     id: 5,
-    image:
-      "./images/africana.svg",
-    name: "Africana Palace",
-  },
-  {
-    id: 6,
-    image:
-      "./images/ascitech.svg",
-    name: "Ascitech",
-  },
-  {
-    id: 7,
-    image:
-      "./images/kenben.svg",
-    name: "KenBen",
-  },
-  {
-    id: 8,
-    image:
-      "./images/k24.svg",
-    name: "K24 Records",
-  },
-  {
-    id: 9,
-    image:
-      "./images/rva.svg",
-    name: "RVA",
-  },
-  {
-    id: 10,
-    image:
-      "./images/moma.svg",
-    name: "Moma",
-  },
-  {
-    id: 11,
-    image:
-      "./images/aspim.svg",
-    name: "Aspim",
-  },
-  {
-    id: 12,
-    image:
-      "./images/infordc.svg",
-    name: "Infordc",
-  },
-  {
-    id: 13,
-    image:
-      "./images/krismasi.svg",
-    name: "Krismasi",
-  },
-  {
-    id: 14,
-    image:
-      "./images/spicy.svg",
-    name: "Spicy Dressing",
+    image: "./images/tosala.png",
+    name: "Tosala Films",
   },
 ];

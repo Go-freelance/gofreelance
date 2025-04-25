@@ -7,8 +7,8 @@ export const Hero: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h1 className="text-5xl lg:text-7xl font-bold mb-8 leading-tight gradient-text">
-              We make excellence.
+            <h1 className="text-5xl lg:text-7xl font-bold mb-8 leading-tight">
+              We make <span className="excellence-gradient">Excellence</span>.
             </h1>
             <p className="text-xl text-text mb-12">
               Accélérez vos résultats business grâce à des stratégies digitales
