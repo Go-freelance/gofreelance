@@ -27,9 +27,6 @@ export default {
   // Emails
   emails: {
     from: process.env.FROM_EMAIL || "noreply@gofreelance.com",
-    admin: process.env.ADMIN_EMAIL || "admin@gofreelance.com",
+    admin: process.env.ADMIN_EMAIL || "danmuamba81@gmail.com",
   },
-
-  // Autres options
-  isDevelopment: (process.env.NODE_ENV || "development") === "development",
 };

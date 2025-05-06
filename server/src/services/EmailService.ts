@@ -27,6 +27,9 @@ class EmailService {
         user: config.smtp.auth.user,
         pass: config.smtp.auth.pass,
       },
+      tls: {
+        rejectUnauthorized: false,
+      },
     });
   }
 
@@ -47,54 +50,13 @@ class EmailService {
    */
   public async sendAdminNotification(data: EmailData): Promise<boolean> {
     try {
-      // Mode développement avec log pour test
-      if (config.isDevelopment) {
-        console.log("🚀 [EmailService] Simulation d'envoi d'email admin:");
-        console.log(`De: ${config.emails.from}`);
-        console.log(`À: ${config.emails.admin}`);
-        console.log("Sujet: Nouvelle demande de rendez-vous");
-        console.log("Data:", data);
-
-        // Créer un compte de test si en mode développement
-        if (!config.smtp.auth.user) {
-          const testAccount = await nodemailer.createTestAccount();
-          console.log("🧪 Compte Ethereal pour tester les emails:");
-          console.log(testAccount.web);
-
-          // Reconfigurer le transporteur avec les identifiants de test
-          this.transporter = nodemailer.createTransport({
-            host: "smtp.ethereal.email",
-            port: 587,
-            secure: false,
-            auth: {
-              user: testAccount.user,
-              pass: testAccount.pass,
-            },
-          });
-        }
-      }
-
       // Envoyer l'email
-      const info = await this.transporter.sendMail({
+      await this.transporter.sendMail({
         from: `"Go Freelance" <${config.emails.from}>`,
         to: config.emails.admin,
         subject: "Nouvelle demande de rendez-vous",
         html: this.generateAdminEmailTemplate(data),
       });
-
-      if (config.isDevelopment) {
-        console.log(
-          "📧 Email de notification admin envoyé: %s",
-          info.messageId
-        );
-        // URL de prévisualisation uniquement disponible avec Ethereal
-        if (info.messageId && config.smtp.host === "smtp.ethereal.email") {
-          console.log(
-            "📬 URL de prévisualisation: %s",
-            nodemailer.getTestMessageUrl(info)
-          );
-        }
-      }
 
       return true;
     } catch (error) {
@@ -110,35 +72,13 @@ class EmailService {
    */
   public async sendClientConfirmation(data: EmailData): Promise<boolean> {
     try {
-      // Mode développement avec log pour test
-      if (config.isDevelopment) {
-        console.log("🚀 [EmailService] Simulation d'envoi d'email client:");
-        console.log(`De: ${config.emails.from}`);
-        console.log(`À: ${data.email}`);
-        console.log("Sujet: Confirmation de votre rendez-vous");
-      }
-
       // Envoyer l'email
-      const info = await this.transporter.sendMail({
+      await this.transporter.sendMail({
         from: `"Go Freelance" <${config.emails.from}>`,
         to: data.email,
         subject: "Confirmation de votre rendez-vous",
         html: this.generateClientEmailTemplate(data),
       });
-
-      if (config.isDevelopment) {
-        console.log(
-          "📧 Email de confirmation client envoyé: %s",
-          info.messageId
-        );
-        // URL de prévisualisation uniquement disponible avec Ethereal
-        if (info.messageId && config.smtp.host === "smtp.ethereal.email") {
-          console.log(
-            "📬 URL de prévisualisation: %s",
-            nodemailer.getTestMessageUrl(info)
-          );
-        }
-      }
 
       return true;
     } catch (error) {

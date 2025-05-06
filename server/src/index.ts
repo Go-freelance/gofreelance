@@ -15,7 +15,7 @@ app.use(
 );
 
 // Logger des requêtes HTTP
-app.use(morgan(config.isDevelopment ? "dev" : "combined"));
+app.use(morgan("common"));
 
 // Parser pour les requêtes JSON
 app.use(express.json());
