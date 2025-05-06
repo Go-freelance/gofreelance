@@ -51,17 +51,8 @@ export const Navigation: React.FC<NavigationProps> = ({
               Réalisations
             </a>
             <NavSeparator />
-            <a
-              href="#"
-              className="text-secondary hover:text-primary transition font-medium"
-            >
-              Blog
-            </a>
           </div>
           <div className="hidden lg:flex items-center space-x-4">
-            <button className="text-secondary hover:text-primary transition font-medium">
-              FR
-            </button>
             <button className="bg-primary text-white px-6 py-2.5 rounded-full hover:bg-primary-dark transition font-medium">
               Contact
             </button>
