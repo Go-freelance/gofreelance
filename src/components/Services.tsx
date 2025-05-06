@@ -7,10 +7,21 @@ import {
   CheckCircle,
   ArrowRight,
 } from "lucide-react";
+import { useState } from "react";
 import { ServiceCard } from "./ServiceCard";
 import { WhyUs } from "./WhyUs";
+import { AppointmentForm } from "./AppointmentForm";
 
 export const Services: React.FC = () => {
+  const [showAppointmentForm, setShowAppointmentForm] = useState(false);
+
+  const OpenAppointmentForm = () => {
+    setShowAppointmentForm(true);
+  };
+
+  const CloseAppointmentForm = () => {
+    setShowAppointmentForm(false);
+  };
   return (
     <section id="services" className="section-padding bg-neutral-100">
       <div className="max-w-7xl mx-auto">
@@ -107,7 +118,10 @@ export const Services: React.FC = () => {
               <p className="text-4xl font-bold text-secondary mb-6">
                 Sur devis
               </p>
-              <button className="bg-secondary text-white px-8 py-4 rounded-full hover:bg-secondary-dark transition flex items-center gap-2">
+              <button
+                className="bg-secondary text-white px-8 py-4 rounded-full hover:bg-secondary-dark transition flex items-center gap-2"
+                onClick={OpenAppointmentForm}
+              >
                 Demander un devis
                 <ArrowRight className="w-5 h-5" />
               </button>
@@ -116,6 +130,9 @@ export const Services: React.FC = () => {
         </div>
       </div>
       <WhyUs />
+      {showAppointmentForm && (
+        <AppointmentForm onClose={CloseAppointmentForm} />
+      )}
     </section>
   );
 };
