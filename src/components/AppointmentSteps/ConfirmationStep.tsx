@@ -27,19 +27,21 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
 
             <div>
               <p className="text-xs sm:text-sm text-neutral-500">
-                Type de rendez-vous
+                Lieu de rendez-vous
               </p>
               <div className="flex items-center gap-2">
                 {formData.appointmentType === "in-person" ? (
                   <>
                     <Building className="w-3 h-3 sm:w-4 sm:h-4 text-primary flex-shrink-0" />
-                    <span className="text-sm sm:text-base">En présentiel</span>
+                    <span className="text-sm sm:text-base">
+                      En présentiel dans nos bureaux
+                    </span>
                   </>
                 ) : (
                   <>
                     <Video className="w-3 h-3 sm:w-4 sm:h-4 text-primary flex-shrink-0" />
                     <span className="text-sm sm:text-base">
-                      En ligne (Google Meet)
+                      En ligne (Google Meet, Zoom, etc.)
                     </span>
                   </>
                 )}
@@ -47,13 +49,11 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
             </div>
 
             <div>
-              <p className="text-xs sm:text-sm text-neutral-500">Expert</p>
+              <p className="mb-1 text-xs sm:text-sm text-neutral-500">Agent</p>
               <div className="flex items-center gap-2">
                 <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden flex-shrink-0">
                   <img
-                    src={
-                      formData.selectedTeamMember?.avatar || "/placeholder.svg"
-                    }
+                    src={formData.selectedTeamMember?.avatar}
                     alt={formData.selectedTeamMember?.name}
                     className="w-full h-full object-cover"
                   />

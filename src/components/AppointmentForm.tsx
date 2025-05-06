@@ -74,7 +74,7 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const getStepTitle = () => {
     switch (currentStep) {
       case 1:
-        return "Informations personnelles";
+        return "Vos Informations";
       case 2:
         return "Lieu de rendez-vous";
       case 3:
@@ -162,7 +162,8 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
           </button>
         ) : (
           <button
-            type="submit"
+            type="button"
+            onClick={(e) => handleSubmit(e)}
             disabled={isSubmitting}
             className={`px-4 sm:px-6 py-2 sm:py-3 bg-primary text-white rounded-full hover:bg-primary-dark transition flex items-center gap-2 text-sm sm:text-base ${
               isSubmitting ? "opacity-75 cursor-not-allowed" : ""
@@ -197,7 +198,7 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
           {isSuccess ? (
             <SuccessStep formData={formData} />
           ) : (
-            <form onSubmit={handleSubmit}>
+            <div>
               {/* Step indicator */}
               {renderStepIndicator()}
 
@@ -218,7 +219,7 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
 
               {/* Navigation buttons */}
               {renderNavButtons()}
-            </form>
+            </div>
           )}
         </div>
       </div>
