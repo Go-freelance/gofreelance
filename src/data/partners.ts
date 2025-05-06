@@ -30,4 +30,35 @@ export const partners: Partner[] = [
     image: "./images/tosala.png",
     name: "Tosala Films",
   },
+  {
+    id: 6,
+    image: "./images/canal.png",
+    name: "Canal +"
+  },
+  {
+    id: 7,
+    image: "./images/light-pro.png",
+    name: "Light Pro"
+  },
+  {
+    id: 8,
+    image: "./images/logo-copa.png",
+    name: "Copa"
+  },
+  {
+    id: 9,
+    image: "./images/malebo-pool.png",
+    name: "Pool Malebo"
+  },
+  {
+    id: 10,
+    image: "./images/montreux.png",
+    name: "Montreux"
+  },
+  {
+    id: 11,
+    image: "./images/super-wewa.png",
+    name: "Super Wewa"
+  }
+
 ];

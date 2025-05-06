@@ -8,23 +8,22 @@ import { KeyFigures } from "./components/KeyFigures";
 import { Work } from "./components/Work";
 import { CallToAction } from "./components/CallToAction";
 import { Footer } from "./components/Footer";
-import "swiper/css";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white">
+    <>
       <Navigation isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <Hero />
       <Brands />
-      <Partners /> 
+      <Partners />
       <Services />
       <KeyFigures />
       <Work />
       <CallToAction />
       <Footer />
-    </div>
+    </>
   );
 }
 
