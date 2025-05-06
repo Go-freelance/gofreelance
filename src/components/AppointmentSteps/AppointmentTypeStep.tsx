@@ -40,7 +40,7 @@ export const AppointmentTypeStep: React.FC<AppointmentTypeStepProps> = ({
         </div>
         <div className="flex items-center gap-2 text-neutral-600 text-xs sm:text-sm">
           <MapPin className="w-3 h-3 sm:w-4 sm:h-4 text-primary flex-shrink-0" />
-          <span>RDC, Kinshasa/Gombe</span>
+          <span>Silikin Village 63, Colonel Mondjiba</span>
         </div>
       </div>
 
@@ -65,7 +65,7 @@ export const AppointmentTypeStep: React.FC<AppointmentTypeStepProps> = ({
           <div>
             <h3 className="font-bold text-base sm:text-lg">En ligne</h3>
             <p className="text-neutral-500 text-xs sm:text-sm">
-              Rendez-vous via Google Meet
+              Rendez-vous En ligne (Zoom, Google Meet, etc.)
             </p>
           </div>
         </div>

@@ -76,9 +76,9 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
       case 1:
         return "Informations personnelles";
       case 2:
-        return "Type de rendez-vous";
+        return "Lieu de rendez-vous";
       case 3:
-        return "Sélectionnez un expert";
+        return "Sélectionnez un agent";
       case 4:
         return "Date et heure";
       case 5:

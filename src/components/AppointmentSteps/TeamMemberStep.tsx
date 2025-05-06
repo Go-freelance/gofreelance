@@ -27,7 +27,7 @@ export const TeamMemberStep: React.FC<TeamMemberStepProps> = ({
           <div className="flex flex-col items-center text-center">
             <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full overflow-hidden mb-2 sm:mb-3 border-4 border-white shadow-md">
               <img
-                src={member.avatar || "/placeholder.svg"}
+                src={member.avatar}
                 alt={member.name}
                 className="w-full h-full object-cover"
               />

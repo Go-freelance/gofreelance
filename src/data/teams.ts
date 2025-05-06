@@ -10,25 +10,22 @@ export const teamMembers: TeamMember[] = [
   {
     id: 1,
     name: "Gracy Omokoso",
-    role: "Stratégiste Digital",
+    role: "Role",
     specialty: "Stratégie & Conseil",
-    avatar:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
+    avatar: "./images/gracy.png",
   },
   {
     id: 2,
     name: "Noel Kayembe",
-    role: "Growth Marketer",
+    role: "Role",
     specialty: "Acquisition & Conversion",
-    avatar:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
+    avatar: "./images/noel.jpg",
   },
   {
     id: 3,
     name: "Mariame Lisongo",
-    role: "Designer UX/UI",
+    role: "Role",
     specialty: "Web & E-commerce",
-    avatar:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
+    avatar: "./images/mariam.jpg",
   },
 ];
