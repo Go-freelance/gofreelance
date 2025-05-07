@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { ServiceCard } from "./ServiceCard";
-import { WhyUs } from "./WhyUs";
 import { AppointmentForm } from "./AppointmentForm";
 
 export const Services: React.FC = () => {
@@ -129,7 +128,6 @@ export const Services: React.FC = () => {
           </div>
         </div>
       </div>
-      <WhyUs />
       {showAppointmentForm && (
         <AppointmentForm onClose={CloseAppointmentForm} />
       )}

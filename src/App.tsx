@@ -8,6 +8,8 @@ import { KeyFigures } from "./components/KeyFigures";
 import { Work } from "./components/Work";
 import { CallToAction } from "./components/CallToAction";
 import { Footer } from "./components/Footer";
+import { About } from "./components/About";
+import { WhyUs } from "./components/WhyUs";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,7 +19,9 @@ function App() {
       <Navigation isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <Hero />
       <Partners />
+      <About />
       <Services />
+      <WhyUs />
       <KeyFigures />
       <Work />
       <Brands />
