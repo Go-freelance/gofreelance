@@ -52,29 +52,55 @@ export const useAppointmentForm = ({
 
   // Update available time slots when date changes
   useEffect(() => {
-    if (formData.date) {
-      // In a real app, this would fetch from an API based on the selected date and team member
-      // For now, we'll simulate different time slots for different days
-      const day = new Date(formData.date).getDay();
-      const baseSlots = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"];
+    if (!formData.date) return;
 
-      // Remove some slots based on the day to simulate availability
-      const availableSlots = baseSlots.filter((_, index) => {
-        if (day === 5 || day === 6) {
-          // Weekend
-          return index % 3 === 0; // Fewer slots on weekends
-        }
-        return index % 2 === 0 || day % 2 === 0; // Different availability on different days
-      });
+    const selectedDate = new Date(formData.date);
+    const day = selectedDate.getDay();
 
-      setAvailableTimeSlots(availableSlots);
-
-      // Reset time if the currently selected time is no longer available
-      if (formData.time && !availableSlots.includes(formData.time)) {
-        setFormData((prev) => ({ ...prev, time: "" }));
-      }
+    // Vérifier si c'est un jour de semaine (1-5 = Lundi-Vendredi)
+    if (day >= 1 && day <= 5) {
+      // Créneaux de 9h à 17h
+      const baseSlots = [
+        "09:00",
+        "10:00",
+        "11:00",
+        "12:00",
+        "13:00",
+        "14:00",
+        "15:00",
+        "16:00",
+        "17:00",
+      ];
+      setAvailableTimeSlots(baseSlots);
+    } else {
+      // Si c'est le weekend, aucun créneau disponible
+      setAvailableTimeSlots([]);
     }
-  }, [formData.date, formData.selectedTeamMember, formData.time]);
+  }, [formData.date, formData.selectedTeamMember]);
+
+  // Gérer la réinitialisation du time sélectionné
+  useEffect(() => {
+    if (!formData.date || !formData.time) return;
+
+    const selectedDate = new Date(formData.date);
+    const day = selectedDate.getDay();
+    const isWeekday = day >= 1 && day <= 5;
+    const baseSlots = [
+      "09:00",
+      "10:00",
+      "11:00",
+      "12:00",
+      "13:00",
+      "14:00",
+      "15:00",
+      "16:00",
+      "17:00",
+    ];
+
+    if (!isWeekday || !baseSlots.includes(formData.time)) {
+      setFormData((prev) => ({ ...prev, time: "" }));
+    }
+  }, [formData.date, formData.time]);
 
   // Handle form field changes
   const handleChange = (

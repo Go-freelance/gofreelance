@@ -17,6 +17,21 @@ export const DateTimeStep: React.FC<DateTimeStepProps> = ({
   availableTimeSlots,
   handleChange,
 }) => {
+  // Fonction pour vérifier si une date est un weekend
+  const isWeekend = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = date.getDay();
+    return day === 0 || day === 6; // 0 = Dimanche, 6 = Samedi
+  };
+
+  // Fonction pour gérer le changement de date
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const date = e.target.value;
+    if (!isWeekend(date)) {
+      handleChange(e);
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-6">
       <div>
@@ -31,7 +46,7 @@ export const DateTimeStep: React.FC<DateTimeStepProps> = ({
             type="date"
             name="date"
             value={formData.date}
-            onChange={handleChange}
+            onChange={handleDateChange}
             required
             min={new Date().toISOString().split("T")[0]}
             className="w-full bg-neutral-50 border border-neutral-200 rounded-lg py-2 sm:py-3 pl-8 sm:pl-10 pr-3 sm:pr-4 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
@@ -73,8 +88,9 @@ export const DateTimeStep: React.FC<DateTimeStepProps> = ({
 
       {formData.date && availableTimeSlots.length === 0 && (
         <div className="md:col-span-2 p-3 sm:p-4 bg-amber-50 text-amber-700 rounded-lg text-xs sm:text-sm">
-          Aucun créneau disponible pour cette date. Veuillez sélectionner une
-          autre date.
+          {isWeekend(formData.date)
+            ? "Les rendez-vous ne sont pas disponibles le weekend. Veuillez sélectionner un jour de semaine."
+            : "Aucun créneau disponible pour cette date. Veuillez sélectionner une autre date."}
         </div>
       )}
     </div>
