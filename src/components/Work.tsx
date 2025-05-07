@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowUpRight } from "lucide-react";
 import { WorkCardProps } from "../types/common";
+import { works } from "../data/work";
 
 const WorkCard: React.FC<WorkCardProps> = ({ image, title, client, tags }) => (
   <div className="group cursor-pointer">
@@ -29,30 +30,6 @@ const WorkCard: React.FC<WorkCardProps> = ({ image, title, client, tags }) => (
 );
 
 export const Work: React.FC = () => {
-  const works = [
-    {
-      image:
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800",
-      title: "Transformation Digitale",
-      client: "TechCorp",
-      tags: ["Stratégie", "UX Design"],
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800",
-      title: "Refonte E-commerce",
-      client: "FashionBrand",
-      tags: ["E-commerce", "UI Design"],
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=800",
-      title: "Stratégie Social Media",
-      client: "FoodCo",
-      tags: ["Social Media", "Content"],
-    },
-  ];
-
   return (
     <section className="section-padding bg-secondary text-white">
       <div className="max-w-7xl mx-auto">

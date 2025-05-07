@@ -16,11 +16,11 @@ function App() {
     <>
       <Navigation isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <Hero />
-      <Brands />
       <Partners />
       <Services />
       <KeyFigures />
       <Work />
+      <Brands />
       <CallToAction />
       <Footer />
     </>
