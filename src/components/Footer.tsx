@@ -2,6 +2,8 @@ import React from "react";
 import { Linkedin, Twitter, Facebook } from "lucide-react";
 
 export const Footer: React.FC = () => {
+  const date = new Date();
+  const year = date.getFullYear();
   return (
     <footer className="bg-secondary text-white py-16 px-4">
       <div className="max-w-7xl mx-auto">
@@ -44,7 +46,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="#"
+                  href="#services"
                   className="text-neutral-300 hover:text-primary transition"
                 >
                   Stratégie & Conseil
@@ -52,7 +54,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="#services"
                   className="text-neutral-300 hover:text-primary transition"
                 >
                   Création & Design
@@ -60,7 +62,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="#services"
                   className="text-neutral-300 hover:text-primary transition"
                 >
                   Marketing Digital
@@ -68,7 +70,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="#services"
                   className="text-neutral-300 hover:text-primary transition"
                 >
                   Analyse & Data
@@ -81,7 +83,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="#"
+                  href="#about"
                   className="text-neutral-300 hover:text-primary transition"
                 >
                   À propos
@@ -89,10 +91,10 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="#work"
                   className="text-neutral-300 hover:text-primary transition"
                 >
-                  Carrières
+                  Réalisations
                 </a>
               </li>
               <li>
@@ -100,15 +102,7 @@ export const Footer: React.FC = () => {
                   href="#"
                   className="text-neutral-300 hover:text-primary transition"
                 >
-                  Contact
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-neutral-300 hover:text-primary transition"
-                >
-                  Blog
+                  Prendre rendez-vous
                 </a>
               </li>
             </ul>
@@ -121,7 +115,7 @@ export const Footer: React.FC = () => {
           </div>
         </div>
         <div className="border-t border-neutral-700 mt-12 pt-8 text-neutral-300 text-sm">
-          <p>© 2025 Go Freelance. Tous droits réservés.</p>
+          <p>© {year} Go Freelance. Tous droits réservés.</p>
         </div>
       </div>
     </footer>
