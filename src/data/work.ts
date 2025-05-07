@@ -4,7 +4,13 @@ export const works = [
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800",
     title: "Transformation Digitale",
     client: "Super Wewa",
-    tags: ["Stratégie", "Landing Page", "SEO"],
+    tags: [
+      "Landing Page",
+      "SEO",
+      "Marketing",
+      "Google Ads",
+      "Creation de contenu",
+    ],
   },
   {
     image:

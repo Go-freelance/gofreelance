@@ -22,17 +22,21 @@ export const Services: React.FC = () => {
     setShowAppointmentForm(false);
   };
   return (
-    <section id="services" className="section-padding bg-neutral-100">
+    <section
+      id="services"
+      className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 bg-neutral-100"
+    >
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 gradient-text">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 gradient-text">
             Nos Services
           </h2>
-          <p className="text-xl text-text">
+          <p className="text-lg sm:text-xl text-text max-w-2xl mx-auto">
             Solutions sur mesure pour votre succès digital
           </p>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           <ServiceCard
             icon={<Target className="w-6 h-6" />}
             title="Stratégie & Conseil"
@@ -79,12 +83,12 @@ export const Services: React.FC = () => {
         </div>
 
         {/* Enterprise Section */}
-        <div className="mt-16 bg-white rounded-2xl p-8 md:p-12">
+        <div className="mt-16 sm:mt-20 bg-white rounded-2xl p-6 sm:p-8 shadow-lg">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <Gem className="w-6 h-6 text-primary" />
-                <h3 className="text-2xl font-bold text-secondary">
+                <h3 className="text-xl sm:text-2xl font-bold text-secondary">
                   Solution Enterprise
                 </h3>
               </div>
@@ -93,7 +97,7 @@ export const Services: React.FC = () => {
                 sur mesure pour les grandes entreprises avec des besoins
                 spécifiques.
               </p>
-              <ul className="grid md:grid-cols-2 gap-3 mb-8">
+              <ul className="grid sm:grid-cols-2 gap-3 mb-8">
                 <li className="flex items-center gap-2 text-text">
                   <CheckCircle className="w-5 h-5 text-primary" />
                   Support prioritaire 24/7
@@ -112,13 +116,13 @@ export const Services: React.FC = () => {
                 </li>
               </ul>
             </div>
-            <div className="flex flex-col items-center md:items-end">
+            <div className="text-center md:text-left">
               <p className="text-text mb-4">À partir de</p>
-              <p className="text-4xl font-bold text-secondary mb-6">
+              <p className="text-3xl sm:text-4xl font-bold text-secondary mb-6">
                 Sur devis
               </p>
               <button
-                className="bg-secondary text-white px-8 py-4 rounded-full hover:bg-secondary-dark transition flex items-center gap-2"
+                className="bg-secondary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full hover:bg-secondary-dark transition flex items-center gap-2 w-full sm:w-auto justify-center"
                 onClick={OpenAppointmentForm}
               >
                 Demander un devis

@@ -2,9 +2,9 @@ import React from "react";
 import { KeyFigureProps } from "../types/common";
 
 const KeyFigure: React.FC<KeyFigureProps> = ({ number, label }) => (
-  <div className="text-center">
-    <p className="text-5xl font-bold text-primary mb-2">{number}</p>
-    <p className="text-text font-medium">{label}</p>
+  <div className="text-center p-4 sm:p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+    <p className="text-4xl sm:text-5xl font-bold text-primary mb-2">{number}</p>
+    <p className="text-sm sm:text-base text-text font-medium">{label}</p>
   </div>
 );
 
@@ -17,9 +17,9 @@ export const KeyFigures: React.FC = () => {
   ];
 
   return (
-    <section className="section-padding">
+    <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 bg-neutral-50">
       <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
           {figures.map((figure, index) => (
             <KeyFigure key={index} {...figure} />
           ))}
