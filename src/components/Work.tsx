@@ -31,7 +31,10 @@ const WorkCard: React.FC<WorkCardProps> = ({ image, title, client, tags }) => (
 
 export const Work: React.FC = () => {
   return (
-    <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 bg-secondary text-white">
+    <section
+      id="work"
+      className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 bg-secondary text-white"
+    >
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 sm:gap-0 mb-12 sm:mb-16">
           <div>
