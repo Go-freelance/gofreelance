@@ -14,7 +14,7 @@ export const Partners: React.FC = () => {
         <Swiper
           modules={[Autoplay]}
           spaceBetween={30}
-          slidesPerView={2}
+          slidesPerView={3}
           autoplay={{
             delay: 3000,
             disableOnInteraction: false,
