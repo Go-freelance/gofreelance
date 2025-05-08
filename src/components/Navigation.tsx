@@ -71,7 +71,7 @@ export const Navigation: React.FC<NavigationProps> = ({
                 onClick={handleShowForm}
                 className="bg-primary text-white px-6 py-2.5 rounded-full hover:bg-primary-dark transition font-medium"
               >
-                Contact
+                Prendre rendez-vous
               </button>
             </div>
             <button
