@@ -1,5 +1,5 @@
 import type React from "react";
-import { ArrowRight, Award, ChevronRight, Star } from "lucide-react";
+import { ArrowRight, Award, ChevronRight } from "lucide-react";
 
 export const Hero: React.FC = () => {
   return (
@@ -8,10 +8,10 @@ export const Hero: React.FC = () => {
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center relative z-10">
           <div className="text-center lg:text-left flex flex-col justify-center h-full">
             {/* Badge */}
-            <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium mb-6 mx-auto lg:mx-0 w-fit">
+            {/* <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium mb-6 mx-auto lg:mx-0 w-fit">
               <Star className="w-3.5 h-3.5" />
               Agence digitale certifiée Meta Partner
-            </div>
+            </div> */}
 
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
               We make{" "}

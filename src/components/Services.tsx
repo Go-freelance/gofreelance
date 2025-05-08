@@ -24,7 +24,7 @@ export const Services: React.FC = () => {
   return (
     <section
       id="services"
-      className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 bg-neutral-100"
+      className="sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 bg-neutral-100"
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 sm:mb-16">
