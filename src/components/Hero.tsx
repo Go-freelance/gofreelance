@@ -1,43 +1,70 @@
-import React from "react";
-import { ArrowRight, Award } from "lucide-react";
+import type React from "react";
+import { ArrowRight, Award, ChevronRight, Star } from "lucide-react";
 
 export const Hero: React.FC = () => {
   return (
-    <section className="pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 md:px-8 bg-neutral-100">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
-          <div className="text-center lg:text-left">
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight">
-              We make <span className="excellence-gradient">Excellence</span>.
+    <section className="pt-24 mb-8 sm:pt-28 md:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 md:px-8 bg-gradient-to-b from-neutral-100 to-white overflow-hidden">
+      <div className="max-w-7xl mx-auto relative">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center relative z-10">
+          <div className="text-center lg:text-left flex flex-col justify-center h-full">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium mb-6 mx-auto lg:mx-0 w-fit">
+              <Star className="w-3.5 h-3.5" />
+              Agence digitale certifiée Meta Partner
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
+              We make{" "}
+              <span className="excellence-gradient relative inline-block">
+                Excellence
+                <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#C8006E] to-[#3B1E8A] rounded-full"></span>
+              </span>
             </h1>
-            <p className="text-lg sm:text-xl text-text mb-8 sm:mb-12 max-w-xl mx-auto lg:mx-0">
+
+            <p className="text-lg sm:text-xl text-text mb-4 max-w-xl mx-auto lg:mx-0">
               Accélérez vos résultats business grâce à des stratégies digitales
               data-driven
             </p>
-            <a
-              href="#services"
-              className="bg-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium w-fit mx-auto lg:mx-0"
-            >
-              Découvrir nos services
-              <ArrowRight className="w-5 h-5" />
-            </a>
+
+            <p className="text-base text-text/70 mb-8 sm:mb-12 max-w-xl mx-auto lg:mx-0">
+              Nous aidons les entreprises à se démarquer dans l'univers digital
+              avec des solutions sur mesure et des résultats mesurables.
+            </p>
+
+            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+              <a
+                href="#services"
+                className="bg-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transform hover:-translate-y-1 duration-300"
+              >
+                Découvrir nos services
+                <ArrowRight className="w-5 h-5" />
+              </a>
+              <a
+                href="#contact"
+                className="bg-white text-secondary border border-neutral-200 px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg hover:bg-neutral-50 transition flex items-center gap-2 font-medium shadow-md hover:shadow-lg transform hover:-translate-y-1 duration-300"
+              >
+                Nous contacter
+                <ChevronRight className="w-5 h-5" />
+              </a>
+            </div>
           </div>
-          <div className="relative">
-            <img
-              src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1000&q=80"
-              alt="Digital Strategy"
-              className="rounded-2xl shadow-xl animate-float w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover"
-            />
-            <div className="absolute -bottom-6 sm:-bottom-10 -left-6 sm:-left-10 bg-white p-4 sm:p-6 rounded-xl shadow-lg">
-              <div className="flex items-center gap-3 sm:gap-4">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-full flex items-center justify-center">
-                  <Award className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+
+          <div className="flex justify-center lg:justify-end relative overflow-visible">
+            <div className="relative z-10 ">
+              <img
+                src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1000&q=80"
+                alt="Digital Strategy"
+                className="rounded-2xl shadow-xl animate-float w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover"
+              />
+
+              {/* Badge flottant */}
+              <div className="absolute -bottom-10 -left-10 bg-white p-4 rounded-xl shadow-xl animate-pulse-slow hidden sm:flex items-center gap-3">
+                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+                  <Award className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <p className="text-xs sm:text-sm text-text">Certifié</p>
-                  <p className="font-bold text-secondary text-sm sm:text-base">
-                    Meta Partner
-                  </p>
+                  <p className="text-sm text-text">Certifié</p>
+                  <p className="font-bold text-secondary">Meta Partner</p>
                 </div>
               </div>
             </div>
