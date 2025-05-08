@@ -14,8 +14,8 @@ export const CallToAction: React.FC = () => {
   };
 
   return (
-    <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 bg-primary text-white">
-      <div className="max-w-7xl mx-auto text-center">
+    <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 bg-primary">
+      <div className="max-w-7xl mx-auto text-center text-white">
         <h2 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6">
           Prêt à accélérer votre croissance ?
         </h2>
