@@ -7,17 +7,10 @@ export const Hero: React.FC = () => {
       <div className="max-w-7xl mx-auto relative">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center relative z-10">
           <div className="text-center lg:text-left flex flex-col justify-center h-full">
-            {/* Badge */}
-            {/* <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium mb-6 mx-auto lg:mx-0 w-fit">
-              <Star className="w-3.5 h-3.5" />
-              Agence digitale certifiée Meta Partner
-            </div> */}
-
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
               We make{" "}
               <span className="excellence-gradient relative inline-block">
                 Excellence
-                <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#C8006E] to-[#3B1E8A] rounded-full"></span>
               </span>
             </h1>
 
