@@ -54,10 +54,10 @@ export const WhyUs: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-3xl font-bold mb-6">
+            <h2 className="text-3xl lg:text-3xl font-bold mb-6">
               Pourquoi choisir Go Freelance ?
             </h2>
-            <p className="text-xl mb-8 text-neutral-300">
+            <p className="text-md mb-8 lg:text-xl text-neutral-300">
               Nous combinons expertise technique, créativité et connaissance du
               marché local pour offrir des solutions digitales qui génèrent des
               résultats concrets.
