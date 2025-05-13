@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Navigation } from "./components/Navigation";
+import { Route, Routes } from "react-router-dom";
 import { Hero } from "./components/Hero";
 import { Brands } from "./components/Brands";
 import { Services } from "./components/Services";
@@ -10,13 +11,11 @@ import { CallToAction } from "./components/CallToAction";
 import { Footer } from "./components/Footer";
 import { About } from "./components/About";
 import { WhyUs } from "./components/WhyUs";
+import { ContactPage } from "./components/ContactPage";
 
-function App() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+function HomePage() {
   return (
     <>
-      <Navigation isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <Hero />
       <Partners />
       <About />
@@ -27,6 +26,19 @@ function App() {
       <Brands />
       <CallToAction />
       <Footer />
+    </>
+  );
+}
+
+function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  return (
+    <>
+      <Navigation isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
     </>
   );
 }

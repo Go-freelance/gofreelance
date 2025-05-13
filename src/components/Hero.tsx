@@ -1,5 +1,6 @@
 import type React from "react";
 import { ArrowRight, Award, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const Hero: React.FC = () => {
   return (
@@ -32,13 +33,13 @@ export const Hero: React.FC = () => {
                 Découvrir nos services
                 <ArrowRight className="w-5 h-5" />
               </a>
-              <a
-                href="#contact"
+              <Link
+                to="/contact"
                 className="bg-white text-secondary border border-neutral-200 px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg hover:bg-neutral-50 transition flex items-center gap-2 font-medium shadow-md hover:shadow-lg transform hover:-translate-y-1 duration-300"
               >
                 Nous contacter
                 <ChevronRight className="w-5 h-5" />
-              </a>
+              </Link>
             </div>
           </div>
 
