@@ -22,7 +22,7 @@ export const Partners: React.FC = () => {
           loop={true}
           breakpoints={{
             320: {
-              slidesPerView: 2,
+              slidesPerView: 3,
             },
             1024: {
               slidesPerView: 5,

@@ -45,7 +45,7 @@ export const Hero: React.FC = () => {
           <div className="flex justify-center lg:justify-end relative overflow-visible">
             <div className="relative z-10 ">
               <img
-                src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1000&q=80"
+                src="./images/hero.jpg"
                 alt="Digital Strategy"
                 className="rounded-2xl shadow-xl animate-float w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover"
               />

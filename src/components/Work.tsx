@@ -42,8 +42,7 @@ export const Work: React.FC = () => {
               Projets récents
             </h2>
             <p className="text-neutral-300 text-sm sm:text-base max-w-xl">
-              Découvrez nos dernières réalisations et notre expertise en
-              développement web
+              Découvrez nos dernières réalisations.
             </p>
           </div>
           <button className="flex items-center gap-2 text-primary hover:text-primary-dark transition px-4 py-2 rounded-lg hover:bg-primary/10">

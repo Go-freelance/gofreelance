@@ -1,7 +1,7 @@
 export const works = [
   {
     image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800",
+      "./images/super-wewa.jpg",
     title: "Transformation Digitale",
     client: "Super Wewa",
     tags: [
