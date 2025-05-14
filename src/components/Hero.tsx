@@ -4,7 +4,18 @@ import { Link } from "react-router-dom";
 
 export const Hero: React.FC = () => {
   return (
-    <section className="pt-24 mb-8 sm:pt-28 md:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 md:px-8 bg-gradient-to-b from-neutral-100 to-white overflow-hidden">
+    <section className="pt-24 h-full sm:pt-28 md:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 md:px-8 bg-gradient-to-b from-neutral-100 to-white overflow-hidden relative">
+      <div
+        className="absolute inset-0 z-0 opacity-80"
+        style={{
+          backgroundImage: `url("/images/fond.jpeg")`,
+          backgroundSize: 1150,
+          backgroundRepeat: "repeat",
+          backgroundPosition: "center",
+        }}
+        aria-hidden="true"
+      ></div>
+
       <div className="max-w-7xl mx-auto relative">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center relative z-10">
           <div className="text-center lg:text-left flex flex-col justify-center h-full">
@@ -44,7 +55,7 @@ export const Hero: React.FC = () => {
           </div>
 
           <div className="flex justify-center lg:justify-end relative overflow-visible">
-            <div className="relative z-10 ">
+            <div className="relative z-10">
               <img
                 src="./images/hero.jpg"
                 alt="Digital Strategy"
