@@ -17,7 +17,7 @@ app.use(
 // Logger des requêtes HTTP
 app.use(morgan("common"));
 
-// Parser pour les requêtes JSON
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -33,7 +33,6 @@ app.get("/", (req, res) => {
   });
 });
 
-// Gestion des routes non trouvées
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -41,7 +40,6 @@ app.use((req, res) => {
   });
 });
 
-// Démarrage du serveur
 const PORT = config.port;
 app.listen(PORT, () => {
   console.log(
