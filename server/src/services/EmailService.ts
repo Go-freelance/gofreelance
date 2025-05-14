@@ -34,7 +34,7 @@ class EmailService {
   }
 
   /**
-   * Retourne l'instance unique du service (Singleton)
+   * Retourne l'instance unique du service
    */
   public static getInstance(): EmailService {
     if (!EmailService.instance) {
@@ -61,6 +61,22 @@ class EmailService {
       return true;
     } catch (error) {
       console.error("❌ Erreur lors de l'envoi de l'email admin:", error);
+      return false;
+    }
+  }
+
+  public async sendContactEmail(data: EmailData): Promise<boolean> {
+    try {
+      await this.transporter.sendMail({
+        from: `"Go Freelance" <${config.emails.from}>`,
+        to: config.emails.admin,
+        subject: "Nouvelle demande de contact",
+        html: this.generateContactEmailTemplate(data),
+      });
+
+      return true;
+    } catch (error) {
+      console.error("❌ Erreur lors de l'envoi de l'email contact:", error);
       return false;
     }
   }
@@ -151,6 +167,46 @@ class EmailService {
           
           <div class="footer">
             <p>Cet email a été envoyé automatiquement, merci de ne pas y répondre.</p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+  }
+
+  private generateContactEmailTemplate(data: EmailData): string {
+    return `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          h1 { color: #0055a4; }
+          h2 { color: #333; font-size: 18px; margin-top: 20px; }
+          .details { background-color: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0; }
+          .footer { margin-top: 30px; font-size: 14px; color: #777; border-top: 1px solid #eee; padding-top: 20px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Nouvelle demande de contact</h1>
+          <p>Un client a contacté pour le service <strong>${
+            data.service
+          }</strong>.</p>
+
+          <div class="details">
+            <h2>Détails du contact:</h2>
+            <ul>
+              <li><strong>Nom:</strong> ${data.name}</li>
+              <li><strong>Email:</strong> ${data.email}</li>
+              <li><strong>Téléphone:</strong> ${data.phone}</li>
+              <li><strong>Message:</strong> ${data.message}</li>
+            </ul>
+          </div>
+          <div class="footer">
+            <p>© ${new Date().getFullYear()} Go Freelance. Tous droits réservés.</p>
           </div>
         </div>
       </body>

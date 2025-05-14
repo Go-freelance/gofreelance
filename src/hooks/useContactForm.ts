@@ -47,12 +47,11 @@ export const useContactForm = () => {
         service: formData.subject,
       };
 
-      const adminEmailSent = await emailService.sendAdminNotification(
+      const adminEmailSent = await emailService.sendAdminNotificationNewContact(
         emailData
       );
 
-
-      if (adminEmailSent ) {
+      if (adminEmailSent) {
         setIsSuccess(true);
 
         setTimeout(() => {

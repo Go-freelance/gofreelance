@@ -100,6 +100,53 @@ class EmailController {
   }
 
   /**
+   * Envoie une notification de nouveau contact à l'admin
+   */
+  public async sendAdminEmailNewContact(
+    req: Request,
+    res: Response
+  ): Promise<Response> {
+    try {
+      const emailData: EmailData = req.body;
+
+      // Valider les données
+      if (!this.validateEmailData(emailData)) {
+        return res.status(400).json({
+          success: false,
+          message:
+            "Données invalides. Veuillez vérifier les champs obligatoires.",
+        });
+      }
+
+      // Envoyer l'email via le service
+      const emailService = EmailService.getInstance();
+      const sent = await emailService.sendContactEmail(emailData);
+
+      if (!sent) {
+        return res.status(500).json({
+          success: false,
+          message: "Erreur lors de l'envoi de l'email de contact.",
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: "Email de contact envoyé avec succès.",
+      });
+    } catch (error) {
+      console.error(
+        "Erreur dans EmailController.sendAdminEmailNewContact:",
+        error
+      );
+      return res.status(500).json({
+        success: false,
+        message: "Erreur serveur lors de l'envoi de l'email.",
+        error: error instanceof Error ? error.message : "Erreur inconnue",
+      });
+    }
+  }
+
+  /**
    * Valide les données requises pour l'envoi d'email
    */
   private validateEmailData(data: Partial<EmailData>): boolean {
@@ -127,7 +174,15 @@ export const sendClientConfirmation = (req: Request, res: Response): void => {
   emailController.sendClientConfirmation(req, res);
 };
 
+export const sendAdminNotifictionNewContact = (
+  req: Request,
+  res: Response
+): void => {
+  emailController.sendAdminEmailNewContact(req, res);
+};
+
 export default {
   sendAdminNotification: sendAdminNotification,
+  sendAdminNotificationNewContact: sendAdminNotifictionNewContact,
   sendClientConfirmation: sendClientConfirmation,
 };
