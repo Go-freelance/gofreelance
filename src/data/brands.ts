@@ -1,59 +1,76 @@
 interface Brand {
-  id: string;
-  name: string;
-  description: string;
-  url: string;
-  backgroundColor: string;
+  id: string
+  name: string
+  description: string
+  url: string
+  backgroundColor?: string
+  accentColor: string
+  logo?: string
+  tags?: string[]
 }
 
 export const brands: Brand[] = [
   {
     id: "streameex",
     name: "Streameex",
-    description: "Live streaming",
+    description: "Plateforme de live streaming pour les créateurs de contenu",
     url: "https://streameex.com",
-    backgroundColor: "#e6007e",
+    accentColor: "#e6007e",
+    logo: "/images/brands/streameex-logo.png",
+    tags: ["Streaming", "Contenu"],
   },
   {
     id: "streameex-studio",
     name: "Streameex Studio",
-    description: "Studio Podcast",
+    description: "Studio professionnel pour l'enregistrement de podcasts",
     url: "https://podcast.streameex.com",
-    backgroundColor: "#e6007e",
+    accentColor: "#e6007e",
+    logo: "/images/brands/studio-logo.png",
+    tags: ["Podcast", "Studio"],
   },
   {
     id: "inteficiel",
     name: "Inteficiel",
-    description: "AI all in one",
+    description: "Solution IA tout-en-un pour les entreprises",
     url: "https://inteficiel.com",
-    backgroundColor: "#9c66ff",
+    accentColor: "#9c66ff",
+    logo: "/images/brands/inteficiel-logo.png",
+    tags: ["IA", "Business"],
   },
   {
     id: "fanframe",
     name: "Fanframe",
-    description: "Deco photo",
+    description: "Décoration photo personnalisée de haute qualité",
     url: "https://fanframe.co",
-    backgroundColor: "#00cbbf",
+    accentColor: "#00cbbf",
+    logo: "/images/brands/fanframe-logo.png",
+    tags: ["Décoration", "Photo"],
   },
   {
     id: "gofreelance-jobs",
     name: "Go freelance | Jobs",
-    description: "Freelance job",
+    description: "Plateforme de mise en relation freelances et entreprises",
     url: "https://jobs.gofreelancerdc.com",
-    backgroundColor: "#CC057B",
+    accentColor: "#CC057B",
+    logo: "/images/brands/go-jobs-logo.png",
+    tags: ["Emploi", "Freelance"],
   },
   {
     id: "hmsmarts",
     name: "HMsmarts",
-    description: "Mooc",
+    description: "Plateforme d'apprentissage en ligne (MOOC)",
     url: "https://hmsmarts.com",
-    backgroundColor: "#ca203b",
+    accentColor: "#ca203b",
+    logo: "/images/brands/hmsmart-logo.png",
+    tags: ["Éducation", "E-learning"],
   },
   {
     id: "mbs",
     name: "Modern Business School",
-    description: "Upskill program",
+    description: "Programme de formation pour les compétences professionnelles",
     url: "https://mbschool.site",
-    backgroundColor: "#000000",
+    accentColor: "#333333",
+    logo: "/images/brands/mbs-logo.png",
+    tags: ["Formation", "Business"],
   },
-];
+]
