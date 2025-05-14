@@ -18,7 +18,7 @@ export const Brands: React.FC = () => {
         </div>
 
         {/* Brands Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {brands.map((brand) => (
             <a
               key={brand.id}
@@ -29,13 +29,7 @@ export const Brands: React.FC = () => {
             >
               {/* Brand Logo */}
               <div
-                className="h-30 flex items-center justify-center p-6 relative"
-                style={{
-                  background: `linear-gradient(135deg, ${
-                    brand.accentColor || "#f7f7f9"
-                  } 0%, #ffffff 100%)`,
-                  opacity: 0.9,
-                }}
+                className={`bg-[${brand.accentColor}] h-30 flex items-center justify-center p-6 relative`}
               >
                 <img
                   src={brand.logo}
