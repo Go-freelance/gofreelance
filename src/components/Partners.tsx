@@ -6,7 +6,7 @@ import "swiper/css";
 
 export const Partners: React.FC = () => {
   return (
-    <section className="py-16 px-4 bg-secondary">
+    <section className="py-12 mt-8 px-4 bg-secondary">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <p className="text-white font-medium">Ils nous font confiance</p>
