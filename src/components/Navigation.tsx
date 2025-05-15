@@ -33,7 +33,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             <div className="flex-shrink-0">
               <Link to="/">
                 <img
-                  src="https://gofreelancerdc.com/wp-content/uploads/2020/02/logo_gof_new.png"
+                  src="./images/go-free.png"
                   alt="Go Freelance"
                   className="h-9"
                 />

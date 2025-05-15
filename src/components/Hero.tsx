@@ -6,7 +6,7 @@ export const Hero: React.FC = () => {
   return (
     <section className="pt-24 h-full sm:pt-28 md:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 md:px-8 bg-gradient-to-b from-neutral-100 to-white  relative">
       <div
-        className="absolute inset-0 z-0 opacity-80"
+        className="absolute inset-0 z-0 opacity-30"
         style={{
           backgroundImage: `url("/images/fond.jpeg")`,
           backgroundSize: 1150,

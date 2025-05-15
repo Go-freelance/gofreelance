@@ -19,7 +19,7 @@ export const About: React.FC = () => {
             <div className="text-center lg:text-left">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 leading-tight">
                 Nous sommes{" "}
-                <span className="excellence-gradient">Go Freelance</span>
+                <span className="excellence-gradient">Go freelance</span>
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-text mb-6 sm:mb-8 max-w-xl mx-auto lg:mx-0">
                 une agence digitale stratégique et créative spécialisée dans la
