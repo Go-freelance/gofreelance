@@ -15,7 +15,7 @@ export default {
 
   // SMTP
   smtp: {
-    host: process.env.SMTP_HOST || "smtp.example.com",
+    host: process.env.SMTP_HOST,
     port: parseInt(process.env.SMTP_PORT || "587", 10),
     secure: process.env.SMTP_SECURE === "true",
     auth: {
@@ -26,7 +26,7 @@ export default {
 
   // Emails
   emails: {
-    from: process.env.FROM_EMAIL || "noreply@gofreelance.com",
+    from: process.env.SMTP_FROM,
     admin: process.env.ADMIN_EMAIL || "danmuamba81@gmail.com",
   },
 };

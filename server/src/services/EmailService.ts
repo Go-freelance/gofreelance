@@ -152,7 +152,7 @@ class EmailService {
                 ? "En présentiel"
                 : "En ligne (Google Meet)"
             }</li>
-            <li><strong>Expert assigné:</strong> ${
+            <li><strong>Agent assigné:</strong> ${
               data.teamMember || "Non spécifié"
             }</li>
           </ul>

@@ -172,11 +172,11 @@ export const useAppointmentForm = ({
       );
 
       // Send client confirmation
-      const clientEmailSent = await emailService.sendClientConfirmation(
-        emailData
-      );
+      // const clientEmailSent = await emailService.sendClientConfirmation(
+      //   emailData
+      // );
 
-      if (adminEmailSent && clientEmailSent) {
+      if (adminEmailSent) {
         setIsSuccess(true);
 
         // Reset form and close modal after 3 seconds
