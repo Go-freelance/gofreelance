@@ -4,6 +4,7 @@ interface Brand {
   description: string
   url: string
   backgroundColor?: string
+  color?: string,
   accentColor: string
   logo?: string
   tags?: string[]
@@ -15,8 +16,9 @@ export const brands: Brand[] = [
     name: "Streameex",
     description: "Plateforme de live streaming pour les créateurs de contenu",
     url: "https://streameex.com",
-    accentColor: "#e6007e",
-    logo: "/images/brands/streameex-logo.png",
+    accentColor: "#2b0e6a",
+    color: "#cc057b",
+    logo: "/images/brands/nnnn.png",
     tags: ["Streaming", "Contenu"],
   },
   {
@@ -24,7 +26,8 @@ export const brands: Brand[] = [
     name: "Streameex Studio",
     description: "Studio professionnel pour l'enregistrement de podcasts",
     url: "https://podcast.streameex.com",
-    accentColor: "#e6007e",
+    color: "#cc057b",
+    accentColor: "white",
     logo: "/images/brands/studio-logo.png",
     tags: ["Podcast", "Studio"],
   },
@@ -33,7 +36,8 @@ export const brands: Brand[] = [
     name: "Inteficiel",
     description: "Solution IA tout-en-un pour les entreprises",
     url: "https://inteficiel.com",
-    accentColor: "#9c66ff",
+    accentColor: "white",
+    color: "#9c66ff",
     logo: "/images/brands/inteficiel-logo.png",
     tags: ["IA", "Business"],
   },
@@ -42,7 +46,8 @@ export const brands: Brand[] = [
     name: "Fanframe",
     description: "Décoration photo personnalisée de haute qualité",
     url: "https://fanframe.co",
-    accentColor: "#00cbbf",
+    accentColor: "black",
+    color: "#00cbbf",
     logo: "/images/brands/fanframe-logo.png",
     tags: ["Décoration", "Photo"],
   },
@@ -51,7 +56,8 @@ export const brands: Brand[] = [
     name: "Go freelance | Jobs",
     description: "Plateforme de mise en relation freelances et entreprises",
     url: "https://jobs.gofreelancerdc.com",
-    accentColor: "#CC057B",
+    accentColor: "white",
+    color: "#CC057B",
     logo: "/images/brands/go-jobs-logo.png",
     tags: ["Emploi", "Freelance"],
   },
@@ -61,7 +67,8 @@ export const brands: Brand[] = [
     description: "Plateforme d'apprentissage en ligne (MOOC)",
     url: "https://hmsmarts.com",
     accentColor: "#ca203b",
-    logo: "/images/brands/hmsmart-logo.png",
+    color: "#ca203b",
+    logo: "/images/brands/hmsmart.png",
     tags: ["Éducation", "E-learning"],
   },
   {

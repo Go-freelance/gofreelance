@@ -25,11 +25,12 @@ export const Brands: React.FC = () => {
               href={brand.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group block rounded-xl transition-all duration-300 hover:scale-105 bg-white border border-neutral-100 hover:border-neutral-200 hover:shadow-lg overflow-hidden"
+              className="group block rounded-xl transition-all duration-300 hover:scale-105 bg-neutral-200 border border-neutral-100 hover:border-neutral-200 hover:shadow-lg overflow-hidden"
             >
               {/* Brand Logo */}
               <div
-                className={`bg-[${brand.accentColor}] h-30 flex items-center justify-center p-6 relative`}
+                className={`h-30 flex items-center justify-center p-6 relative`}
+                style={{backgroundColor: brand.accentColor}}
               >
                 <img
                   src={brand.logo}
@@ -43,7 +44,7 @@ export const Brands: React.FC = () => {
                 <div className="flex items-start justify-between mb-2">
                   <h3
                     className="text-xl font-bold mb-1"
-                    style={{ color: brand.accentColor || "#333333" }}
+                    style={{ color: brand.color || "#333333" }}
                   >
                     {brand.name}
                   </h3>
@@ -61,7 +62,7 @@ export const Brands: React.FC = () => {
                         key={index}
                         className="text-xs px-2 py-1 rounded-full text-white"
                         style={{
-                          backgroundColor: brand.accentColor || "#333333",
+                          backgroundColor: brand.color || "#333333",
                         }}
                       >
                         {tag}
@@ -75,13 +76,13 @@ export const Brands: React.FC = () => {
               <div className="px-6 py-3 border-t border-neutral-100 flex justify-between items-center">
                 <span
                   className="text-sm font-medium transition-colors duration-300"
-                  style={{ color: brand.accentColor || "#333333" }}
+                  style={{ color: brand.color || "#333333" }}
                 >
                   Découvrir
                 </span>
                 <ArrowRight
                   className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300"
-                  style={{ color: brand.accentColor || "#333333" }}
+                  style={{ color: brand.color || "#333333" }}
                 />
               </div>
             </a>

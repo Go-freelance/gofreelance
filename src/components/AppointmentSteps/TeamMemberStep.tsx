@@ -33,9 +33,9 @@ export const TeamMemberStep: React.FC<TeamMemberStepProps> = ({
               />
             </div>
             <h3 className="font-bold text-base sm:text-lg">{member.name}</h3>
-            <p className="text-primary font-medium text-xs sm:text-sm">
+            {/* <p className="text-primary font-medium text-xs sm:text-sm">
               {member.role}
-            </p>
+            </p> */}
             {/* <p className="text-neutral-500 text-xs sm:text-sm mt-1 sm:mt-2">
               {member.specialty}
             </p> */}
