@@ -14,10 +14,10 @@ export const works = [
   },
   {
     image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800",
-    title: "Refonte E-commerce",
-    client: "FashionBrand",
-    tags: ["E-commerce", "UI Design"],
+      "./images/avada.jpg",
+    title: "Stratégie marketing complète",
+    client: "AvadaPay",
+    tags: ["Landing page", "SEO", "Social Media content", "Commiunity Management"],
   },
   {
     image:
