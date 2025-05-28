@@ -1,5 +1,5 @@
 import type React from "react";
-import { ArrowRight, Award, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const Hero: React.FC = () => {
@@ -63,15 +63,6 @@ export const Hero: React.FC = () => {
               />
 
               {/* Badge flottant */}
-              <div className="absolute -bottom-10 -left-10 bg-white p-4 rounded-xl shadow-xl animate-pulse-slow hidden sm:flex items-center gap-3">
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-                  <Award className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <p className="text-sm text-text">Certifié</p>
-                  <p className="font-bold text-secondary">Meta Partner</p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
