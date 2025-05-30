@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { Request, Response } from "express";
 import * as EmailController from "../controllers/EmailController";
+import { sendAdminNotificationNewThirdParty } from "../controllers/EmailController";
 
 const router = Router();
 
@@ -31,5 +32,10 @@ router.post("/admin-notification-contact", (req: Request, res: Response) => {
 router.post("/client-confirmation", (req: Request, res: Response) => {
   EmailController.sendClientConfirmation(req, res);
 });
+
+router.post(
+  "/admin-notification-third-party",
+  sendAdminNotificationNewThirdParty
+);
 
 export default router;

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import EmailService, { EmailData } from "../services/EmailService";
+import { ThirdParty } from "../types/thirdParty";
 
 /**
  * Contrôleur pour gérer les fonctionnalités d'envoi d'emails
@@ -181,8 +182,41 @@ export const sendAdminNotifictionNewContact = (
   emailController.sendAdminEmailNewContact(req, res);
 };
 
+export const sendAdminNotificationNewThirdParty = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const thirdParty: ThirdParty = req.body;
+
+    const emailService = EmailService.getInstance();
+    const success = await emailService.sendAdminNotificationNewThirdParty(
+      thirdParty
+    );
+
+    if (success) {
+      res.status(200).json({
+        success: true,
+        message: "Email de notification envoyé avec succès",
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        message: "Erreur lors de l'envoi de l'email de notification",
+      });
+    }
+  } catch (error) {
+    console.error("❌ Erreur dans le contrôleur d'email:", error);
+    res.status(500).json({
+      success: false,
+      message: "Erreur lors du traitement de la demande",
+    });
+  }
+};
+
 export default {
   sendAdminNotification: sendAdminNotification,
   sendAdminNotificationNewContact: sendAdminNotifictionNewContact,
   sendClientConfirmation: sendClientConfirmation,
+  sendAdminNotificationNewThirdParty: sendAdminNotificationNewThirdParty,
 };

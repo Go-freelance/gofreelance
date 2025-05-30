@@ -41,7 +41,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             </div>
             <div className="hidden lg:flex items-center space-x-4">
               <Link
-                to="/#"
+                to="/"
                 className="text-secondary hover:text-primary transition font-medium"
               >
                 Accueil
@@ -74,6 +74,13 @@ export const Navigation: React.FC<NavigationProps> = ({
               >
                 Contact
               </Link>
+              <NavSeparator />
+              {/* <Link
+                to="/third-party"
+                className="text-secondary hover:text-primary transition font-medium"
+              >
+                Gestion des Tiers
+              </Link> */}
             </div>
             <div className="hidden lg:flex items-center space-x-4">
               <button
@@ -98,13 +105,13 @@ export const Navigation: React.FC<NavigationProps> = ({
           <div className="lg:hidden bg-white border-b">
             <div className="px-4 pt-2 pb-6 space-y-4">
               <Link
-                to="/#"
+                to="/"
                 className="text-secondary hover:text-primary transition font-medium py-2"
               >
                 Accueil
               </Link>
               <a
-                href="#"
+                href="#about"
                 className="block text-secondary hover:text-primary transition font-medium py-2"
               >
                 À propos
@@ -116,19 +123,23 @@ export const Navigation: React.FC<NavigationProps> = ({
                 Services
               </a>
               <a
-                href="#"
+                href="#work"
                 className="block text-secondary hover:text-primary transition font-medium py-2"
               >
                 Réalisations
               </a>
-
               <Link
                 to="/contact"
                 className="block text-secondary hover:text-primary transition font-medium py-2"
               >
                 Contact
               </Link>
-
+              <Link
+                to="/third-party"
+                className="block text-secondary hover:text-primary transition font-medium py-2"
+              >
+                Gestion des Tiers
+              </Link>
               <button
                 onClick={handleShowForm}
                 className="w-full bg-primary text-white px-6 py-2.5 rounded-full hover:bg-primary-dark transition font-medium mt-4"

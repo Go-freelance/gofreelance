@@ -12,6 +12,7 @@ import { Footer } from "./components/Footer";
 import { About } from "./components/About";
 import { WhyUs } from "./components/WhyUs";
 import { ContactPage } from "./components/ContactPage";
+import ThirdPartyManagement from "./pages/ThirdPartyManagement";
 
 function HomePage() {
   return (
@@ -38,6 +39,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/supplier-registry" element={<ThirdPartyManagement />} />
       </Routes>
     </>
   );
