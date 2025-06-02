@@ -9,7 +9,7 @@ const WorkCard: React.FC<WorkCardProps> = ({ image, title, client, tags }) => (
       <img
         src={image}
         alt={title}
-        className="w-full h-48 sm:h-56 md:h-64 object-cover transform group-hover:scale-105 transition duration-500"
+        className="w-full h-40 sm:h-56 md:h-60  transform group-hover:scale-105 transition duration-500"
       />
     </div>
     <h3 className="text-lg sm:text-xl font-bold mb-2">{title}</h3>
