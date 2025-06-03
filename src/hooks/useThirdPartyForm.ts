@@ -1,120 +1,131 @@
 import { useState } from "react";
 import {
-  ThirdParty,
   EntityType,
-  IdentificationFiscal,
+  ThirdPartyFormData,
   BankingDetails,
+  CompanyInfo,
+  IndividualInfo,
+  AdministrationInfo,
+  ThirdPartySubmission,
 } from "../types/thirdParty";
 import { EmailService } from "../services/emailService";
 
 interface UseThirdPartyFormReturn {
   currentStep: number;
-  formData: Partial<ThirdParty>;
+  formData: Partial<ThirdPartyFormData>;
   isSubmitting: boolean;
   error: string | null;
   successMessage: string | null;
   handleEntityTypeSelect: (type: EntityType) => void;
-  handleGeneralInfoSubmit: (data: Partial<ThirdParty>) => void;
-  handleIdentificationFiscalSubmit: (data: IdentificationFiscal) => void;
-  handleBankingDetailsSubmit: (data: BankingDetails[]) => void;
+  handleGeneralInfoSubmit: (
+    data: Partial<CompanyInfo | IndividualInfo | AdministrationInfo>
+  ) => void;
+  handleBankingDetailsSubmit: (data: BankingDetails) => void;
   handleSubmit: () => Promise<void>;
   handleBack: () => void;
-  handleReset: () => void;
 }
 
 const useThirdPartyForm = (): UseThirdPartyFormReturn => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<Partial<ThirdParty>>({});
+  const [formData, setFormData] = useState<Partial<ThirdPartyFormData>>({
+    entityType: undefined,
+    bankingDetails: [],
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const emailService = EmailService.getInstance();
 
   const handleEntityTypeSelect = (type: EntityType) => {
-    if (!type) {
-      setError("Le type d'entité est requis");
-      return;
-    }
     setFormData((prev) => ({ ...prev, entityType: type }));
     setCurrentStep(2);
   };
 
-  const handleGeneralInfoSubmit = (data: Partial<ThirdParty>) => {
-    setFormData((prev) => ({ ...prev, ...data }));
+  const handleGeneralInfoSubmit = (
+    data: Partial<CompanyInfo | IndividualInfo | AdministrationInfo>
+  ) => {
+    setFormData((prev) => {
+      const newData = { ...prev };
+      if (prev.entityType === "SOCIETE") {
+        newData.companyInfo = data as CompanyInfo;
+      } else if (prev.entityType === "PARTICULIER") {
+        newData.individualInfo = data as IndividualInfo;
+      } else if (prev.entityType === "ADMINISTRATION") {
+        newData.administrationInfo = data as AdministrationInfo;
+      }
+      return newData;
+    });
     setCurrentStep(3);
   };
 
-  const handleIdentificationFiscalSubmit = (data: IdentificationFiscal) => {
-    setFormData((prev) => ({ ...prev, identificationFiscal: data }));
+  const handleBankingDetailsSubmit = (data: BankingDetails) => {
+    setFormData((prev) => ({
+      ...prev,
+      bankingDetails: [...(prev.bankingDetails || []), data],
+    }));
     setCurrentStep(4);
-  };
-
-  const handleBankingDetailsSubmit = (data: BankingDetails[]) => {
-    setFormData((prev) => ({ ...prev, bankingDetails: data }));
-    setCurrentStep(5);
-  };
-
-  const validateFormData = (data: Partial<ThirdParty>): string | null => {
-    if (!data.entityType) {
-      return "Le type d'entité est requis";
-    }
-
-    if (!data.email || !data.phone) {
-      return "Les informations de contact sont requises";
-    }
-
-    if (
-      !data.identificationFiscal?.idNumber ||
-      !data.identificationFiscal?.taxIdNumber
-    ) {
-      return "Les informations d'identification fiscale sont requises";
-    }
-
-    if (!data.bankingDetails || data.bankingDetails.length === 0) {
-      return "Les informations bancaires sont requises";
-    }
-
-    return null;
   };
 
   const handleSubmit = async () => {
     try {
       setIsSubmitting(true);
       setError(null);
-      setSuccessMessage(null);
 
-      // Validation des données
-      const validationError = validateFormData(formData);
-      if (validationError) {
-        throw new Error(validationError);
+      // Préparation des données pour l'email
+      let thirdPartyData: ThirdPartySubmission = {
+        entityType: formData.entityType!,
+        bankingDetails: formData.bankingDetails || [],
+      };
+      if (formData.entityType === "SOCIETE") {
+        thirdPartyData = {
+          ...thirdPartyData,
+          ...formData.companyInfo,
+        };
+      } else if (formData.entityType === "PARTICULIER") {
+        thirdPartyData = {
+          ...thirdPartyData,
+          ...formData.individualInfo,
+        };
+      } else if (formData.entityType === "ADMINISTRATION") {
+        thirdPartyData = {
+          ...thirdPartyData,
+          ...formData.administrationInfo,
+        };
       }
 
-      // Envoi de l'email de notification à l'administrateur
-      const emailSent = await emailService.sendAdminNotificationNewThirdParty(
-        formData as ThirdParty
+      // Envoi de l'email
+      const response = await emailService.sendAdminNotificationNewThirdParty(
+        thirdPartyData
       );
 
-      if (!emailSent) {
-        throw new Error(
-          "Une erreur est survenue lors de l'envoi de la notification. Veuillez réessayer."
-        );
+      if (!response.success) {
+        // Messages d'erreur plus clairs pour l'utilisateur
+        const errorMessages: { [key: string]: string } = {
+          "Erreur lors de l'envoi de l'email":
+            "Impossible d'envoyer les informations. Veuillez réessayer dans quelques instants.",
+          "Invalid request":
+            "Les informations fournies sont incomplètes. Veuillez vérifier tous les champs obligatoires.",
+          "Server error":
+            "Une erreur est survenue sur nos serveurs. Veuillez réessayer plus tard.",
+          "Network error":
+            "Problème de connexion. Veuillez vérifier votre connexion internet et réessayer.",
+        };
+
+        const userFriendlyMessage =
+          errorMessages[response.message] ||
+          "Une erreur est survenue lors de la soumission. Veuillez réessayer.";
+
+        throw new Error(userFriendlyMessage);
       }
 
-      // Message de succès
-      setSuccessMessage(
-        "Le formulaire a été soumis avec succès. Un email de notification a été envoyé à l'administrateur."
-      );
-
-      // Attendre 3 secondes avant de réinitialiser le formulaire
-      setTimeout(() => {
-        handleReset();
-      }, 3000);
+      setSuccessMessage("Les informations ont été envoyées avec succès");
+      setCurrentStep(5);
     } catch (err) {
-      const errorMessage =
+      setError(
         err instanceof Error
           ? err.message
-          : "Une erreur inattendue est survenue. Veuillez réessayer.";
-      setError(errorMessage);
+          : "Une erreur est survenue lors de la soumission. Veuillez réessayer."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -122,13 +133,6 @@ const useThirdPartyForm = (): UseThirdPartyFormReturn => {
 
   const handleBack = () => {
     setCurrentStep((prev) => prev - 1);
-  };
-
-  const handleReset = () => {
-    setCurrentStep(1);
-    setFormData({});
-    setError(null);
-    setSuccessMessage(null);
   };
 
   return {
@@ -139,11 +143,9 @@ const useThirdPartyForm = (): UseThirdPartyFormReturn => {
     successMessage,
     handleEntityTypeSelect,
     handleGeneralInfoSubmit,
-    handleIdentificationFiscalSubmit,
     handleBankingDetailsSubmit,
     handleSubmit,
     handleBack,
-    handleReset,
   };
 };
 

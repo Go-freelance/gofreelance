@@ -1,8 +1,8 @@
 import React from "react";
-import { ThirdParty } from "../../types/thirdParty";
+import { ThirdPartyFormData } from "../../types/thirdParty";
 
 interface ReviewProps {
-  formData: Partial<ThirdParty>;
+  formData: Partial<ThirdPartyFormData>;
   onSubmit: () => void;
   onBack: () => void;
   isSubmitting?: boolean;
@@ -16,7 +16,7 @@ const Review: React.FC<ReviewProps> = ({
 }) => {
   const renderEntitySpecificInfo = () => {
     switch (formData.entityType) {
-      case "Company":
+      case "SOCIETE":
         return (
           <>
             <div className="border-t-2 border-gray-100 pt-6">
@@ -26,34 +26,34 @@ const Review: React.FC<ReviewProps> = ({
               <dl className="mt-4 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
                 <div>
                   <dt className="text-base font-medium text-gray-700">
-                    Nom de la Société
+                    Dénomination Sociale
                   </dt>
                   <dd className="mt-1 text-base text-gray-900">
-                    {formData.companyName}
+                    {formData.companyInfo?.denominationSociale}
                   </dd>
                 </div>
                 <div>
                   <dt className="text-base font-medium text-gray-700">
-                    Date de Création
+                    Numéro RCCM
                   </dt>
                   <dd className="mt-1 text-base text-gray-900">
-                    {formData.establishmentDate}
+                    {formData.companyInfo?.numeroRCCM}
                   </dd>
                 </div>
                 <div>
                   <dt className="text-base font-medium text-gray-700">
-                    Site Web
+                    Forme Juridique
                   </dt>
                   <dd className="mt-1 text-base text-gray-900">
-                    {formData.website}
+                    {formData.companyInfo?.formeJuridique}
                   </dd>
                 </div>
                 <div>
                   <dt className="text-base font-medium text-gray-700">
-                    Secteur d'Activité
+                    Activité Principale
                   </dt>
                   <dd className="mt-1 text-base text-gray-900">
-                    {formData.industry}
+                    {formData.companyInfo?.activitePrincipale}
                   </dd>
                 </div>
               </dl>
@@ -61,7 +61,7 @@ const Review: React.FC<ReviewProps> = ({
           </>
         );
 
-      case "Individual":
+      case "PARTICULIER":
         return (
           <>
             <div className="border-t-2 border-gray-100 pt-6">
@@ -70,17 +70,17 @@ const Review: React.FC<ReviewProps> = ({
               </h3>
               <dl className="mt-4 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
                 <div>
-                  <dt className="text-base font-medium text-gray-700">
-                    Prénom
-                  </dt>
+                  <dt className="text-base font-medium text-gray-700">Nom</dt>
                   <dd className="mt-1 text-base text-gray-900">
-                    {formData.firstName}
+                    {formData.individualInfo?.nom}
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-base font-medium text-gray-700">Nom</dt>
+                  <dt className="text-base font-medium text-gray-700">
+                    Prénoms
+                  </dt>
                   <dd className="mt-1 text-base text-gray-900">
-                    {formData.lastName}
+                    {formData.individualInfo?.prenoms}
                   </dd>
                 </div>
                 <div>
@@ -88,7 +88,7 @@ const Review: React.FC<ReviewProps> = ({
                     Date de Naissance
                   </dt>
                   <dd className="mt-1 text-base text-gray-900">
-                    {formData.dateOfBirth}
+                    {formData.individualInfo?.dateNaissance}
                   </dd>
                 </div>
                 <div>
@@ -96,7 +96,7 @@ const Review: React.FC<ReviewProps> = ({
                     Profession
                   </dt>
                   <dd className="mt-1 text-base text-gray-900">
-                    {formData.profession}
+                    {formData.individualInfo?.profession}
                   </dd>
                 </div>
               </dl>
@@ -104,7 +104,7 @@ const Review: React.FC<ReviewProps> = ({
           </>
         );
 
-      case "Government":
+      case "ADMINISTRATION":
         return (
           <>
             <div className="border-t-2 border-gray-100 pt-6">
@@ -114,71 +114,99 @@ const Review: React.FC<ReviewProps> = ({
               <dl className="mt-4 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
                 <div>
                   <dt className="text-base font-medium text-gray-700">
-                    Nom de l'Institution
+                    Nom Officiel
                   </dt>
                   <dd className="mt-1 text-base text-gray-900">
-                    {formData.institutionName}
+                    {formData.administrationInfo?.nomOfficiel}
                   </dd>
                 </div>
                 <div>
                   <dt className="text-base font-medium text-gray-700">
-                    Type d'Institution
+                    Catégorie Administrative
                   </dt>
                   <dd className="mt-1 text-base text-gray-900">
-                    {formData.institutionType}
+                    {formData.administrationInfo?.categorieAdministrative}
                   </dd>
                 </div>
                 <div>
                   <dt className="text-base font-medium text-gray-700">
-                    Date de Création
+                    Adresse Institutionnelle
                   </dt>
                   <dd className="mt-1 text-base text-gray-900">
-                    {formData.foundingDate}
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </>
-        );
-
-      case "LargeAccount":
-        return (
-          <>
-            <div className="border-t-2 border-gray-100 pt-6">
-              <h3 className="text-xl font-semibold text-gray-900">
-                Informations de l'Entreprise
-              </h3>
-              <dl className="mt-4 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
-                <div>
-                  <dt className="text-base font-medium text-gray-700">
-                    Nom de l'Entreprise
-                  </dt>
-                  <dd className="mt-1 text-base text-gray-900">
-                    {formData.corporateName}
+                    {formData.administrationInfo?.adresseInstitutionnelle}
                   </dd>
                 </div>
                 <div>
                   <dt className="text-base font-medium text-gray-700">
-                    Groupe
+                    Personne de Contact
                   </dt>
                   <dd className="mt-1 text-base text-gray-900">
-                    {formData.corporateGroup}
+                    {formData.administrationInfo?.personneContact}
                   </dd>
                 </div>
                 <div>
                   <dt className="text-base font-medium text-gray-700">
-                    Année de Création
+                    Fonction du Contact
                   </dt>
                   <dd className="mt-1 text-base text-gray-900">
-                    {formData.yearEstablished}
+                    {formData.administrationInfo?.fonctionContact}
                   </dd>
                 </div>
                 <div>
                   <dt className="text-base font-medium text-gray-700">
-                    Nombre d'Employés
+                    Téléphone du Contact
                   </dt>
                   <dd className="mt-1 text-base text-gray-900">
-                    {formData.numberOfEmployees}
+                    {formData.administrationInfo?.telephoneContact}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-base font-medium text-gray-700">
+                    Email du Contact
+                  </dt>
+                  <dd className="mt-1 text-base text-gray-900">
+                    {formData.administrationInfo?.emailContact}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-base font-medium text-gray-700">
+                    Numéro IFU
+                  </dt>
+                  <dd className="mt-1 text-base text-gray-900">
+                    {formData.administrationInfo?.numeroIFU || "Non renseigné"}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-base font-medium text-gray-700">
+                    Compte Bancaire
+                  </dt>
+                  <dd className="mt-1 text-base text-gray-900">
+                    {formData.administrationInfo?.compteBancaire}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-base font-medium text-gray-700">
+                    Référence Interne
+                  </dt>
+                  <dd className="mt-1 text-base text-gray-900">
+                    {formData.administrationInfo?.referenceInterne ||
+                      "Non renseigné"}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-base font-medium text-gray-700">
+                    Acte Déclencheur
+                  </dt>
+                  <dd className="mt-1 text-base text-gray-900">
+                    {formData.administrationInfo?.acteDeclencheur}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-base font-medium text-gray-700">
+                    Cadre Juridique
+                  </dt>
+                  <dd className="mt-1 text-base text-gray-900">
+                    {formData.administrationInfo?.cadreJuridique}
                   </dd>
                 </div>
               </dl>
@@ -204,140 +232,63 @@ const Review: React.FC<ReviewProps> = ({
 
         <div className="border-t-2 border-gray-100 pt-6">
           <h3 className="text-xl font-semibold text-gray-900">
-            Informations de Contact
+            Informations Générales
           </h3>
           <dl className="mt-4 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
             <div>
-              <dt className="text-base font-medium text-gray-700">Adresse</dt>
-              <dd className="mt-1 text-base text-gray-900">
-                {formData.address}
-              </dd>
-            </div>
-            <div>
-              <dt className="text-base font-medium text-gray-700">Ville</dt>
-              <dd className="mt-1 text-base text-gray-900">{formData.city}</dd>
-            </div>
-            <div>
-              <dt className="text-base font-medium text-gray-700">
-                Province/État
-              </dt>
-              <dd className="mt-1 text-base text-gray-900">
-                {formData.stateProvince}
-              </dd>
-            </div>
-            <div>
-              <dt className="text-base font-medium text-gray-700">
-                Code Postal
-              </dt>
-              <dd className="mt-1 text-base text-gray-900">
-                {formData.postalCode}
-              </dd>
-            </div>
-            <div>
-              <dt className="text-base font-medium text-gray-700">Pays</dt>
-              <dd className="mt-1 text-base text-gray-900">
-                {formData.country}
-              </dd>
-            </div>
-            <div>
               <dt className="text-base font-medium text-gray-700">Email</dt>
-              <dd className="mt-1 text-base text-gray-900">{formData.email}</dd>
+              <dd className="mt-1 text-base text-gray-900">
+                {formData.entityType === "SOCIETE"
+                  ? formData.companyInfo?.email
+                  : formData.entityType === "PARTICULIER"
+                  ? formData.individualInfo?.email
+                  : formData.administrationInfo?.emailContact}
+              </dd>
             </div>
             <div>
               <dt className="text-base font-medium text-gray-700">Téléphone</dt>
-              <dd className="mt-1 text-base text-gray-900">{formData.phone}</dd>
+              <dd className="mt-1 text-base text-gray-900">
+                {formData.entityType === "SOCIETE"
+                  ? formData.companyInfo?.telephone
+                  : formData.entityType === "PARTICULIER"
+                  ? formData.individualInfo?.telephone
+                  : formData.administrationInfo?.telephoneContact}
+              </dd>
             </div>
           </dl>
         </div>
 
-        {formData.identificationFiscal && (
-          <div className="border-t-2 border-gray-100 pt-6">
-            <h3 className="text-xl font-semibold text-gray-900">
-              Identification & Fiscal
-            </h3>
-            <dl className="mt-4 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
-              <div>
-                <dt className="text-base font-medium text-gray-700">
-                  Type d'Identification
-                </dt>
-                <dd className="mt-1 text-base text-gray-900">
-                  {formData.identificationFiscal.idType}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-base font-medium text-gray-700">
-                  Numéro d'Identification
-                </dt>
-                <dd className="mt-1 text-base text-gray-900">
-                  {formData.identificationFiscal.idNumber}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-base font-medium text-gray-700">
-                  Numéro d'Identification Fiscale
-                </dt>
-                <dd className="mt-1 text-base text-gray-900">
-                  {formData.identificationFiscal.taxIdNumber}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-base font-medium text-gray-700">
-                  Numéro de TVA
-                </dt>
-                <dd className="mt-1 text-base text-gray-900">
-                  {formData.identificationFiscal.vatRegistration}
-                </dd>
-              </div>
-            </dl>
-          </div>
-        )}
-
-        {formData.bankingDetails && formData.bankingDetails.length > 0 && (
+        {formData.bankingDetails && (
           <div className="border-t-2 border-gray-100 pt-6">
             <h3 className="text-xl font-semibold text-gray-900">
               Informations Bancaires
             </h3>
-            {formData.bankingDetails.map((account, index) => (
-              <div key={index} className="mt-6">
-                <h4 className="text-lg font-medium text-gray-900">
-                  Compte Bancaire {index + 1}
-                </h4>
-                <dl className="mt-4 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
-                  <div>
-                    <dt className="text-base font-medium text-gray-700">
-                      Nom de la Banque
-                    </dt>
-                    <dd className="mt-1 text-base text-gray-900">
-                      {account.bankName}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-base font-medium text-gray-700">
-                      Nom du Titulaire
-                    </dt>
-                    <dd className="mt-1 text-base text-gray-900">
-                      {account.accountHolderName}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-base font-medium text-gray-700">
-                      Devise
-                    </dt>
-                    <dd className="mt-1 text-base text-gray-900">
-                      {account.accountCurrency}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-base font-medium text-gray-700">
-                      Numéro de Compte
-                    </dt>
-                    <dd className="mt-1 text-base text-gray-900">
-                      {account.accountNumber}
-                    </dd>
-                  </div>
-                </dl>
+            <dl className="mt-4 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
+              <div>
+                <dt className="text-base font-medium text-gray-700">
+                  Nom de la Banque
+                </dt>
+                <dd className="mt-1 text-base text-gray-900">
+                  {formData.bankingDetails.bankName}
+                </dd>
               </div>
-            ))}
+              <div>
+                <dt className="text-base font-medium text-gray-700">
+                  Nom du Titulaire
+                </dt>
+                <dd className="mt-1 text-base text-gray-900">
+                  {formData.bankingDetails.accountHolderName}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-base font-medium text-gray-700">
+                  Numéro de Compte
+                </dt>
+                <dd className="mt-1 text-base text-gray-900">
+                  {formData.bankingDetails.accountNumber}
+                </dd>
+              </div>
+            </dl>
           </div>
         )}
       </div>

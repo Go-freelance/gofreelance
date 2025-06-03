@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import EmailService, { EmailData } from "../services/EmailService";
-import { ThirdParty } from "../types/thirdParty";
+import { ThirdPartySubmission } from "../types/thirdParty";
 
 /**
  * Contrôleur pour gérer les fonctionnalités d'envoi d'emails
@@ -187,7 +187,7 @@ export const sendAdminNotificationNewThirdParty = async (
   res: Response
 ): Promise<void> => {
   try {
-    const thirdParty: ThirdParty = req.body;
+    const thirdParty: ThirdPartySubmission = req.body;
 
     const emailService = EmailService.getInstance();
     const success = await emailService.sendAdminNotificationNewThirdParty(

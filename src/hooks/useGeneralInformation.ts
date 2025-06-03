@@ -1,21 +1,21 @@
 import { useState } from "react";
 import {
-  BaseEntity,
   EntityType,
-  Company,
-  Individual,
-  Government,
-  LargeAccount,
+  CompanyInfo,
+  IndividualInfo,
+  AdministrationInfo,
 } from "../types/thirdParty";
 
 interface UseGeneralInformationProps {
-  initialData?: Partial<BaseEntity>;
+  initialData?: Partial<CompanyInfo | IndividualInfo | AdministrationInfo>;
   entityType?: EntityType;
-  onSubmit: (data: Partial<BaseEntity>) => void;
+  onSubmit: (
+    data: Partial<CompanyInfo | IndividualInfo | AdministrationInfo>
+  ) => void;
 }
 
 interface UseGeneralInformationReturn {
-  formData: Partial<BaseEntity>;
+  formData: Partial<CompanyInfo | IndividualInfo | AdministrationInfo>;
   handleChange: (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -32,17 +32,9 @@ const useGeneralInformation = ({
   entityType,
   onSubmit,
 }: UseGeneralInformationProps): UseGeneralInformationReturn => {
-  const [formData, setFormData] = useState<Partial<BaseEntity>>(
-    initialData || {
-      address: "",
-      city: "",
-      stateProvince: "",
-      postalCode: "",
-      country: "",
-      email: "",
-      phone: "",
-    }
-  );
+  const [formData, setFormData] = useState<
+    Partial<CompanyInfo | IndividualInfo | AdministrationInfo>
+  >(initialData || {});
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
@@ -72,49 +64,65 @@ const useGeneralInformation = ({
       return false;
     }
 
-    // Champs de base requis pour tous les types d'entités
-    const baseRequiredFields = ["address", "city", "country", "email", "phone"];
-
-    // Vérification des champs de base
-    const baseFieldsValid = baseRequiredFields.every((field) => {
-      const value = formData[field as keyof BaseEntity]?.toString().trim();
-      return value !== "";
-    });
-
     // Vérification des champs spécifiques à l'entité
     let entitySpecificFieldsValid = true;
-    const individualData = formData as Partial<Individual>;
-    let companyName: string | undefined;
-    let firstName: string | undefined;
-    let lastName: string | undefined;
-    let institutionName: string | undefined;
-    let corporateName: string | undefined;
+    const companyData = formData as Partial<CompanyInfo>;
+    const individualData = formData as Partial<IndividualInfo>;
+    const administrationData = formData as Partial<AdministrationInfo>;
 
     switch (entityType) {
-      case "Company":
-        companyName = (formData as Partial<Company>).companyName?.trim();
-        entitySpecificFieldsValid = !!companyName;
+      case "SOCIETE":
+        entitySpecificFieldsValid = !!(
+          companyData.denominationSociale?.trim() &&
+          companyData.numeroRCCM?.trim() &&
+          companyData.formeJuridique?.trim() &&
+          companyData.numeroIDNAT?.trim() &&
+          companyData.numeroNIF?.trim() &&
+          companyData.siegeSocial?.trim() &&
+          companyData.activitePrincipale?.trim() &&
+          companyData.capitalSocial?.trim() &&
+          companyData.dirigeants?.trim() &&
+          companyData.dateCreation?.trim() &&
+          companyData.telephone?.trim() &&
+          companyData.email?.trim()
+        );
         break;
-      case "Individual":
-        firstName = individualData.firstName?.trim();
-        lastName = individualData.lastName?.trim();
-        entitySpecificFieldsValid = !!(firstName && lastName);
+
+      case "PARTICULIER":
+        entitySpecificFieldsValid = !!(
+          individualData.nom?.trim() &&
+          individualData.prenoms?.trim() &&
+          individualData.dateNaissance?.trim() &&
+          individualData.lieuNaissance?.trim() &&
+          individualData.nationalite?.trim() &&
+          individualData.typeDocument?.trim() &&
+          individualData.numeroDocument?.trim() &&
+          individualData.dateExpiration?.trim() &&
+          individualData.adresse?.trim() &&
+          individualData.profession?.trim() &&
+          individualData.employeur?.trim() &&
+          individualData.telephone?.trim() &&
+          individualData.email?.trim()
+        );
         break;
-      case "Government":
-        institutionName = (
-          formData as Partial<Government>
-        ).institutionName?.trim();
-        entitySpecificFieldsValid = !!institutionName;
-        break;
-      case "LargeAccount":
-        corporateName = (
-          formData as Partial<LargeAccount>
-        ).corporateName?.trim();
-        entitySpecificFieldsValid = !!corporateName;
+
+      case "ADMINISTRATION":
+        entitySpecificFieldsValid = !!(
+          administrationData.nomOfficiel?.trim() &&
+          administrationData.categorieAdministrative?.trim() &&
+          administrationData.adresseInstitutionnelle?.trim() &&
+          administrationData.personneContact?.trim() &&
+          administrationData.fonctionContact?.trim() &&
+          administrationData.telephoneContact?.trim() &&
+          administrationData.emailContact?.trim() &&
+          administrationData.compteBancaire?.trim() &&
+          administrationData.acteDeclencheur?.trim() &&
+          administrationData.cadreJuridique?.trim()
+        );
         break;
     }
 
-    return baseFieldsValid && entitySpecificFieldsValid;
+    return entitySpecificFieldsValid;
   };
 
   return {

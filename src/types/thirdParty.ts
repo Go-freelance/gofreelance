@@ -1,8 +1,59 @@
-export type EntityType =
-  | "Company"
-  | "Individual"
-  | "Government"
-  | "LargeAccount";
+export type EntityType = "SOCIETE" | "PARTICULIER" | "ADMINISTRATION";
+
+export interface CompanyInfo {
+  denominationSociale: string;
+  numeroRCCM: string;
+  formeJuridique: string;
+  numeroIDNAT: string;
+  numeroNIF: string;
+  siegeSocial: string;
+  activitePrincipale: string;
+  capitalSocial: string;
+  dirigeants: string;
+  dateCreation: string;
+  telephone: string;
+  email: string;
+}
+
+export interface IndividualInfo {
+  nom: string;
+  prenoms: string;
+  dateNaissance: string;
+  lieuNaissance: string;
+  nationalite: string;
+  numeroDocument: string;
+  typeDocument: string;
+  dateExpiration: string;
+  adresse: string;
+  telephone: string;
+  email: string;
+  profession: string;
+  employeur: string;
+  sourceFinancement?: string;
+}
+
+export interface AdministrationInfo {
+  nomOfficiel: string;
+  categorieAdministrative: string;
+  adresseInstitutionnelle: string;
+  personneContact: string;
+  fonctionContact: string;
+  telephoneContact: string;
+  emailContact: string;
+  numeroIFU?: string;
+  compteBancaire: string;
+  referenceInterne?: string;
+  acteDeclencheur: string;
+  cadreJuridique: string;
+}
+
+export interface ThirdPartyFormData {
+  entityType?: EntityType;
+  companyInfo?: CompanyInfo;
+  individualInfo?: IndividualInfo;
+  administrationInfo?: AdministrationInfo;
+  bankingDetails: BankingDetails[];
+}
 
 export interface BaseEntity {
   entityType: EntityType;
@@ -16,7 +67,7 @@ export interface BaseEntity {
 }
 
 export interface Company extends BaseEntity {
-  entityType: "Company";
+  entityType: "SOCIETE";
   companyName: string;
   establishmentDate?: string;
   website?: string;
@@ -26,7 +77,7 @@ export interface Company extends BaseEntity {
 }
 
 export interface Individual extends BaseEntity {
-  entityType: "Individual";
+  entityType: "PARTICULIER";
   firstName: string;
   lastName: string;
   dateOfBirth?: string;
@@ -35,7 +86,7 @@ export interface Individual extends BaseEntity {
 }
 
 export interface Government extends BaseEntity {
-  entityType: "Government";
+  entityType: "ADMINISTRATION";
   institutionName: string;
   institutionType?: string;
   foundingDate?: string;
@@ -45,7 +96,7 @@ export interface Government extends BaseEntity {
 }
 
 export interface LargeAccount extends BaseEntity {
-  entityType: "LargeAccount";
+  entityType: "SOCIETE";
   corporateName: string;
   corporateGroup?: string;
   yearEstablished?: string;
@@ -54,6 +105,16 @@ export interface LargeAccount extends BaseEntity {
   primaryContactPerson?: string;
   jobTitle?: string;
   alternateContact?: string;
+}
+
+export interface BankingDetails {
+  bankName: string;
+  branchName?: string;
+  accountHolderName: string;
+  accountCurrency: string;
+  accountNumber: string;
+  swiftBicCode?: string;
+  iban?: string;
 }
 
 export interface IdentificationFiscal {
@@ -67,17 +128,12 @@ export interface IdentificationFiscal {
   businessActivity?: string;
 }
 
-export interface BankingDetails {
-  bankName: string;
-  branchName?: string;
-  accountHolderName: string;
-  accountCurrency: string;
-  accountNumber: string;
-  swiftBicCode?: string;
-  iban?: string;
-}
-
 export type ThirdParty = (Company | Individual | Government | LargeAccount) & {
   identificationFiscal: IdentificationFiscal;
   bankingDetails: BankingDetails[];
 };
+
+export type ThirdPartySubmission = {
+  entityType: EntityType;
+  bankingDetails: BankingDetails[];
+} & Partial<CompanyInfo & IndividualInfo & AdministrationInfo>;

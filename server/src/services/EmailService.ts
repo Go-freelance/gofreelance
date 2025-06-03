@@ -1,6 +1,6 @@
 import nodemailer, { Transporter } from "nodemailer";
 import config from "../config/env";
-import { ThirdParty } from "../types/thirdParty";
+import { ThirdPartySubmission } from "../types/thirdParty";
 
 export interface EmailData {
   name: string;
@@ -110,7 +110,7 @@ class EmailService {
    * @returns Une promesse qui se résout quand l'email a été envoyé
    */
   public async sendAdminNotificationNewThirdParty(
-    thirdParty: ThirdParty
+    thirdParty: ThirdPartySubmission
   ): Promise<boolean> {
     try {
       await this.transporter.sendMail({
@@ -328,90 +328,66 @@ class EmailService {
    * @param thirdParty Les données du tiers
    * @returns Le template HTML
    */
-  private generateThirdPartyEmailTemplate(thirdParty: ThirdParty): string {
+  private generateThirdPartyEmailTemplate(
+    thirdParty: ThirdPartySubmission
+  ): string {
     const getEntitySpecificInfo = () => {
       switch (thirdParty.entityType) {
-        case "Company":
+        case "SOCIETE":
           return `
-            <li><strong>Nom de l'entreprise:</strong> ${
-              thirdParty.companyName
+            <li><strong>Dénomination sociale:</strong> ${thirdParty.denominationSociale}</li>
+            <li><strong>Numéro RCCM:</strong> ${thirdParty.numeroRCCM}</li>
+            <li><strong>Forme juridique:</strong> ${thirdParty.formeJuridique}</li>
+            <li><strong>Numéro IDNAT:</strong> ${thirdParty.numeroIDNAT}</li>
+            <li><strong>Numéro NIF:</strong> ${thirdParty.numeroNIF}</li>
+            <li><strong>Siège social:</strong> ${thirdParty.siegeSocial}</li>
+            <li><strong>Activité principale:</strong> ${thirdParty.activitePrincipale}</li>
+            <li><strong>Capital social:</strong> ${thirdParty.capitalSocial}</li>
+            <li><strong>Dirigeants:</strong> ${thirdParty.dirigeants}</li>
+            <li><strong>Date de création:</strong> ${thirdParty.dateCreation}</li>
+          `;
+        case "PARTICULIER":
+          return `
+            <li><strong>Nom:</strong> ${thirdParty.nom}</li>
+            <li><strong>Prénoms:</strong> ${thirdParty.prenoms}</li>
+            <li><strong>Date de naissance:</strong> ${thirdParty.dateNaissance}</li>
+            <li><strong>Lieu de naissance:</strong> ${thirdParty.lieuNaissance}</li>
+            <li><strong>Nationalité:</strong> ${thirdParty.nationalite}</li>
+            <li><strong>Numéro de document:</strong> ${thirdParty.numeroDocument}</li>
+            <li><strong>Type de document:</strong> ${thirdParty.typeDocument}</li>
+            <li><strong>Date d'expiration:</strong> ${thirdParty.dateExpiration}</li>
+            <li><strong>Profession:</strong> ${thirdParty.profession}</li>
+            <li><strong>Employeur:</strong> ${thirdParty.employeur}</li>
+          `;
+        case "ADMINISTRATION":
+          return `
+            <li><strong>Nom officiel:</strong> ${thirdParty.nomOfficiel}</li>
+            <li><strong>Catégorie administrative:</strong> ${
+              thirdParty.categorieAdministrative
             }</li>
-            <li><strong>Date d'établissement:</strong> ${
-              thirdParty.establishmentDate || "Non spécifié"
-            }</li>
-            <li><strong>Site web:</strong> ${
-              thirdParty.website || "Non spécifié"
-            }</li>
-            <li><strong>Industrie:</strong> ${
-              thirdParty.industry || "Non spécifié"
+            <li><strong>Adresse institutionnelle:</strong> ${
+              thirdParty.adresseInstitutionnelle
             }</li>
             <li><strong>Personne de contact:</strong> ${
-              thirdParty.contactPerson || "Non spécifié"
+              thirdParty.personneContact
             }</li>
-            <li><strong>Titre du poste:</strong> ${
-              thirdParty.jobTitle || "Non spécifié"
+            <li><strong>Fonction du contact:</strong> ${
+              thirdParty.fonctionContact
             }</li>
-          `;
-        case "Individual":
-          return `
-            <li><strong>Prénom:</strong> ${thirdParty.firstName}</li>
-            <li><strong>Nom:</strong> ${thirdParty.lastName}</li>
-            <li><strong>Date de naissance:</strong> ${
-              thirdParty.dateOfBirth || "Non spécifié"
+            <li><strong>Numéro IFU:</strong> ${
+              thirdParty.numeroIFU || "Non spécifié"
             }</li>
-            <li><strong>Profession:</strong> ${
-              thirdParty.profession || "Non spécifié"
+            <li><strong>Compte bancaire:</strong> ${
+              thirdParty.compteBancaire
             }</li>
-            <li><strong>Téléphone alternatif:</strong> ${
-              thirdParty.alternatePhone || "Non spécifié"
+            <li><strong>Référence interne:</strong> ${
+              thirdParty.referenceInterne || "Non spécifié"
             }</li>
-          `;
-        case "Government":
-          return `
-            <li><strong>Nom de l'institution:</strong> ${
-              thirdParty.institutionName
+            <li><strong>Acte déclencheur:</strong> ${
+              thirdParty.acteDeclencheur
             }</li>
-            <li><strong>Type d'institution:</strong> ${
-              thirdParty.institutionType || "Non spécifié"
-            }</li>
-            <li><strong>Date de création:</strong> ${
-              thirdParty.foundingDate || "Non spécifié"
-            }</li>
-            <li><strong>Niveau de juridiction:</strong> ${
-              thirdParty.jurisdictionLevel || "Non spécifié"
-            }</li>
-            <li><strong>Personne de contact:</strong> ${
-              thirdParty.contactPerson || "Non spécifié"
-            }</li>
-            <li><strong>Titre du poste:</strong> ${
-              thirdParty.jobTitle || "Non spécifié"
-            }</li>
-          `;
-        case "LargeAccount":
-          return `
-            <li><strong>Nom de l'entreprise:</strong> ${
-              thirdParty.corporateName
-            }</li>
-            <li><strong>Groupe d'entreprises:</strong> ${
-              thirdParty.corporateGroup || "Non spécifié"
-            }</li>
-            <li><strong>Année d'établissement:</strong> ${
-              thirdParty.yearEstablished || "Non spécifié"
-            }</li>
-            <li><strong>Nombre d'employés:</strong> ${
-              thirdParty.numberOfEmployees || "Non spécifié"
-            }</li>
-            <li><strong>Industrie:</strong> ${
-              thirdParty.industry || "Non spécifié"
-            }</li>
-            <li><strong>Contact principal:</strong> ${
-              thirdParty.primaryContactPerson || "Non spécifié"
-            }</li>
-            <li><strong>Titre du poste:</strong> ${
-              thirdParty.jobTitle || "Non spécifié"
-            }</li>
-            <li><strong>Contact alternatif:</strong> ${
-              thirdParty.alternateContact || "Non spécifié"
+            <li><strong>Cadre juridique:</strong> ${
+              thirdParty.cadreJuridique
             }</li>
           `;
       }
@@ -444,49 +420,6 @@ class EmailService {
             <h2>Informations générales:</h2>
             <ul>
               ${getEntitySpecificInfo()}
-              <li><strong>Adresse:</strong> ${thirdParty.address}</li>
-              <li><strong>Ville:</strong> ${thirdParty.city}</li>
-              <li><strong>État/Province:</strong> ${
-                thirdParty.stateProvince
-              }</li>
-              <li><strong>Code postal:</strong> ${thirdParty.postalCode}</li>
-              <li><strong>Pays:</strong> ${thirdParty.country}</li>
-              <li><strong>Email:</strong> ${thirdParty.email}</li>
-              <li><strong>Téléphone:</strong> ${thirdParty.phone}</li>
-            </ul>
-          </div>
-
-          <div class="section">
-            <h2>Informations fiscales:</h2>
-            <ul>
-              <li><strong>Type d'identifiant:</strong> ${
-                thirdParty.identificationFiscal.idType || "Non spécifié"
-              }</li>
-              <li><strong>Numéro d'identifiant:</strong> ${
-                thirdParty.identificationFiscal.idNumber
-              }</li>
-              <li><strong>Autorité émettrice:</strong> ${
-                thirdParty.identificationFiscal.issuingAuthority ||
-                "Non spécifié"
-              }</li>
-              <li><strong>Nationalité:</strong> ${
-                thirdParty.identificationFiscal.nationality || "Non spécifié"
-              }</li>
-              <li><strong>Numéro de taxe:</strong> ${
-                thirdParty.identificationFiscal.taxIdNumber
-              }</li>
-              <li><strong>Pays de résidence fiscale:</strong> ${
-                thirdParty.identificationFiscal.taxResidenceCountry ||
-                "Non spécifié"
-              }</li>
-              <li><strong>Numéro de TVA:</strong> ${
-                thirdParty.identificationFiscal.vatRegistration ||
-                "Non spécifié"
-              }</li>
-              <li><strong>Activité commerciale:</strong> ${
-                thirdParty.identificationFiscal.businessActivity ||
-                "Non spécifié"
-              }</li>
             </ul>
           </div>
 

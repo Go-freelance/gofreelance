@@ -1,4 +1,9 @@
-import { ThirdParty } from "../types/thirdParty";
+import { ThirdPartySubmission } from "../types/thirdParty";
+
+export interface EmailResponse {
+  success: boolean;
+  message: string;
+}
 
 export interface EmailData {
   name: string;
@@ -31,11 +36,11 @@ export class EmailService {
   /**
    * Envoie un email de notification à l'administrateur pour un nouveau tiers
    * @param thirdParty Les données du tiers
-   * @returns Une promesse qui se résout quand l'email a été envoyé
+   * @returns Une promesse qui se résout avec la réponse de l'API
    */
   public async sendAdminNotificationNewThirdParty(
-    thirdParty: ThirdParty
-  ): Promise<boolean> {
+    thirdParty: ThirdPartySubmission
+  ): Promise<EmailResponse> {
     try {
       const response = await fetch(
         `${this.apiUrl}/emails/admin-notification-third-party`,
@@ -48,18 +53,28 @@ export class EmailService {
         }
       );
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        return {
+          success: false,
+          message: data.message || "Erreur lors de l'envoi de l'email",
+        };
       }
 
-      const result = await response.json();
-      return result.success;
+      return {
+        success: true,
+        message: data.message || "Email envoyé avec succès",
+      };
     } catch (error) {
       console.error(
         "Error sending admin notification for new third party:",
         error
       );
-      return false;
+      return {
+        success: false,
+        message: "Erreur lors de l'envoi de l'email",
+      };
     }
   }
 

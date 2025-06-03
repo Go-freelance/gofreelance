@@ -1,6 +1,5 @@
 import EntityTypeSelection from "../components/thirdParty/EntityTypeSelection";
 import GeneralInformation from "../components/thirdParty/GeneralInformation";
-import IdentificationFiscal from "../components/thirdParty/IdentificationFiscal";
 import BankingDetails from "../components/thirdParty/BankingDetails";
 import Review from "../components/thirdParty/Review";
 import SuccessStep from "../components/thirdParty/SuccessStep";
@@ -16,7 +15,6 @@ const ThirdPartyManagement = () => {
     isSubmitting,
     handleEntityTypeSelect,
     handleGeneralInfoSubmit,
-    handleIdentificationFiscalSubmit,
     handleBankingDetailsSubmit,
     handleSubmit,
     handleBack,
@@ -25,64 +23,56 @@ const ThirdPartyManagement = () => {
   const steps = [
     { number: 1, label: "Type d'entité" },
     { number: 2, label: "Informations générales" },
-    { number: 3, label: "Identification & Fiscal" },
-    { number: 4, label: "Informations bancaires" },
-    { number: 5, label: "Révision" },
+    { number: 3, label: "Informations bancaires" },
+    { number: 4, label: "Révision" },
   ];
 
   const renderStep = () => {
-    if (successMessage) {
-      return <SuccessStep message={successMessage} />;
-    }
-
     switch (currentStep) {
       case 1:
-        return <EntityTypeSelection onSelect={handleEntityTypeSelect} />;
+        return (
+          <EntityTypeSelection
+            onSelect={handleEntityTypeSelect}
+            selectedType={formData.entityType}
+          />
+        );
       case 2:
         return (
           <GeneralInformation
-            entityType={formData.entityType}
+            entityType={formData.entityType as EntityType}
             onSubmit={handleGeneralInfoSubmit}
             onBack={handleBack}
-            initialData={formData}
+            initialData={
+              formData.entityType === "SOCIETE"
+                ? formData.companyInfo
+                : formData.entityType === "PARTICULIER"
+                ? formData.individualInfo
+                : formData.administrationInfo
+            }
           />
         );
       case 3:
         return (
-          <IdentificationFiscal
-            entityType={formData.entityType as EntityType}
-            onSubmit={handleIdentificationFiscalSubmit}
+          <BankingDetails
+            onSubmit={(data) => handleBankingDetailsSubmit(data[0])}
             onBack={handleBack}
-            initialData={formData.identificationFiscal}
+            initialData={
+              formData.bankingDetails ? formData.bankingDetails : undefined
+            }
           />
         );
       case 4:
         return (
-          <BankingDetails
-            onSubmit={handleBankingDetailsSubmit}
+          <Review
+            formData={formData}
+            onSubmit={handleSubmit}
             onBack={handleBack}
-            initialData={formData.bankingDetails}
+            isSubmitting={isSubmitting}
           />
         );
       case 5:
         return (
-          <div className="space-y-6">
-            <Review
-              formData={formData}
-              onSubmit={handleSubmit}
-              onBack={handleBack}
-              isSubmitting={isSubmitting}
-            />
-
-            {error && (
-              <div
-                className="bg-red-50 border-2 border-red-200 text-red-700 px-4 py-3 rounded-xl"
-                role="alert"
-              >
-                <span className="block sm:inline">{error}</span>
-              </div>
-            )}
-          </div>
+          <SuccessStep message="Les informations ont été envoyées avec succès" />
         );
       default:
         return null;
@@ -90,43 +80,67 @@ const ThirdPartyManagement = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-4 sm:py-6 md:py-8 lg:py-12">
-      <div className="max-w-4xl mt-20 sm:mt-16 md:mt-20 mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-        <div className="bg-white rounded-2xl shadow-xl p-3 sm:p-4 md:p-6 lg:p-8">
-          {/* Indicateur de progression*/}
-          <div className="mb-8 sm:mb-10 md:mb-12">
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8">
-              {steps.map((step) => (
-                <div key={step.number} className="flex flex-col items-center">
-                  <div
-                    className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold border-2 transition-all duration-200 ${
-                      step.number === currentStep
-                        ? "bg-primary text-white border-primary"
-                        : step.number < currentStep
-                        ? "bg-primary/10 text-primary border-primary"
-                        : "bg-white text-gray-400 border-gray-300"
-                    }`}
-                  >
-                    {step.number}
-                  </div>
-                  <span
-                    className={`mt-1 sm:mt-2 text-[10px] sm:text-xs font-medium text-center max-w-[80px] sm:max-w-[100px] ${
-                      step.number === currentStep
-                        ? "text-primary"
-                        : step.number < currentStep
-                        ? "text-primary/80"
-                        : "text-gray-500"
-                    }`}
-                  >
-                    {step.label}
-                  </span>
-                </div>
-              ))}
-            </div>
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <div className="mt-24">
+            <nav aria-label="Progress">
+              <ol className="flex items-center justify-center space-x-4 sm:space-x-8 md:space-x-12">
+                {steps.map((step) => (
+                  <li key={step.number} className="flex flex-col items-center">
+                    <div
+                      className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full text-lg sm:text-xl font-bold ${
+                        currentStep >= step.number
+                          ? "bg-primary text-white"
+                          : "bg-gray-200 text-gray-500"
+                      }`}
+                    >
+                      {step.number}
+                    </div>
+                    <span
+                      className={`mt-2 text-xs sm:text-sm font-medium ${
+                        currentStep >= step.number
+                          ? "text-primary"
+                          : "text-gray-500"
+                      }`}
+                    >
+                      {step.label}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </nav>
           </div>
 
-          {/* Contenu du formulaire */}
-          <div className="mt-6 sm:mt-8">{renderStep()}</div>
+          {error && (
+            <div className="mt-8 rounded-md bg-red-50 p-4">
+              <div className="flex">
+                <div className="ml-3">
+                  <h3 className="text-sm font-medium text-red-800">
+                    Une erreur est survenue
+                  </h3>
+                  <div className="mt-2 text-sm text-red-700">{error}</div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {successMessage && (
+            <div className="mt-8 rounded-md bg-green-50 p-4">
+              <div className="flex">
+                <div className="ml-3">
+                  <h3 className="text-sm font-medium text-green-800">Succès</h3>
+                  <div className="mt-2 text-sm text-green-700">
+                    {successMessage}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="mt-8 bg-white shadow sm:rounded-lg">
+            <div className="px-4 py-5 sm:p-6">{renderStep()}</div>
+          </div>
         </div>
       </div>
     </div>

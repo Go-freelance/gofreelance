@@ -1,31 +1,29 @@
-import React from "react";
 import {
-  BaseEntity,
   EntityType,
-  Company,
-  Government,
-  Individual,
-  LargeAccount,
+  CompanyInfo,
+  IndividualInfo,
+  AdministrationInfo,
 } from "../../types/thirdParty";
 import useGeneralInformation from "../../hooks/useGeneralInformation";
 import CompanyFields from "./entityFields/CompanyFields";
 import IndividualFields from "./entityFields/IndividualFields";
-import GovernmentFields from "./entityFields/GovernmentFields";
-import LargeAccountFields from "./entityFields/LargeAccountFields";
+import AdministrationFields from "./entityFields/AdministrationFields";
 
 interface GeneralInformationProps {
-  entityType: EntityType | undefined;
-  onSubmit: (data: Partial<BaseEntity>) => void;
+  entityType: EntityType;
+  onSubmit: (
+    data: Partial<CompanyInfo | IndividualInfo | AdministrationInfo>
+  ) => void;
   onBack: () => void;
-  initialData?: Partial<BaseEntity>;
+  initialData?: CompanyInfo | IndividualInfo | AdministrationInfo;
 }
 
-const GeneralInformation: React.FC<GeneralInformationProps> = ({
+const GeneralInformation = ({
   entityType,
   onSubmit,
   onBack,
   initialData,
-}) => {
+}: GeneralInformationProps) => {
   const {
     formData,
     handleChange,
@@ -35,63 +33,35 @@ const GeneralInformation: React.FC<GeneralInformationProps> = ({
     successMessage,
   } = useGeneralInformation({
     initialData,
-    onSubmit,
     entityType,
+    onSubmit,
   });
 
-  if (!entityType) {
-    return (
-      <div className="text-center text-red-600">
-        Veuillez sélectionner un type d'entité
-      </div>
-    );
-  }
-
-  const inputClasses =
-    "mt-1 block w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-base text-gray-900 shadow-sm transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20";
-  const labelClasses = "block text-base font-medium text-gray-700 mb-1";
-  const selectClasses =
-    "mt-1 block w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-base text-gray-900 shadow-sm transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20";
-
-  const renderEntitySpecificFields = () => {
+  const renderEntityFields = () => {
     switch (entityType) {
-      case "Company":
+      case "SOCIETE":
         return (
           <CompanyFields
-            formData={formData as Partial<Company>}
+            formData={formData as Partial<CompanyInfo>}
             handleChange={handleChange}
-            inputClasses={inputClasses}
-            labelClasses={labelClasses}
           />
         );
-      case "Individual":
+      case "PARTICULIER":
         return (
           <IndividualFields
-            formData={formData as Partial<Individual>}
+            formData={formData as Partial<IndividualInfo>}
             handleChange={handleChange}
-            inputClasses={inputClasses}
-            labelClasses={labelClasses}
           />
         );
-      case "Government":
+      case "ADMINISTRATION":
         return (
-          <GovernmentFields
-            formData={formData as Partial<Government>}
+          <AdministrationFields
+            formData={formData as Partial<AdministrationInfo>}
             handleChange={handleChange}
-            inputClasses={inputClasses}
-            labelClasses={labelClasses}
-            selectClasses={selectClasses}
           />
         );
-      case "LargeAccount":
-        return (
-          <LargeAccountFields
-            formData={formData as Partial<LargeAccount>}
-            handleChange={handleChange}
-            inputClasses={inputClasses}
-            labelClasses={labelClasses}
-          />
-        );
+      default:
+        return null;
     }
   };
 
@@ -106,114 +76,35 @@ const GeneralInformation: React.FC<GeneralInformationProps> = ({
         </p>
       </div>
 
-      <div className="grid grid-cols-6 gap-8">
-        {renderEntitySpecificFields()}
-
-        <div className="col-span-6">
-          <label htmlFor="address" className={labelClasses}>
-            Adresse*
-          </label>
-          <input
-            type="text"
-            name="address"
-            id="address"
-            required
-            className={inputClasses}
-            value={formData.address || ""}
-            onChange={handleChange}
-          />
+      {error && (
+        <div className="rounded-md bg-red-50 p-4">
+          <div className="flex">
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-red-800">
+                Une erreur est survenue
+              </h3>
+              <div className="mt-2 text-sm text-red-700">{error}</div>
+            </div>
+          </div>
         </div>
+      )}
 
-        <div className="col-span-6 sm:col-span-3">
-          <label htmlFor="city" className={labelClasses}>
-            Ville*
-          </label>
-          <input
-            type="text"
-            name="city"
-            id="city"
-            required
-            className={inputClasses}
-            value={formData.city || ""}
-            onChange={handleChange}
-          />
+      {successMessage && (
+        <div className="rounded-md bg-green-50 p-4">
+          <div className="flex">
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-green-800">Succès</h3>
+              <div className="mt-2 text-sm text-green-700">
+                {successMessage}
+              </div>
+            </div>
+          </div>
         </div>
+      )}
 
-        <div className="col-span-6 sm:col-span-3">
-          <label htmlFor="stateProvince" className={labelClasses}>
-            Province/Région
-          </label>
-          <input
-            type="text"
-            name="stateProvince"
-            id="stateProvince"
-            className={inputClasses}
-            value={formData.stateProvince || ""}
-            onChange={handleChange}
-          />
-        </div>
+      <div className="space-y-6">{renderEntityFields()}</div>
 
-        <div className="col-span-6 sm:col-span-3">
-          <label htmlFor="postalCode" className={labelClasses}>
-            Code Postal
-          </label>
-          <input
-            type="text"
-            name="postalCode"
-            id="postalCode"
-            className={inputClasses}
-            value={formData.postalCode || ""}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="col-span-6 sm:col-span-3">
-          <label htmlFor="country" className={labelClasses}>
-            Pays*
-          </label>
-          <input
-            type="text"
-            name="country"
-            id="country"
-            required
-            className={inputClasses}
-            value={formData.country || ""}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="col-span-6 sm:col-span-3">
-          <label htmlFor="email" className={labelClasses}>
-            Email*
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            required
-            className={inputClasses}
-            value={formData.email || ""}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="col-span-6 sm:col-span-3">
-          <label htmlFor="phone" className={labelClasses}>
-            Téléphone*
-          </label>
-          <input
-            type="tel"
-            name="phone"
-            id="phone"
-            required
-            className={inputClasses}
-            value={formData.phone || ""}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
-
-      <div className="flex justify-between pt-8">
+      <div className="flex justify-between items-center pt-6">
         <button
           type="button"
           onClick={onBack}
@@ -233,18 +124,6 @@ const GeneralInformation: React.FC<GeneralInformationProps> = ({
           Suivant
         </button>
       </div>
-
-      {error && (
-        <div className="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl">
-          <p className="text-red-600">{error}</p>
-        </div>
-      )}
-
-      {successMessage && (
-        <div className="mt-4 p-4 bg-green-50 border-2 border-green-200 rounded-xl">
-          <p className="text-green-600">{successMessage}</p>
-        </div>
-      )}
     </form>
   );
 };
