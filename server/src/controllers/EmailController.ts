@@ -7,7 +7,7 @@ import { ThirdPartySubmission } from "../types/thirdParty";
  */
 class EmailController {
   /**
-   * Envoie une notification de nouveau rendez-vous à l'admin
+   * Envoie une notification de nouveau rendez-vous à l'admini
    */
   public async sendAdminNotification(
     req: Request,
@@ -148,6 +148,42 @@ class EmailController {
   }
 
   /**
+   * Envoie une notification de nouveau tiers creer à l'admin
+   */
+
+  public async sendAdminEmailNewThird(
+    req: Request,
+    res: Response
+  ): Promise<Response> {
+    try {
+      const thirdParty: ThirdPartySubmission = req.body;
+
+      const emailService = EmailService.getInstance();
+      const sent = await emailService.sendAdminNotificationNewThirdParty(
+        thirdParty
+      );
+
+      if (!sent) {
+        return res.status(500).json({
+          success: false,
+          message: "Erreur lors de l'envoi de l'email de notification",
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: "Email de notification envoyé avec succès",
+      });
+    } catch (error) {
+      console.error("❌ Erreur dans le contrôleur d'email:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Erreur lors du traitement de la demande",
+      });
+    }
+  }
+
+  /**
    * Valide les données requises pour l'envoi d'email
    */
   private validateEmailData(data: Partial<EmailData>): boolean {
@@ -182,36 +218,11 @@ export const sendAdminNotifictionNewContact = (
   emailController.sendAdminEmailNewContact(req, res);
 };
 
-export const sendAdminNotificationNewThirdParty = async (
+export const sendAdminNotificationNewThirdParty = (
   req: Request,
   res: Response
-): Promise<void> => {
-  try {
-    const thirdParty: ThirdPartySubmission = req.body;
-
-    const emailService = EmailService.getInstance();
-    const success = await emailService.sendAdminNotificationNewThirdParty(
-      thirdParty
-    );
-
-    if (success) {
-      res.status(200).json({
-        success: true,
-        message: "Email de notification envoyé avec succès",
-      });
-    } else {
-      res.status(500).json({
-        success: false,
-        message: "Erreur lors de l'envoi de l'email de notification",
-      });
-    }
-  } catch (error) {
-    console.error("❌ Erreur dans le contrôleur d'email:", error);
-    res.status(500).json({
-      success: false,
-      message: "Erreur lors du traitement de la demande",
-    });
-  }
+): void => {
+  emailController.sendAdminEmailNewThird(req, res);
 };
 
 export default {

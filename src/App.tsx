@@ -39,7 +39,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/supplier-registry" element={<ThirdPartyManagement />} />
+        <Route path="/tiers" element={<ThirdPartyManagement />} />
       </Routes>
     </>
   );
