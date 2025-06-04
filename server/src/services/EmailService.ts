@@ -1,18 +1,10 @@
 import nodemailer, { Transporter } from "nodemailer";
 import config from "../config/env";
 import { ThirdPartySubmission } from "../types/thirdParty";
-
-export interface EmailData {
-  name: string;
-  email: string;
-  phone: string;
-  date: string;
-  time: string;
-  service: string;
-  message?: string;
-  appointmentType?: string;
-  teamMember?: string;
-}
+import { EmailData } from "../types/email";
+import { ThirdPartyTemplate } from "../templates/email/ThirdPartyTemplate";
+import { AppointmentTemplate } from "../templates/email/AppointmentTemplate";
+import { ContactTemplate } from "../templates/email/ContactTemplate";
 
 class EmailService {
   private transporter: Transporter;
@@ -56,7 +48,7 @@ class EmailService {
         from: `"Go Freelance" <${config.emails.from}>`,
         to: config.emails.admin,
         subject: "Nouvelle demande de rendez-vous",
-        html: this.generateAdminEmailTemplate(data),
+        html: AppointmentTemplate.generateAdminTemplate(data),
       });
 
       return true;
@@ -72,7 +64,7 @@ class EmailService {
         from: `"Go Freelance" <${config.emails.from}>`,
         to: config.emails.admin,
         subject: "Nouvelle demande de contact",
-        html: this.generateContactEmailTemplate(data),
+        html: ContactTemplate.generate(data),
       });
 
       return true;
@@ -94,7 +86,7 @@ class EmailService {
         from: `"Go Freelance" <${config.emails.from}>`,
         to: data.email,
         subject: "Confirmation de votre rendez-vous",
-        html: this.generateClientEmailTemplate(data),
+        html: AppointmentTemplate.generateClientTemplate(data),
       });
 
       return true;
@@ -117,7 +109,7 @@ class EmailService {
         from: `"Go Freelance" <${config.emails.from}>`,
         to: config.emails.admin,
         subject: "Nouveau tiers créé",
-        html: this.generateThirdPartyEmailTemplate(thirdParty),
+        html: ThirdPartyTemplate.generate(thirdParty),
       });
 
       return true;
@@ -128,336 +120,6 @@ class EmailService {
       );
       return false;
     }
-  }
-
-  /**
-   * Génère le template HTML pour l'email d'administration
-   * @param data Les données du rendez-vous
-   * @returns Le template HTML
-   */
-  private generateAdminEmailTemplate(data: EmailData): string {
-    const date = new Date(data.date);
-    const formattedDate = date.toLocaleDateString("fr-FR", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-
-    return `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-          h1 { color: #0055a4; }
-          h2 { color: #333; font-size: 18px; margin-top: 20px; }
-          ul { padding-left: 20px; }
-          li { margin-bottom: 5px; }
-          .message { background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin-top: 20px; }
-          .footer { margin-top: 30px; font-size: 14px; color: #777; }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <h1>Nouvelle demande de rendez-vous</h1>
-          <p>Un client a pris rendez-vous pour le service <strong>${
-            data.service
-          }</strong>.</p>
-          
-          <h2>Détails du rendez-vous:</h2>
-          <ul>
-            <li><strong>Nom:</strong> ${data.name}</li>
-            <li><strong>Email:</strong> ${data.email}</li>
-            <li><strong>Téléphone:</strong> ${data.phone}</li>
-            <li><strong>Date:</strong> ${formattedDate}</li>
-            <li><strong>Heure:</strong> ${data.time}</li>
-            <li><strong>Type de rendez-vous:</strong> ${
-              data.appointmentType === "in-person"
-                ? "En présentiel"
-                : "En ligne (Google Meet)"
-            }</li>
-            <li><strong>Agent assigné:</strong> ${
-              data.teamMember || "Non spécifié"
-            }</li>
-          </ul>
-          
-          ${
-            data.message
-              ? `<div class="message"><h2>Message:</h2><p>${data.message}</p></div>`
-              : ""
-          }
-          
-          <p>Veuillez confirmer ce rendez-vous dès que possible.</p>
-          
-          <div class="footer">
-            <p>Cet email a été envoyé automatiquement, merci de ne pas y répondre.</p>
-          </div>
-        </div>
-      </body>
-      </html>
-    `;
-  }
-
-  private generateContactEmailTemplate(data: EmailData): string {
-    return `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-          h1 { color: #0055a4; }
-          h2 { color: #333; font-size: 18px; margin-top: 20px; }
-          .details { background-color: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0; }
-          .footer { margin-top: 30px; font-size: 14px; color: #777; border-top: 1px solid #eee; padding-top: 20px; }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <h1>Nouvelle demande de contact</h1>
-          <p>Un client a contacté pour le service <strong>${
-            data.service
-          }</strong>.</p>
-
-          <div class="details">
-            <h2>Détails du contact:</h2>
-            <ul>
-              <li><strong>Nom:</strong> ${data.name}</li>
-              <li><strong>Email:</strong> ${data.email}</li>
-              <li><strong>Téléphone:</strong> ${data.phone}</li>
-              <li><strong>Message:</strong> ${data.message}</li>
-            </ul>
-          </div>
-          <div class="footer">
-            <p>© ${new Date().getFullYear()} Go Freelance. Tous droits réservés.</p>
-          </div>
-        </div>
-      </body>
-      </html>
-    `;
-  }
-
-  /**
-   * Génère le template HTML pour l'email client
-   * @param data Les données du rendez-vous
-   * @returns Le template HTML
-   */
-  private generateClientEmailTemplate(data: EmailData): string {
-    const date = new Date(data.date);
-    const formattedDate = date.toLocaleDateString("fr-FR", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-
-    const isOnline = data.appointmentType === "online";
-    const meetLink = isOnline ? "https://meet.google.com/xyz-abcd-123" : null;
-
-    return `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-          h1 { color: #0055a4; }
-          h2 { color: #333; font-size: 18px; margin-top: 20px; }
-          .details { background-color: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0; }
-          .footer { margin-top: 30px; font-size: 14px; color: #777; border-top: 1px solid #eee; padding-top: 20px; }
-          .btn { display: inline-block; background-color: #0055a4; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 15px 0; }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <h1>Confirmation de votre rendez-vous</h1>
-          <p>Bonjour ${data.name},</p>
-          <p>Nous vous confirmons votre rendez-vous pour le service <strong>${
-            data.service
-          }</strong>.</p>
-          
-          <div class="details">
-            <h2>Récapitulatif :</h2>
-            <p><strong>Date :</strong> ${formattedDate}</p>
-            <p><strong>Heure :</strong> ${data.time}</p>
-            <p><strong>Type de rendez-vous :</strong> ${
-              isOnline ? "En ligne (Google Meet)" : "En présentiel"
-            }</p>
-            ${
-              data.teamMember
-                ? `<p><strong>Expert :</strong> ${data.teamMember}</p>`
-                : ""
-            }
-            
-            ${
-              isOnline
-                ? `
-              <p><strong>Lien de réunion :</strong></p>
-              <a href="${meetLink}" class="btn">Rejoindre la réunion</a>
-              <p><em>Ce lien sera actif à l'heure de votre rendez-vous.</em></p>
-            `
-                : `
-              <p><strong>Adresse :</strong> Kinshasa/Gombe, République Démocratique du Congo</p>
-              <p><em>Notre équipe vous accueillera à la réception.</em></p>
-            `
-            }
-          </div>
-          
-          <p>Si vous avez besoin de modifier ou d'annuler votre rendez-vous, merci de nous contacter directement par téléphone au +243 000 000 000 ou par email à contact@gofreelance.com.</p>
-          
-          <p>Nous sommes impatients de vous rencontrer !</p>
-          <p>L'équipe Go Freelance</p>
-          
-          <div class="footer">
-            <p>Cet email a été envoyé automatiquement, merci de ne pas y répondre.</p>
-            <p>© ${new Date().getFullYear()} Go Freelance. Tous droits réservés.</p>
-          </div>
-        </div>
-      </body>
-      </html>
-    `;
-  }
-
-  /**
-   * Génère le template HTML pour l'email de notification tiers
-   * @param thirdParty Les données du tiers
-   * @returns Le template HTML
-   */
-  private generateThirdPartyEmailTemplate(
-    thirdParty: ThirdPartySubmission
-  ): string {
-    const getEntitySpecificInfo = () => {
-      switch (thirdParty.entityType) {
-        case "SOCIETE":
-          return `
-            <li><strong>Dénomination sociale:</strong> ${thirdParty.denominationSociale}</li>
-            <li><strong>Numéro RCCM:</strong> ${thirdParty.numeroRCCM}</li>
-            <li><strong>Forme juridique:</strong> ${thirdParty.formeJuridique}</li>
-            <li><strong>Numéro IDNAT:</strong> ${thirdParty.numeroIDNAT}</li>
-            <li><strong>Numéro NIF:</strong> ${thirdParty.numeroNIF}</li>
-            <li><strong>Siège social:</strong> ${thirdParty.siegeSocial}</li>
-            <li><strong>Activité principale:</strong> ${thirdParty.activitePrincipale}</li>
-            <li><strong>Capital social:</strong> ${thirdParty.capitalSocial}</li>
-            <li><strong>Dirigeants:</strong> ${thirdParty.dirigeants}</li>
-            <li><strong>Date de création:</strong> ${thirdParty.dateCreation}</li>
-          `;
-        case "PARTICULIER":
-          return `
-            <li><strong>Nom:</strong> ${thirdParty.nom}</li>
-            <li><strong>Prénoms:</strong> ${thirdParty.prenoms}</li>
-            <li><strong>Date de naissance:</strong> ${thirdParty.dateNaissance}</li>
-            <li><strong>Lieu de naissance:</strong> ${thirdParty.lieuNaissance}</li>
-            <li><strong>Nationalité:</strong> ${thirdParty.nationalite}</li>
-            <li><strong>Numéro de document:</strong> ${thirdParty.numeroDocument}</li>
-            <li><strong>Type de document:</strong> ${thirdParty.typeDocument}</li>
-            <li><strong>Date d'expiration:</strong> ${thirdParty.dateExpiration}</li>
-            <li><strong>Profession:</strong> ${thirdParty.profession}</li>
-            <li><strong>Employeur:</strong> ${thirdParty.employeur}</li>
-          `;
-        case "ADMINISTRATION":
-          return `
-            <li><strong>Nom officiel:</strong> ${thirdParty.nomOfficiel}</li>
-            <li><strong>Catégorie administrative:</strong> ${
-              thirdParty.categorieAdministrative
-            }</li>
-            <li><strong>Adresse institutionnelle:</strong> ${
-              thirdParty.adresseInstitutionnelle
-            }</li>
-            <li><strong>Personne de contact:</strong> ${
-              thirdParty.personneContact
-            }</li>
-            <li><strong>Fonction du contact:</strong> ${
-              thirdParty.fonctionContact
-            }</li>
-            <li><strong>Numéro IFU:</strong> ${
-              thirdParty.numeroIFU || "Non spécifié"
-            }</li>
-            <li><strong>Compte bancaire:</strong> ${
-              thirdParty.compteBancaire
-            }</li>
-            <li><strong>Référence interne:</strong> ${
-              thirdParty.referenceInterne || "Non spécifié"
-            }</li>
-            <li><strong>Acte déclencheur:</strong> ${
-              thirdParty.acteDeclencheur
-            }</li>
-            <li><strong>Cadre juridique:</strong> ${
-              thirdParty.cadreJuridique
-            }</li>
-          `;
-      }
-    };
-
-    return `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-          h1 { color: #0055a4; }
-          h2 { color: #333; font-size: 18px; margin-top: 20px; }
-          .section { background-color: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0; }
-          ul { padding-left: 20px; }
-          li { margin-bottom: 5px; }
-          .footer { margin-top: 30px; font-size: 14px; color: #777; border-top: 1px solid #eee; padding-top: 20px; }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <h1>Nouveau tiers créé</h1>
-          <p>Un nouveau tiers de type <strong>${
-            thirdParty.entityType
-          }</strong> a été créé.</p>
-
-          <div class="section">
-            <h2>Informations générales:</h2>
-            <ul>
-              ${getEntitySpecificInfo()}
-            </ul>
-          </div>
-
-          <div class="section">
-            <h2>Informations bancaires:</h2>
-            ${thirdParty.bankingDetails
-              .map(
-                (bank, index) => `
-              <h3>Compte ${index + 1}:</h3>
-              <ul>
-                <li><strong>Nom de la banque:</strong> ${bank.bankName}</li>
-                <li><strong>Nom de la succursale:</strong> ${
-                  bank.branchName || "Non spécifié"
-                }</li>
-                <li><strong>Titulaire du compte:</strong> ${
-                  bank.accountHolderName
-                }</li>
-                <li><strong>Devise:</strong> ${bank.accountCurrency}</li>
-                <li><strong>Numéro de compte:</strong> ${
-                  bank.accountNumber
-                }</li>
-                <li><strong>Code SWIFT/BIC:</strong> ${
-                  bank.swiftBicCode || "Non spécifié"
-                }</li>
-                <li><strong>IBAN:</strong> ${bank.iban || "Non spécifié"}</li>
-              </ul>
-            `
-              )
-              .join("")}
-          </div>
-
-          <div class="footer">
-            <p>© ${new Date().getFullYear()} Go Freelance. Tous droits réservés.</p>
-          </div>
-        </div>
-      </body>
-      </html>
-    `;
   }
 }
 

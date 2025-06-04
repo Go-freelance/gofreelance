@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import EmailService, { EmailData } from "../services/EmailService";
+import EmailService from "../services/EmailService";
 import { ThirdPartySubmission } from "../types/thirdParty";
+import { EmailData } from "../types/email";
 
 /**
  * Contrôleur pour gérer les fonctionnalités d'envoi d'emails

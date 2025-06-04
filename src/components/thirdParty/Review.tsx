@@ -50,10 +50,131 @@ const Review: React.FC<ReviewProps> = ({
                 </div>
                 <div>
                   <dt className="text-base font-medium text-gray-700">
+                    Numéro ID NAT
+                  </dt>
+                  <dd className="mt-1 text-base text-gray-900">
+                    {formData.companyInfo?.numeroIDNAT}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-base font-medium text-gray-700">
+                    Numéro NIF
+                  </dt>
+                  <dd className="mt-1 text-base text-gray-900">
+                    {formData.companyInfo?.numeroNIF}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-base font-medium text-gray-700">
+                    Siège Social
+                  </dt>
+                  <dd className="mt-1 text-base text-gray-900">
+                    {formData.companyInfo?.siegeSocial}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-base font-medium text-gray-700">
                     Activité Principale
                   </dt>
                   <dd className="mt-1 text-base text-gray-900">
                     {formData.companyInfo?.activitePrincipale}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-base font-medium text-gray-700">
+                    Capital Social
+                  </dt>
+                  <dd className="mt-1 text-base text-gray-900">
+                    {formData.companyInfo?.capitalSocial}
+                  </dd>
+                </div>
+              </dl>
+            </div>
+
+            <div className="border-t-2 border-gray-100 pt-6">
+              <h3 className="text-xl font-semibold text-gray-900">
+                Responsable(s)
+              </h3>
+              <div className="mt-4 space-y-6">
+                {formData.companyInfo?.responsables?.map((contact, index) => (
+                  <div key={index} className="bg-gray-50 p-4 rounded-lg">
+                    <h4 className="text-lg font-medium text-gray-900 mb-4">
+                      Contact {index + 1}
+                    </h4>
+                    <dl className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+                      <div>
+                        <dt className="text-base font-medium text-gray-700">
+                          Civilité
+                        </dt>
+                        <dd className="mt-1 text-base text-gray-900">
+                          {contact.civilite}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="text-base font-medium text-gray-700">
+                          Nom Complet
+                        </dt>
+                        <dd className="mt-1 text-base text-gray-900">
+                          {contact.nomComplet}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="text-base font-medium text-gray-700">
+                          Fonction
+                        </dt>
+                        <dd className="mt-1 text-base text-gray-900">
+                          {contact.fonction}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="text-base font-medium text-gray-700">
+                          Téléphone Principal
+                        </dt>
+                        <dd className="mt-1 text-base text-gray-900">
+                          {contact.phone1}
+                        </dd>
+                      </div>
+                      {contact.phone2 && (
+                        <div>
+                          <dt className="text-base font-medium text-gray-700">
+                            Téléphone Secondaire
+                          </dt>
+                          <dd className="mt-1 text-base text-gray-900">
+                            {contact.phone2}
+                          </dd>
+                        </div>
+                      )}
+                      <div>
+                        <dt className="text-base font-medium text-gray-700">
+                          Email
+                        </dt>
+                        <dd className="mt-1 text-base text-gray-900">
+                          {contact.email}
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="border-t-2 border-gray-100 pt-6">
+              <h3 className="text-xl font-semibold text-gray-900">
+                Coordonnées de la Société
+              </h3>
+              <dl className="mt-4 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
+                <div>
+                  <dt className="text-base font-medium text-gray-700">
+                    Téléphone
+                  </dt>
+                  <dd className="mt-1 text-base text-gray-900">
+                    {formData.companyInfo?.telephone}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-base font-medium text-gray-700">Email</dt>
+                  <dd className="mt-1 text-base text-gray-900">
+                    {formData.companyInfo?.email}
                   </dd>
                 </div>
               </dl>
@@ -258,37 +379,54 @@ const Review: React.FC<ReviewProps> = ({
           </dl>
         </div>
 
-        {formData.bankingDetails && (
+        {formData.bankingDetails && formData.bankingDetails.length > 0 && (
           <div className="border-t-2 border-gray-100 pt-6">
             <h3 className="text-xl font-semibold text-gray-900">
               Informations Bancaires
             </h3>
-            <dl className="mt-4 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
-              <div>
-                <dt className="text-base font-medium text-gray-700">
-                  Nom de la Banque
-                </dt>
-                <dd className="mt-1 text-base text-gray-900">
-                  {formData.bankingDetails.bankName}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-base font-medium text-gray-700">
-                  Nom du Titulaire
-                </dt>
-                <dd className="mt-1 text-base text-gray-900">
-                  {formData.bankingDetails.accountHolderName}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-base font-medium text-gray-700">
-                  Numéro de Compte
-                </dt>
-                <dd className="mt-1 text-base text-gray-900">
-                  {formData.bankingDetails.accountNumber}
-                </dd>
-              </div>
-            </dl>
+            <div className="mt-4 space-y-6">
+              {formData.bankingDetails.map((account, index) => (
+                <div key={index} className="bg-gray-50 p-4 rounded-lg">
+                  <h4 className="text-lg font-medium text-gray-900 mb-4">
+                    Compte {index + 1}
+                  </h4>
+                  <dl className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+                    <div>
+                      <dt className="text-base font-medium text-gray-700">
+                        Nom de la Banque
+                      </dt>
+                      <dd className="mt-1 text-base text-gray-900">
+                        {account.bankName}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-base font-medium text-gray-700">
+                        Nom du Titulaire
+                      </dt>
+                      <dd className="mt-1 text-base text-gray-900">
+                        {account.accountHolderName}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-base font-medium text-gray-700">
+                        Numéro de Compte
+                      </dt>
+                      <dd className="mt-1 text-base text-gray-900">
+                        {account.accountNumber}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-base font-medium text-gray-700">
+                        Devise
+                      </dt>
+                      <dd className="mt-1 text-base text-gray-900">
+                        {account.accountCurrency}
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

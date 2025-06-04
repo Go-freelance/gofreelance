@@ -1,5 +1,16 @@
 export type EntityType = "SOCIETE" | "PARTICULIER" | "ADMINISTRATION";
 
+export type Civilite = "M" | "Mme" | "Mlle";
+
+export interface Contact {
+  civilite: Civilite;
+  nomComplet: string;
+  fonction: string;
+  phone1: string;
+  phone2?: string;
+  email: string;
+}
+
 export interface CompanyInfo {
   denominationSociale: string;
   numeroRCCM: string;
@@ -9,10 +20,9 @@ export interface CompanyInfo {
   siegeSocial: string;
   activitePrincipale: string;
   capitalSocial: string;
-  dirigeants: string;
-  dateCreation: string;
   telephone: string;
   email: string;
+  responsables: Contact[];
 }
 
 export interface IndividualInfo {

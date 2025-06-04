@@ -68,7 +68,59 @@ export interface AdministrationInfo {
   cadreJuridique: string;
 }
 
-export type ThirdPartySubmission = {
-  entityType: EntityType;
-  bankingDetails: BankingDetails[];
-} & Partial<CompanyInfo & IndividualInfo & AdministrationInfo>;
+export interface Contact {
+  civilite: string;
+  nomComplet: string;
+  fonction: string;
+  phone1: string;
+  phone2?: string;
+  email: string;
+}
+
+export interface ThirdPartySubmission {
+  entityType: "SOCIETE" | "PARTICULIER" | "ADMINISTRATION";
+  // Champs communs
+  telephone: string;
+  email: string;
+
+  // Champs spécifiques à la société
+  denominationSociale?: string;
+  numeroRCCM?: string;
+  formeJuridique?: string;
+  numeroIDNAT?: string;
+  numeroNIF?: string;
+  siegeSocial?: string;
+  activitePrincipale?: string;
+  capitalSocial?: string;
+  responsables?: Contact[];
+
+  // Champs spécifiques au particulier
+  nom?: string;
+  prenoms?: string;
+  dateNaissance?: string;
+  lieuNaissance?: string;
+  nationalite?: string;
+  typeDocument?: string;
+  numeroDocument?: string;
+  dateExpiration?: string;
+  adresse?: string;
+  profession?: string;
+  employeur?: string;
+
+  // Champs spécifiques à l'administration
+  nomOfficiel?: string;
+  categorieAdministrative?: string;
+  adresseInstitutionnelle?: string;
+  personneContact?: string;
+  fonctionContact?: string;
+  telephoneContact?: string;
+  emailContact?: string;
+  numeroIFU?: string;
+  compteBancaire?: string;
+  referenceInterne?: string;
+  acteDeclencheur?: string;
+  cadreJuridique?: string;
+
+  // Informations bancaires (optionnelles pour tous les types)
+  bankingDetails?: BankingDetails[];
+}

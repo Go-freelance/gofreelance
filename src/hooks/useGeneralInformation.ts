@@ -71,8 +71,9 @@ const useGeneralInformation = ({
     const administrationData = formData as Partial<AdministrationInfo>;
 
     switch (entityType) {
-      case "SOCIETE":
-        entitySpecificFieldsValid = !!(
+      case "SOCIETE": {
+        // Vérifier que tous les champs de base sont remplis
+        const baseFieldsValid = !!(
           companyData.denominationSociale?.trim() &&
           companyData.numeroRCCM?.trim() &&
           companyData.formeJuridique?.trim() &&
@@ -81,14 +82,25 @@ const useGeneralInformation = ({
           companyData.siegeSocial?.trim() &&
           companyData.activitePrincipale?.trim() &&
           companyData.capitalSocial?.trim() &&
-          companyData.dirigeants?.trim() &&
-          companyData.dateCreation?.trim() &&
           companyData.telephone?.trim() &&
           companyData.email?.trim()
         );
-        break;
 
-      case "PARTICULIER":
+        // Vérifier qu'il y a au moins un contact avec tous ses champs obligatoires
+        const hasValidContact = companyData.responsables?.some(
+          (contact) =>
+            contact.civilite?.trim() &&
+            contact.nomComplet?.trim() &&
+            contact.fonction?.trim() &&
+            contact.phone1?.trim() &&
+            contact.email?.trim()
+        );
+
+        entitySpecificFieldsValid = baseFieldsValid && !!hasValidContact;
+        break;
+      }
+
+      case "PARTICULIER": {
         entitySpecificFieldsValid = !!(
           individualData.nom?.trim() &&
           individualData.prenoms?.trim() &&
@@ -105,8 +117,9 @@ const useGeneralInformation = ({
           individualData.email?.trim()
         );
         break;
+      }
 
-      case "ADMINISTRATION":
+      case "ADMINISTRATION": {
         entitySpecificFieldsValid = !!(
           administrationData.nomOfficiel?.trim() &&
           administrationData.categorieAdministrative?.trim() &&
@@ -120,6 +133,7 @@ const useGeneralInformation = ({
           administrationData.cadreJuridique?.trim()
         );
         break;
+      }
     }
 
     return entitySpecificFieldsValid;

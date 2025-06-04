@@ -71,15 +71,47 @@ const useThirdPartyForm = (): UseThirdPartyFormReturn => {
       setIsSubmitting(true);
       setError(null);
 
+      // Vérification des contacts pour les sociétés
+      if (
+        formData.entityType === "SOCIETE" &&
+        (!formData.companyInfo?.responsables ||
+          formData.companyInfo.responsables.length === 0)
+      ) {
+        throw new Error(
+          "Veuillez ajouter au moins un responsable pour la société"
+        );
+      }
+
       // Préparation des données pour l'email
       let thirdPartyData: ThirdPartySubmission = {
         entityType: formData.entityType!,
         bankingDetails: formData.bankingDetails || [],
       };
+
       if (formData.entityType === "SOCIETE") {
+        // Vérification que tous les contacts ont les champs obligatoires remplis
+        if (!formData.companyInfo) {
+          throw new Error("Les informations de la société sont manquantes");
+        }
+
+        const invalidContacts = formData.companyInfo.responsables?.some(
+          (contact) =>
+            !contact.nomComplet ||
+            !contact.fonction ||
+            !contact.phone1 ||
+            !contact.email
+        );
+
+        if (invalidContacts) {
+          throw new Error(
+            "Veuillez remplir tous les champs obligatoires pour chaque responsable"
+          );
+        }
+
         thirdPartyData = {
           ...thirdPartyData,
           ...formData.companyInfo,
+          responsables: formData.companyInfo.responsables || [],
         };
       } else if (formData.entityType === "PARTICULIER") {
         thirdPartyData = {
