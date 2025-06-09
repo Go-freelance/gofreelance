@@ -45,7 +45,10 @@ const Review: React.FC<ReviewProps> = ({
                     Forme Juridique
                   </dt>
                   <dd className="mt-1 text-base text-gray-900">
-                    {formData.companyInfo?.formeJuridique}
+                    {formData.companyInfo?.formeJuridique === "Autre" &&
+                    formData.companyInfo?.autreFormeJuridique
+                      ? formData.companyInfo.autreFormeJuridique
+                      : formData.companyInfo?.formeJuridique}
                   </dd>
                 </div>
                 <div>

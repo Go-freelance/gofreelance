@@ -21,7 +21,12 @@ export class ThirdPartyTemplate {
           </tr>
           <tr>
             <td style="padding: 8px;"><strong>Forme juridique:</strong></td>
-            <td style="padding: 8px;">${thirdParty.formeJuridique}</td>
+            <td style="padding: 8px;">${
+              thirdParty.formeJuridique === "Autre" &&
+              thirdParty.autreFormeJuridique
+                ? thirdParty.autreFormeJuridique
+                : thirdParty.formeJuridique
+            }</td>
           </tr>
           <tr>
             <td style="padding: 8px;"><strong>Numéro IDNAT:</strong></td>

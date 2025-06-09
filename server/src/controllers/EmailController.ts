@@ -158,7 +158,6 @@ class EmailController {
   ): Promise<Response> {
     try {
       const thirdParty: ThirdPartySubmission = req.body;
-
       const emailService = EmailService.getInstance();
       const sent = await emailService.sendAdminNotificationNewThirdParty(
         thirdParty

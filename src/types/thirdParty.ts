@@ -2,6 +2,8 @@ export type EntityType = "SOCIETE" | "PARTICULIER" | "ADMINISTRATION";
 
 export type Civilite = "M" | "Mme" | "Mlle";
 
+export type FormeJuridique = "SARL" | "SA" | "SNC" | "SCS" | "SCA" | "Autre";
+
 export interface Contact {
   civilite: Civilite;
   nomComplet: string;
@@ -14,7 +16,8 @@ export interface Contact {
 export interface CompanyInfo {
   denominationSociale: string;
   numeroRCCM: string;
-  formeJuridique: string;
+  formeJuridique: FormeJuridique;
+  autreFormeJuridique?: string;
   numeroIDNAT: string;
   numeroNIF: string;
   siegeSocial: string;

@@ -29,6 +29,10 @@ const CompanyFields = ({ formData, handleChange }: CompanyFieldsProps) => {
     ]
   );
 
+  const [autreFormeJuridique, setAutreFormeJuridique] = useState<string>(
+    formData.autreFormeJuridique || ""
+  );
+
   const inputClasses =
     "mt-1 block w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-base text-gray-900 shadow-sm transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20";
   const labelClasses = "block text-base font-medium text-gray-700 mb-1";
@@ -81,6 +85,36 @@ const CompanyFields = ({ formData, handleChange }: CompanyFieldsProps) => {
     handleChange(customEvent as unknown as React.ChangeEvent<HTMLInputElement>);
   };
 
+  const handleFormeJuridiqueChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    handleChange(e);
+    if (e.target.value !== "Autre") {
+      setAutreFormeJuridique("");
+      const customEvent = {
+        target: {
+          name: "autreFormeJuridique",
+          value: "",
+        },
+      } as React.ChangeEvent<HTMLInputElement>;
+      handleChange(customEvent);
+    }
+  };
+
+  const handleAutreFormeJuridiqueChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = e.target.value;
+    setAutreFormeJuridique(value);
+    const customEvent = {
+      target: {
+        name: "autreFormeJuridique",
+        value: value,
+      },
+    } as React.ChangeEvent<HTMLInputElement>;
+    handleChange(customEvent);
+  };
+
   return (
     <div className="space-y-8">
       <div className={sectionClasses}>
@@ -115,7 +149,7 @@ const CompanyFields = ({ formData, handleChange }: CompanyFieldsProps) => {
             <select
               name="formeJuridique"
               value={formData.formeJuridique || ""}
-              onChange={handleChange}
+              onChange={handleFormeJuridiqueChange}
               className={selectClasses}
               required
             >
@@ -127,6 +161,18 @@ const CompanyFields = ({ formData, handleChange }: CompanyFieldsProps) => {
               <option value="SCA">SCA</option>
               <option value="Autre">Autre</option>
             </select>
+            {formData.formeJuridique === "Autre" && (
+              <div className="mt-2">
+                <input
+                  type="text"
+                  placeholder="Précisez la forme juridique"
+                  value={autreFormeJuridique}
+                  onChange={handleAutreFormeJuridiqueChange}
+                  className={inputClasses}
+                  required
+                />
+              </div>
+            )}
           </div>
 
           <div>

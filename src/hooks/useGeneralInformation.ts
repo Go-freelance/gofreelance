@@ -77,6 +77,9 @@ const useGeneralInformation = ({
           companyData.denominationSociale?.trim() &&
           companyData.numeroRCCM?.trim() &&
           companyData.formeJuridique?.trim() &&
+          (companyData.formeJuridique !== "Autre" ||
+            (companyData.formeJuridique === "Autre" &&
+              companyData.autreFormeJuridique?.trim())) &&
           companyData.numeroIDNAT?.trim() &&
           companyData.numeroNIF?.trim() &&
           companyData.siegeSocial?.trim() &&

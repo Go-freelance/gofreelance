@@ -87,6 +87,7 @@ export interface ThirdPartySubmission {
   denominationSociale?: string;
   numeroRCCM?: string;
   formeJuridique?: string;
+  autreFormeJuridique?: string;
   numeroIDNAT?: string;
   numeroNIF?: string;
   siegeSocial?: string;
