@@ -76,7 +76,7 @@ export const useAppointmentForm = ({
       // Si c'est le weekend, aucun créneau disponible
       setAvailableTimeSlots([]);
     }
-  }, [formData.date, formData.selectedTeamMember]);
+  }, [formData.date]);
 
   // Gérer la réinitialisation du time sélectionné
   useEffect(() => {

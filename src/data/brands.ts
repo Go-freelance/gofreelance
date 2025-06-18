@@ -1,13 +1,13 @@
 interface Brand {
-  id: string
-  name: string
-  description: string
-  url: string
-  backgroundColor?: string
-  color?: string,
-  accentColor: string
-  logo?: string
-  tags?: string[]
+  id: string;
+  name: string;
+  description: string;
+  url: string;
+  backgroundColor?: string;
+  color?: string;
+  accentColor: string;
+  logo?: string;
+  tags?: string[];
 }
 
 export const brands: Brand[] = [
@@ -73,11 +73,11 @@ export const brands: Brand[] = [
   },
   {
     id: "mbs",
-    name: "Modern Business School",
+    name: "Micro Business School",
     description: "Programme de formation pour les compétences professionnelles",
     url: "https://mbschool.site",
     accentColor: "#333333",
     logo: "/images/brands/mbs-logo.png",
     tags: ["Formation", "Business"],
   },
-]
+];
