@@ -25,6 +25,8 @@ export interface CompanyInfo {
   capitalSocial: string;
   telephone: string;
   email: string;
+  siteWeb?: string;
+  logo?: File;
   responsables: Contact[];
 }
 

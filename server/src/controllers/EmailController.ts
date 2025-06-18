@@ -2,6 +2,20 @@ import { Request, Response } from "express";
 import EmailService from "../services/EmailService";
 import { ThirdPartySubmission } from "../types/thirdParty";
 import { EmailData } from "../types/email";
+import multer from "multer";
+import path from "path";
+
+// Configuration de multer pour le stockage des fichiers
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage: storage });
 
 /**
  * Contrôleur pour gérer les fonctionnalités d'envoi d'emails
@@ -151,16 +165,26 @@ class EmailController {
   /**
    * Envoie une notification de nouveau tiers creer à l'admin
    */
-
   public async sendAdminEmailNewThird(
-    req: Request,
+    req: Request & { file?: Express.Multer.File },
     res: Response
   ): Promise<Response> {
     try {
-      const thirdParty: ThirdPartySubmission = req.body;
+      // Parser les données JSON
+      const thirdParty: ThirdPartySubmission = {
+        ...req.body,
+        bankingDetails: JSON.parse(req.body.bankingDetails),
+        responsables: req.body.responsables
+          ? JSON.parse(req.body.responsables)
+          : undefined,
+      };
+
+      const logoFile = req.file;
+
       const emailService = EmailService.getInstance();
       const sent = await emailService.sendAdminNotificationNewThirdParty(
-        thirdParty
+        thirdParty,
+        logoFile
       );
 
       if (!sent) {
@@ -219,10 +243,19 @@ export const sendAdminNotifictionNewContact = (
 };
 
 export const sendAdminNotificationNewThirdParty = (
-  req: Request,
+  req: Request & { file?: Express.Multer.File },
   res: Response
 ): void => {
-  emailController.sendAdminEmailNewThird(req, res);
+  upload.single("logo")(req, res, (err) => {
+    if (err) {
+      return res.status(400).json({
+        success: false,
+        message: "Erreur lors de l'upload du fichier",
+        error: err.message,
+      });
+    }
+    emailController.sendAdminEmailNewThird(req, res);
+  });
 };
 
 export default {

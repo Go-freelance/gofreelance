@@ -115,6 +115,23 @@ const CompanyFields = ({ formData, handleChange }: CompanyFieldsProps) => {
     handleChange(customEvent);
   };
 
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("logo", file);
+
+      const event = {
+        target: {
+          name: "logo",
+          value: file,
+        },
+      } as unknown as React.ChangeEvent<HTMLInputElement>;
+
+      handleChange(event);
+    }
+  };
+
   return (
     <div className="space-y-8">
       <div className={sectionClasses}>
@@ -257,6 +274,34 @@ const CompanyFields = ({ formData, handleChange }: CompanyFieldsProps) => {
               className={inputClasses}
               required
             />
+          </div>
+
+          <div>
+            <label className={labelClasses}>Site web</label>
+            <input
+              type="url"
+              name="siteWeb"
+              value={formData.siteWeb || ""}
+              onChange={handleChange}
+              placeholder="https://www.example.com"
+              className={inputClasses}
+            />
+          </div>
+
+          <div>
+            <label className={labelClasses}>Logo de l'entreprise</label>
+            <input
+              type="file"
+              name="logo"
+              accept="image/*"
+              onChange={handleLogoChange}
+              className={`${inputClasses} file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-dark`}
+            />
+            {formData.logo && (
+              <p className="mt-2 text-sm text-gray-500">
+                Fichier sélectionné : {(formData.logo as File).name}
+              </p>
+            )}
           </div>
         </div>
       </div>

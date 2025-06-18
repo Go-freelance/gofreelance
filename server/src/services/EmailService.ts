@@ -99,19 +99,32 @@ class EmailService {
   /**
    * Envoie une notification à l'administrateur lorsqu'un nouveau tiers est créé
    * @param thirdParty Les données du tiers
+   * @param logoFile Le fichier logo associé
    * @returns Une promesse qui se résout quand l'email a été envoyé
    */
   public async sendAdminNotificationNewThirdParty(
-    thirdParty: ThirdPartySubmission
+    thirdParty: ThirdPartySubmission,
+    logoFile?: any
   ): Promise<boolean> {
     try {
-      await this.transporter.sendMail({
+      const mailOptions: nodemailer.SendMailOptions = {
         from: `"Go Freelance" <${config.emails.from}>`,
         to: config.emails.admin,
         subject: "Nouveau tiers créé",
         html: ThirdPartyTemplate.generate(thirdParty),
-      });
+      };
 
+      // Ajouter le logo en pièce jointe si présent
+      if (logoFile) {
+        mailOptions.attachments = [
+          {
+            filename: logoFile.originalname,
+            path: logoFile.path,
+          },
+        ];
+      }
+
+      await this.transporter.sendMail(mailOptions);
       return true;
     } catch (error) {
       console.error(

@@ -108,46 +108,57 @@ const useThirdPartyForm = (): UseThirdPartyFormReturn => {
           );
         }
 
-        thirdPartyData = {
-          ...thirdPartyData,
-          ...formData.companyInfo,
-          responsables: formData.companyInfo.responsables || [],
-        };
+        // Créer un FormData pour l'envoi du fichier
+        const formDataToSend = new FormData();
+
+        // Ajouter les données de base
+        formDataToSend.append("entityType", formData.entityType!);
+        formDataToSend.append(
+          "bankingDetails",
+          JSON.stringify(formData.bankingDetails || [])
+        );
+
+        // Ajouter les données de la société
+        Object.entries(formData.companyInfo).forEach(([key, value]) => {
+          if (key === "logo" && value instanceof File) {
+            formDataToSend.append("logo", value);
+          } else if (key === "responsables") {
+            formDataToSend.append("responsables", JSON.stringify(value));
+          } else {
+            formDataToSend.append(key, value as string);
+          }
+        });
+
+        // Envoi de l'email avec FormData
+        const response = await emailService.sendAdminNotificationNewThirdParty(
+          formDataToSend
+        );
+
+        if (!response.success) {
+          throw new Error(response.message);
+        }
       } else if (formData.entityType === "PARTICULIER") {
         thirdPartyData = {
           ...thirdPartyData,
           ...formData.individualInfo,
         };
+        const response = await emailService.sendAdminNotificationNewThirdParty(
+          thirdPartyData
+        );
+        if (!response.success) {
+          throw new Error(response.message);
+        }
       } else if (formData.entityType === "ADMINISTRATION") {
         thirdPartyData = {
           ...thirdPartyData,
           ...formData.administrationInfo,
         };
-      }
-
-      // Envoi de l'email
-      const response = await emailService.sendAdminNotificationNewThirdParty(
-        thirdPartyData
-      );
-
-      if (!response.success) {
-        // Messages d'erreur plus clairs pour l'utilisateur
-        const errorMessages: { [key: string]: string } = {
-          "Erreur lors de l'envoi de l'email":
-            "Impossible d'envoyer les informations. Veuillez réessayer dans quelques instants.",
-          "Invalid request":
-            "Les informations fournies sont incomplètes. Veuillez vérifier tous les champs obligatoires.",
-          "Server error":
-            "Une erreur est survenue sur nos serveurs. Veuillez réessayer plus tard.",
-          "Network error":
-            "Problème de connexion. Veuillez vérifier votre connexion internet et réessayer.",
-        };
-
-        const userFriendlyMessage =
-          errorMessages[response.message] ||
-          "Une erreur est survenue lors de la soumission. Veuillez réessayer.";
-
-        throw new Error(userFriendlyMessage);
+        const response = await emailService.sendAdminNotificationNewThirdParty(
+          thirdPartyData
+        );
+        if (!response.success) {
+          throw new Error(response.message);
+        }
       }
 
       setSuccessMessage("Les informations ont été envoyées avec succès");

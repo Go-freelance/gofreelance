@@ -49,6 +49,9 @@ export class ThirdPartyTemplate {
             <td style="padding: 8px;">${thirdParty.capitalSocial}</td>
           </tr>
           <tr>
+            <td style="padding: 8px;"><strong>Site web:</strong></td>
+            <td style="padding: 8px;">${thirdParty.siteWeb || "Non spécifié"}</td>
+          <tr>
             <td style="padding: 8px;"><strong>Téléphone:</strong></td>
             <td style="padding: 8px;">${thirdParty.telephone}</td>
           </tr>

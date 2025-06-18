@@ -32,6 +32,7 @@ export interface CompanyInfo {
   capitalSocial: string;
   dirigeants: string;
   dateCreation: string;
+  siteWeb?: string;
   telephone: string;
   email: string;
 }
@@ -93,6 +94,7 @@ export interface ThirdPartySubmission {
   siegeSocial?: string;
   activitePrincipale?: string;
   capitalSocial?: string;
+  siteWeb?: string;
   responsables?: Contact[];
 
   // Champs spécifiques au particulier

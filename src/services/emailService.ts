@@ -39,17 +39,20 @@ export class EmailService {
    * @returns Une promesse qui se résout avec la réponse de l'API
    */
   public async sendAdminNotificationNewThirdParty(
-    thirdParty: ThirdPartySubmission
+    thirdParty: ThirdPartySubmission | FormData
   ): Promise<EmailResponse> {
     try {
+      const isFormData = thirdParty instanceof FormData;
       const response = await fetch(
         `${this.apiUrl}/emails/admin-notification-third-party`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(thirdParty),
+          headers: isFormData
+            ? {}
+            : {
+                "Content-Type": "application/json",
+              },
+          body: isFormData ? thirdParty : JSON.stringify(thirdParty),
         }
       );
 
