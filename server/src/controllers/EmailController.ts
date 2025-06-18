@@ -17,6 +17,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+// Type pour la requête avec fichier uploadé
+interface RequestWithFile extends Request {
+  file?: Express.Multer.File;
+}
+
 /**
  * Contrôleur pour gérer les fonctionnalités d'envoi d'emails
  */
@@ -166,7 +171,7 @@ class EmailController {
    * Envoie une notification de nouveau tiers creer à l'admin
    */
   public async sendAdminEmailNewThird(
-    req: Request & { file?: Express.Multer.File },
+    req: RequestWithFile,
     res: Response
   ): Promise<Response> {
     try {
@@ -242,19 +247,31 @@ export const sendAdminNotifictionNewContact = (
   emailController.sendAdminEmailNewContact(req, res);
 };
 
-export const sendAdminNotificationNewThirdParty = (
-  req: Request & { file?: Express.Multer.File },
-  res: Response
+// Middleware pour gérer l'upload de fichier
+const handleFileUpload = (
+  req: Request,
+  res: Response,
+  next: () => void
 ): void => {
   upload.single("logo")(req, res, (err) => {
     if (err) {
-      return res.status(400).json({
+      res.status(400).json({
         success: false,
         message: "Erreur lors de l'upload du fichier",
         error: err.message,
       });
+      return;
     }
-    emailController.sendAdminEmailNewThird(req, res);
+    next();
+  });
+};
+
+export const sendAdminNotificationNewThirdParty = (
+  req: Request,
+  res: Response
+): void => {
+  handleFileUpload(req, res, () => {
+    emailController.sendAdminEmailNewThird(req as RequestWithFile, res);
   });
 };
 
