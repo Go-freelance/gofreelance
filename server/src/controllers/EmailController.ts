@@ -2,20 +2,8 @@ import { Request, Response } from "express";
 import EmailService from "../services/EmailService";
 import { ThirdPartySubmission } from "../types/thirdParty";
 import { EmailData } from "../types/email";
-import multer from "multer";
-import path from "path";
-
-// Configuration de multer pour le stockage des fichiers
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage: storage });
+import { handleFileUpload } from "../middleware/fileUpload";
+import fs from "fs";
 
 // Type pour la requête avec fichier uploadé
 interface RequestWithFile extends Request {
@@ -192,6 +180,18 @@ class EmailController {
         logoFile
       );
 
+      // Supprimer le fichier uploadé après l'envoi de l'email
+      if (logoFile && logoFile.path) {
+        fs.unlink(logoFile.path, (err) => {
+          if (err) {
+            console.error(
+              "Erreur lors de la suppression du fichier logo:",
+              err
+            );
+          }
+        });
+      }
+
       if (!sent) {
         return res.status(500).json({
           success: false,
@@ -245,25 +245,6 @@ export const sendAdminNotifictionNewContact = (
   res: Response
 ): void => {
   emailController.sendAdminEmailNewContact(req, res);
-};
-
-// Middleware pour gérer l'upload de fichier
-const handleFileUpload = (
-  req: Request,
-  res: Response,
-  next: () => void
-): void => {
-  upload.single("logo")(req, res, (err) => {
-    if (err) {
-      res.status(400).json({
-        success: false,
-        message: "Erreur lors de l'upload du fichier",
-        error: err.message,
-      });
-      return;
-    }
-    next();
-  });
 };
 
 export const sendAdminNotificationNewThirdParty = (
