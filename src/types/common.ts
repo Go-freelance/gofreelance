@@ -9,10 +9,14 @@ export interface ServiceCardProps {
 }
 
 export interface WorkCardProps {
+  id: number;
   image: string;
   title: string;
   client: string;
-  tags: string[];
+  tags?: string[];
+  category?: string;
+  description?: string;
+  year?: string;
 }
 
 export interface KeyFigureProps {
