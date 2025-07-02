@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { Request, Response } from "express";
 import * as EmailController from "../controllers/EmailController";
-import { sendAdminNotificationNewThirdParty } from "../controllers/EmailController";
+
 
 const router = Router();
 
@@ -11,7 +11,7 @@ const router = Router();
  * @access Public
  */
 router.post("/admin-notification", (req: Request, res: Response) => {
-  EmailController.sendAdminNotification(req, res);
+  EmailController.default.sendAdminNotification(req, res);
 });
 
 /**
@@ -21,7 +21,7 @@ router.post("/admin-notification", (req: Request, res: Response) => {
  */
 
 router.post("/admin-notification-contact", (req: Request, res: Response) => {
-  EmailController.sendAdminNotifictionNewContact(req, res);
+  EmailController.default.sendAdminNotificationNewContact(req, res);
 });
 
 /**
@@ -30,12 +30,20 @@ router.post("/admin-notification-contact", (req: Request, res: Response) => {
  * @access Public
  */
 router.post("/client-confirmation", (req: Request, res: Response) => {
-  EmailController.sendClientConfirmation(req, res);
+  EmailController.default.sendClientConfirmation(req, res);
 });
+
+/**
+ * @route POST /api/emails/admin-notification-new-third-party
+ * @desc Envoyer une notification à l'administrateur pour un nouveau tiers
+ * @access Public
+ */
 
 router.post(
   "/admin-notification-third-party",
-  sendAdminNotificationNewThirdParty
+  (req: Request, res: Response) => {
+    EmailController.default.sendAdminNotificationNewThirdParty(req, res);
+  }
 );
 
 export default router;

@@ -23,6 +23,14 @@ export default {
       pass: process.env.SMTP_PASSWORD || "",
     },
   },
+ 
+  // Google Sheets API
+  credentials: {
+    client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL || undefined,
+    private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY?.replace(/\\n/g, "\n") || undefined,
+  },
+
+  spreadsheetId: process.env.GOOGLE_SHEETS_SPREADSHEET_ID || "",
 
   // Emails
   emails: {
