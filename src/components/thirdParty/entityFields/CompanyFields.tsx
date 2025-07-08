@@ -289,7 +289,9 @@ const CompanyFields = ({ formData, handleChange }: CompanyFieldsProps) => {
           </div>
 
           <div>
-            <label className={labelClasses}>Logo de l'entreprise</label>
+            <label className={labelClasses}>
+              Logo de l'entreprise(facultatif)
+            </label>
             <input
               type="file"
               name="logo"

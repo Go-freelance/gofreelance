@@ -1,7 +1,7 @@
 import { Circle } from "lucide-react";
 import { useState } from "react";
 import { AppointmentForm } from "./AppointmentForm";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const NavSeparator = () => <Circle className="w-1.5 h-1.5 text-neutral-300" />;
 
@@ -15,6 +15,8 @@ export const Navigation: React.FC<NavigationProps> = ({
   setIsMenuOpen,
 }) => {
   const [showAppointmentForm, setShowAppointmentForm] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleShowForm = () => {
     setShowAppointmentForm(true);
@@ -23,6 +25,25 @@ export const Navigation: React.FC<NavigationProps> = ({
 
   const handleCloseForm = () => {
     setShowAppointmentForm(false);
+  };
+
+  const handleAnchorClick = (anchor: string) => {
+    setIsMenuOpen(false);
+
+    if (location.pathname === "/") {
+      const element = document.getElementById(anchor);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      navigate("/");
+      setTimeout(() => {
+        const element = document.getElementById(anchor);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
   };
 
   return (
@@ -47,26 +68,26 @@ export const Navigation: React.FC<NavigationProps> = ({
                 Accueil
               </Link>
               <NavSeparator />
-              <a
-                href="#about"
+              <button
+                onClick={() => handleAnchorClick("about")}
                 className="text-secondary hover:text-primary transition font-medium"
               >
                 À propos
-              </a>
+              </button>
               <NavSeparator />
-              <a
-                href="#services"
+              <button
+                onClick={() => handleAnchorClick("services")}
                 className="text-secondary hover:text-primary transition font-medium"
               >
                 Services
-              </a>
+              </button>
               <NavSeparator />
-              <a
-                href="#work"
+              <button
+                onClick={() => handleAnchorClick("work")}
                 className="text-secondary hover:text-primary transition font-medium"
               >
                 Réalisations
-              </a>
+              </button>
               <NavSeparator />
               <Link
                 to="/contact"
@@ -107,36 +128,39 @@ export const Navigation: React.FC<NavigationProps> = ({
               <Link
                 to="/"
                 className="text-secondary hover:text-primary transition font-medium py-2"
+                onClick={() => setIsMenuOpen(false)}
               >
                 Accueil
               </Link>
-              <a
-                href="#about"
-                className="block text-secondary hover:text-primary transition font-medium py-2"
+              <button
+                onClick={() => handleAnchorClick("about")}
+                className="block text-left text-secondary hover:text-primary transition font-medium py-2"
               >
                 À propos
-              </a>
-              <a
-                href="#services"
-                className="block text-secondary hover:text-primary transition font-medium py-2"
+              </button>
+              <button
+                onClick={() => handleAnchorClick("services")}
+                className="block text-left text-secondary hover:text-primary transition font-medium py-2"
               >
                 Services
-              </a>
-              <a
-                href="#work"
-                className="block text-secondary hover:text-primary transition font-medium py-2"
+              </button>
+              <button
+                onClick={() => handleAnchorClick("work")}
+                className="block text-left text-secondary hover:text-primary transition font-medium py-2"
               >
                 Réalisations
-              </a>
+              </button>
               <Link
                 to="/contact"
                 className="block text-secondary hover:text-primary transition font-medium py-2"
+                onClick={() => setIsMenuOpen(false)}
               >
                 Contact
               </Link>
               <Link
                 to="/third-party"
                 className="block text-secondary hover:text-primary transition font-medium py-2"
+                onClick={() => setIsMenuOpen(false)}
               >
                 Gestion des Tiers
               </Link>
