@@ -279,7 +279,7 @@ const CompanyFields = ({ formData, handleChange }: CompanyFieldsProps) => {
           <div>
             <label className={labelClasses}>Site web</label>
             <input
-              type="url"
+              type="string"
               name="siteWeb"
               value={formData.siteWeb || ""}
               onChange={handleChange}
