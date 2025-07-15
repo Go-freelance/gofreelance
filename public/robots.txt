@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://gofreelancerdc.com/sitemap.xml
+
+# Bloquer les dossiers de développement
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /*.js$
+Disallow: /*.ts$
+Disallow: /*.tsx$
