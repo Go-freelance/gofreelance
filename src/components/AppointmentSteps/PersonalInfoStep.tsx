@@ -1,6 +1,7 @@
 import React from "react";
 import { User, Mail, Phone, MessageSquare } from "lucide-react";
 import type { FormData } from "../../hooks/useAppointmentForm";
+import { services } from "../../data/services";
 
 interface PersonalInfoStepProps {
   formData: FormData;
@@ -90,10 +91,13 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
             className="w-full bg-neutral-50 border border-neutral-200 rounded-lg py-2 sm:py-3 px-3 sm:px-4 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary appearance-none"
           >
             <option value="">Sélectionnez un service</option>
-            <option value="Stratégie & Conseil">Stratégie & Conseil</option>
-            <option value="Growth Marketing">Growth Marketing</option>
-            <option value="Web & E-commerce">Web & E-commerce</option>
+            {services.map((service, index) => (
+              <option key={index} value={service.title}>
+                {service.title}
+              </option>
+            ))}
             <option value="Solution Enterprise">Solution Enterprise</option>
+            <option value="Autre">Autre</option>
           </select>
           <div className="absolute inset-y-0 right-0 pr-2 sm:pr-3 flex items-center pointer-events-none">
             <svg
