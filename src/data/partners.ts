@@ -59,6 +59,12 @@ export const partners: Partner[] = [
     id: 11,
     image: "./images/super-wewa.png",
     name: "Super Wewa"
+  },
+
+  {
+    id: 12,
+    image: "./images/avada-logo.png",
+    name: "AvadaPay"
   }
 
 ];

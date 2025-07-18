@@ -3,8 +3,6 @@ export interface ServiceCardProps {
   title: string;
   description: string;
   features: string[];
-  price: string;
-  duration: string;
   popular?: boolean;
 }
 

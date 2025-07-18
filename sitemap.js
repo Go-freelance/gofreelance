@@ -3,7 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 // Configuration du site
-const SITE_URL = "https://gofreelancerdc.com"; // Remplace par ton URL de production
+const SITE_URL = "https://gofreelancerdc.com";
 const CURRENT_DATE = new Date().toISOString().split("T")[0];
 
 const routes = [

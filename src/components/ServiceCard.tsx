@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { CheckCircle, Clock, ArrowRight } from "lucide-react";
-import { ServiceCardProps } from "../types/common";
+import type React from "react";
+import { useState } from "react";
+import { CheckCircle, ArrowRight, Eye } from "lucide-react";
+import { Link } from "react-router-dom";
+import type { ServiceCardProps } from "../types/common";
 import { AppointmentForm } from "./AppointmentForm";
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({
@@ -8,25 +10,38 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   title,
   description,
   features,
-  price,
-  duration,
   popular = false,
 }) => {
   const [showAppointment, setShowAppointment] = useState(false);
 
   const openAppointmentForm = () => {
     setShowAppointment(true);
+    document.body.style.overflow = "hidden";
   };
 
   const closeAppointmentForm = () => {
     setShowAppointment(false);
+    document.body.style.overflow = "";
+  };
+
+  // Generate URL slug from title
+  const getServiceSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/&/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "");
   };
 
   return (
     <>
       <div
-        className={`bg-white p-8 rounded-2xl transition relative ${
-          popular ? "shadow-xl scale-105" : "shadow-sm hover:shadow-lg"
+        className={`bg-white p-6 rounded-2xl transition relative h-full flex flex-col ${
+          popular
+            ? "shadow-xl scale-105 border-2 border-primary/20"
+            : "shadow-sm hover:shadow-lg"
         }`}
       >
         {popular && (
@@ -34,45 +49,47 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
             Plus populaire
           </div>
         )}
-        <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mb-6">
+
+        <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mb-4">
           {icon}
         </div>
-        <h3 className="text-xl font-bold mb-3 text-secondary">{title}</h3>
-        <p className="text-text mb-6">{description}</p>
 
-        <div className="mb-6">
-          <div className="flex items-baseline gap-1">
-            <span className="text-sm text-text">À partir de</span>
-            <span className="text-4xl font-bold text-secondary">{price}$</span>
-            <span className="text-sm text-text">/mois</span>
-          </div>
-          <div className="flex items-center gap-2 mt-2 text-sm text-text">
-            <Clock className="w-4 h-4" />
-            <span>{duration}</span>
-          </div>
-        </div>
+        <h3 className="text-lg font-bold mb-3 text-secondary">{title}</h3>
+        <p className="text-text mb-4 text-sm leading-relaxed">{description}</p>
 
-        <ul className="space-y-3 mb-8">
+        <ul className="space-y-2 mb-6 flex-grow">
           {features.map((feature, index) => (
-            <li key={index} className="flex items-center gap-2 text-text">
-              <CheckCircle className="w-5 h-5 text-primary" />
-              {feature}
+            <li
+              key={index}
+              className="flex items-start gap-2 text-text text-sm"
+            >
+              <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+              <span>{feature}</span>
             </li>
           ))}
         </ul>
 
-        <button
-          onClick={openAppointmentForm}
-          className={`w-full ${
-            popular ? "bg-primary text-white" : "bg-neutral-100 text-secondary"
-          } px-6 py-3 rounded-full hover:bg-primary hover:text-white transition font-medium flex items-center justify-center gap-2`}
-        >
-          Commander maintenant
-          <ArrowRight className="w-5 h-5" />
-        </button>
+        <div className="mt-auto space-y-3">
+          <Link
+            to={`/services/${getServiceSlug(title)}`}
+            className="w-full bg-neutral-100 text-secondary px-4 py-2.5 rounded-full hover:bg-neutral-200 transition font-medium flex items-center justify-center gap-2 text-sm"
+          >
+            <Eye className="w-4 h-4" />
+            En savoir plus
+          </Link>
+
+          <button
+            onClick={openAppointmentForm}
+            className={`w-full ${
+              popular ? "bg-primary text-white" : "bg-primary text-white"
+            } px-4 py-2.5 rounded-full hover:bg-primary-dark transition font-medium flex items-center justify-center gap-2 text-sm`}
+          >
+            Demander un devis
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
-      {/* Appointment Modal */}
       {showAppointment && (
         <AppointmentForm serviceTitle={title} onClose={closeAppointmentForm} />
       )}

@@ -1,15 +1,9 @@
-import React from "react";
-import {
-  Target,
-  Rocket,
-  Layout,
-  Gem,
-  CheckCircle,
-  ArrowRight,
-} from "lucide-react";
+import type React from "react";
+import { Gem, CheckCircle, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { ServiceCard } from "./ServiceCard";
 import { AppointmentForm } from "./AppointmentForm";
+import { services } from "../data/services";
 
 export const Services: React.FC = () => {
   const [showAppointmentForm, setShowAppointmentForm] = useState(false);
@@ -21,6 +15,7 @@ export const Services: React.FC = () => {
   const CloseAppointmentForm = () => {
     setShowAppointmentForm(false);
   };
+
   return (
     <section
       id="services"
@@ -31,59 +26,28 @@ export const Services: React.FC = () => {
           <h2 className="text-3xl sm:text-4xl font-bold mb-4 gradient-text">
             Nos Services
           </h2>
-          <p className="text-lg sm:text-xl text-text max-w-2xl mx-auto">
-            Solutions sur mesure pour votre succès digital
+          <p className="text-lg sm:text-xl text-text max-w-3xl mx-auto">
+            Des solutions digitales complètes pour transformer votre business et
+            accélérer votre croissance
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          <ServiceCard
-            icon={<Target className="w-6 h-6" />}
-            title="Stratégie & Conseil"
-            description="Définissez votre vision digitale et atteignez vos objectifs avec un plan d'action précis."
-            features={[
-              "Audit digital complet",
-              "Analyse concurrentielle",
-              "Plan stratégique sur 12 mois",
-              "KPIs et tableaux de bord",
-              "4 sessions de consulting",
-            ]}
-            price="2 500"
-            duration="2-3 semaines"
-          />
-          <ServiceCard
-            icon={<Rocket className="w-6 h-6" />}
-            title="Growth Marketing"
-            description="Boostez votre acquisition et maximisez votre ROI avec nos stratégies data-driven."
-            features={[
-              "Stratégie d'acquisition",
-              "Setup des campagnes",
-              "Optimisation continue",
-              "Reporting hebdomadaire",
-              "Support dédié 7j/7",
-            ]}
-            price="1 500"
-            duration="En continu"
-            popular={true}
-          />
-          <ServiceCard
-            icon={<Layout className="w-6 h-6" />}
-            title="Web & E-commerce"
-            description="Créez une présence en ligne impactante avec un site web optimisé pour la conversion."
-            features={[
-              "Design sur mesure",
-              "Développement full-stack",
-              "Optimisation SEO",
-              "Analytics avancés",
-              "Maintenance 6 mois",
-            ]}
-            price="5 000"
-            duration="6-8 semaines"
-          />
+        {/* Services Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 mb-16">
+          {services.map((service, index) => (
+            <ServiceCard
+              key={index}
+              icon={service.icon}
+              title={service.title}
+              description={service.description}
+              features={service.features}
+              popular={service.popular}
+            />
+          ))}
         </div>
 
         {/* Enterprise Section */}
-        <div className="mt-16 sm:mt-20 bg-white rounded-2xl p-6 sm:p-8 shadow-lg">
+        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div>
               <div className="flex items-center gap-3 mb-4">
@@ -117,7 +81,7 @@ export const Services: React.FC = () => {
               </ul>
             </div>
             <div className="text-center md:text-left">
-              <p className="text-text mb-4">À partir de</p>
+              <p className="text-text mb-4">Tarification</p>
               <p className="text-3xl sm:text-4xl font-bold text-secondary mb-6">
                 Sur devis
               </p>
@@ -132,6 +96,7 @@ export const Services: React.FC = () => {
           </div>
         </div>
       </div>
+
       {showAppointmentForm && (
         <AppointmentForm onClose={CloseAppointmentForm} />
       )}
