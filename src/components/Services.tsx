@@ -1,19 +1,14 @@
 import type React from "react";
 import { Gem, CheckCircle, ArrowRight } from "lucide-react";
-import { useState } from "react";
 import { ServiceCard } from "./ServiceCard";
-import { AppointmentForm } from "./AppointmentForm";
 import { services } from "../data/services";
+import { useAppointment } from "../contexts/AppointmentContext";
 
 export const Services: React.FC = () => {
-  const [showAppointmentForm, setShowAppointmentForm] = useState(false);
+  const { openAppointment } = useAppointment();
 
-  const OpenAppointmentForm = () => {
-    setShowAppointmentForm(true);
-  };
-
-  const CloseAppointmentForm = () => {
-    setShowAppointmentForm(false);
+  const handleOpenAppointment = () => {
+    openAppointment("Solution Enterprise");
   };
 
   return (
@@ -87,7 +82,7 @@ export const Services: React.FC = () => {
               </p>
               <button
                 className="bg-secondary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full hover:bg-secondary-dark transition flex items-center gap-2 w-full sm:w-auto justify-center"
-                onClick={OpenAppointmentForm}
+                onClick={handleOpenAppointment}
               >
                 Demander un devis
                 <ArrowRight className="w-5 h-5" />
@@ -96,10 +91,6 @@ export const Services: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {showAppointmentForm && (
-        <AppointmentForm onClose={CloseAppointmentForm} />
-      )}
     </section>
   );
 };

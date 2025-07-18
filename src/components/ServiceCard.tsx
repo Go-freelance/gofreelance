@@ -1,9 +1,8 @@
 import type React from "react";
-import { useState } from "react";
 import { CheckCircle, ArrowRight, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { ServiceCardProps } from "../types/common";
-import { AppointmentForm } from "./AppointmentForm";
+import { useAppointment } from "../contexts/AppointmentContext";
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({
   icon,
@@ -12,16 +11,10 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   features,
   popular = false,
 }) => {
-  const [showAppointment, setShowAppointment] = useState(false);
+  const { openAppointment } = useAppointment();
 
-  const openAppointmentForm = () => {
-    setShowAppointment(true);
-    document.body.style.overflow = "hidden";
-  };
-
-  const closeAppointmentForm = () => {
-    setShowAppointment(false);
-    document.body.style.overflow = "";
+  const handleOpenAppointment = () => {
+    openAppointment(title);
   };
 
   // Generate URL slug from title
@@ -79,7 +72,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
           </Link>
 
           <button
-            onClick={openAppointmentForm}
+            onClick={handleOpenAppointment}
             className={`w-full ${
               popular ? "bg-primary text-white" : "bg-primary text-white"
             } px-4 py-2.5 rounded-full hover:bg-primary-dark transition font-medium flex items-center justify-center gap-2 text-sm`}
@@ -89,10 +82,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
           </button>
         </div>
       </div>
-
-      {showAppointment && (
-        <AppointmentForm serviceTitle={title} onClose={closeAppointmentForm} />
-      )}
     </>
   );
 };

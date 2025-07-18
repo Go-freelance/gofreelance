@@ -1,16 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { ArrowRight } from "lucide-react";
-import { AppointmentForm } from "./AppointmentForm";
+import { useAppointment } from "../contexts/AppointmentContext";
 
 export const CallToAction: React.FC = () => {
-  const [showAppointmentForm, setShowAppointmentForm] = useState(false);
+  const { openAppointment } = useAppointment();
 
-  const OpenAppointmentForm = () => {
-    setShowAppointmentForm(true);
-  };
-
-  const CloseAppointmentForm = () => {
-    setShowAppointmentForm(false);
+  const handleOpenAppointment = () => {
+    openAppointment();
   };
 
   return (
@@ -25,15 +21,12 @@ export const CallToAction: React.FC = () => {
         </p>
         <button
           className="bg-white text-primary px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg hover:bg-neutral-100 transition flex items-center gap-2 mx-auto font-medium"
-          onClick={OpenAppointmentForm}
+          onClick={handleOpenAppointment}
         >
           Démarrer votre projet
           <ArrowRight className="w-5 h-5" />
         </button>
       </div>
-      {showAppointmentForm && (
-        <AppointmentForm onClose={CloseAppointmentForm} />
-      )}
     </section>
   );
 };
