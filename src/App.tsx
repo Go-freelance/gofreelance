@@ -12,7 +12,16 @@ import { Footer } from "./components/Footer";
 import { About } from "./components/About";
 import { WhyUs } from "./components/WhyUs";
 import { ContactPage } from "./components/ContactPage";
-import { AutomatisationPage, CampagneCrossCanalPage } from "./pages/services";
+import {
+  AutomatisationPage,
+  CampagneCrossCanalPage,
+  CampagnePublicitairePage,
+  DeveloppementWebMobilePage,
+  IntegrationIAPage,
+  SolutionEnterprisePage,
+  TransformationDigitalePage,
+  WordPressElementorPage,
+} from "./pages/services";
 import ThirdPartyManagement from "./pages/ThirdPartyManagement";
 import { AppointmentProvider } from "./contexts/AppointmentContext";
 
@@ -28,7 +37,6 @@ function HomePage() {
       <Work />
       <Brands />
       <CallToAction />
-      <Footer />
     </>
   );
 }
@@ -50,7 +58,32 @@ function App() {
           path="/services/campagne-cross-canal"
           element={<CampagneCrossCanalPage />}
         />
+        <Route
+          path="/services/campagne-publicitaire"
+          element={<CampagnePublicitairePage />}
+        />
+        <Route
+          path="/services/developpement-web-et-mobile"
+          element={<DeveloppementWebMobilePage />}
+        />
+        <Route
+          path="/services/integration-ia"
+          element={<IntegrationIAPage />}
+        />
+        <Route
+          path="/services/solution-enterprise"
+          element={<SolutionEnterprisePage />}
+        />
+        <Route
+          path="/services/transformation-digitale"
+          element={<TransformationDigitalePage />}
+        />
+        <Route
+          path="/services/developpement-wordpress-elementor"
+          element={<WordPressElementorPage />}
+        />
       </Routes>
+      <Footer />
     </AppointmentProvider>
   );
 }

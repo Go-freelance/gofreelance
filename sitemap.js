@@ -25,6 +25,54 @@ const routes = [
     changefreq: "monthly",
     lastmod: CURRENT_DATE,
   },
+  {
+    path: "/services/automatisation",
+    priority: 0.6,
+    changefreq: "monthly",
+    lastmod: CURRENT_DATE,
+  },
+  {
+    path: "/services/campagne-cross-canal",
+    priority: 0.6,
+    changefreq: "monthly",
+    lastmod: CURRENT_DATE,
+  },
+  {
+    path: "/services/campagne-publicitaire",
+    priority: 0.6,
+    changefreq: "monthly",
+    lastmod: CURRENT_DATE,
+  },
+  {
+    path: "/services/developpement-web-et-mobile",
+    priority: 0.6,
+    changefreq: "monthly",
+    lastmod: CURRENT_DATE,
+  },
+  {
+    path: "/services/integration-ia",
+    priority: 0.6,
+    changefreq: "monthly",
+    lastmod: CURRENT_DATE,
+  },
+  {
+    path: "/services/solution-enterprise",
+    priority: 0.6,
+    changefreq: "monthly",
+    lastmod: CURRENT_DATE,
+  },
+  {
+    path: "/services/transformation-digitale",
+    priority: 0.6,
+    changefreq: "monthly",
+    lastmod: CURRENT_DATE,
+  },
+  {
+    path: "/services/developpement-wordpress-elementor",
+    priority: 0.6,
+    changefreq: "monthly",
+    lastmod: CURRENT_DATE,
+  },
 ];
 
 // Fonction pour générer le XML du sitemap

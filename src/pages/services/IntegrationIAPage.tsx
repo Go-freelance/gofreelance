@@ -1,66 +1,62 @@
 import {
-  Zap,
+  Bot,
   CheckCircle,
   ArrowRight,
   Clock,
-  Bot,
+  Brain,
+  Zap,
   BarChart,
-  Workflow,
+  Shield,
 } from "lucide-react";
 import { useAppointment } from "../../contexts/AppointmentContext";
 
-export default function AutomatisationPage() {
+export default function IntegrationIAPage() {
   const { openAppointment } = useAppointment();
 
   const handleOpenAppointment = () => {
-    openAppointment("Automatisation");
-  };
-
-  const handleOpenDemo = () => {
-    openAppointment("Automatisation - Démo gratuite");
+    openAppointment("Intégration IA");
   };
 
   const processSteps = [
     {
       step: 1,
-      title: "Audit des processus",
-      description:
-        "Analyse de vos workflows actuels et identification des opportunités",
+      title: "Analyse des besoins",
+      description: "Identification des cas d'usage et opportunités IA",
       duration: "1 semaine",
-      icon: <BarChart className="w-6 h-6" />,
+      icon: <Brain className="w-6 h-6" />,
     },
     {
       step: 2,
-      title: "Conception des workflows",
-      description: "Design des processus automatisés personnalisés",
+      title: "Conception de la solution",
+      description: "Architecture et choix des technologies IA",
       duration: "2 semaines",
-      icon: <Workflow className="w-6 h-6" />,
-    },
-    {
-      step: 3,
-      title: "Implémentation",
-      description: "Mise en place des solutions d'automatisation",
-      duration: "2-3 semaines",
       icon: <Bot className="w-6 h-6" />,
     },
     {
-      step: 4,
-      title: "Optimisation",
-      description: "Tests, ajustements et formation de vos équipes",
-      duration: "1 semaine",
+      step: 3,
+      title: "Développement & Intégration",
+      description: "Implémentation et intégration dans vos systèmes",
+      duration: "4-8 semaines",
       icon: <Zap className="w-6 h-6" />,
+    },
+    {
+      step: 4,
+      title: "Formation & Optimisation",
+      description: "Formation des équipes et amélioration continue",
+      duration: "En continu",
+      icon: <BarChart className="w-6 h-6" />,
     },
   ];
 
-  const features = [
-    "Workflows automatisés sur mesure",
-    "Intégration CRM complète",
-    "Email marketing automation",
-    "Lead scoring et nurturing",
-    "Reporting automatique",
-    "Notifications intelligentes",
-    "Formation de votre équipe",
-    "Support technique 3 mois",
+  const solutions = [
+    "Chatbots intelligents et assistants virtuels",
+    "Analyse prédictive et machine learning",
+    "Automatisation intelligente des processus",
+    "Reconnaissance vocale et traitement du langage",
+    "Vision par ordinateur et analyse d'images",
+    "Recommandations personnalisées",
+    "Détection d'anomalies et fraudes",
+    "Solutions IA sur mesure",
   ];
 
   return (
@@ -72,32 +68,39 @@ export default function AutomatisationPage() {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center">
-                  <Zap className="w-6 h-6" />
+                  <Bot className="w-6 h-6" />
                 </div>
-                <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
-                  Plus populaire
+                <span className="text-primary font-medium">
+                  Intelligence Artificielle
                 </span>
               </div>
 
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                <span className="excellence-gradient">Automatisation</span>{" "}
-                Intelligente
+                Intégration <span className="excellence-gradient">IA</span>
               </h1>
 
               <p className="text-xl text-text mb-8 leading-relaxed">
-                Optimisez vos processus métier avec des solutions
-                d'automatisation sur mesure. Gagnez du temps, réduisez les
-                erreurs et concentrez-vous sur l'essentiel.
+                Intégrez l'intelligence artificielle dans vos processus métier.
+                Automatisez, prédisez et optimisez avec des solutions IA sur
+                mesure.
               </p>
 
               <div className="flex flex-wrap gap-4 mb-8">
                 <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
-                  <Zap className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium">+70% productivité</span>
+                  <Brain className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium">IA sur mesure</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
-                  <Clock className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium">ROI en 3 mois</span>
+                  <Shield className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium">
+                    Données sécurisées
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
+                  <Zap className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium">
+                    Performance optimale
+                  </span>
                 </div>
               </div>
 
@@ -106,28 +109,28 @@ export default function AutomatisationPage() {
                   onClick={handleOpenAppointment}
                   className="bg-primary text-white px-8 py-4 rounded-full text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium shadow-lg"
                 >
-                  Automatiser maintenant
+                  Intégrer l'IA
                   <ArrowRight className="w-5 h-5" />
                 </button>
                 <button
-                  onClick={handleOpenDemo}
+                  onClick={handleOpenAppointment}
                   className="bg-white text-secondary border border-neutral-200 px-8 py-4 rounded-full text-lg hover:bg-neutral-50 transition font-medium"
                 >
-                  Démo gratuite
+                  Cas d'usage IA
                 </button>
               </div>
             </div>
 
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80"
-                alt="Automatisation"
+                src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80"
+                alt="Intelligence Artificielle"
                 className="rounded-2xl shadow-xl w-full h-[500px] object-cover"
               />
-              <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg">
+              <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg">
                 <div className="text-center">
-                  <p className="text-3xl font-bold text-primary mb-1">70%</p>
-                  <p className="text-sm text-text">Temps économisé</p>
+                  <p className="text-3xl font-bold text-primary mb-1">90%</p>
+                  <p className="text-sm text-text">Précision moyenne</p>
                 </div>
               </div>
             </div>
@@ -135,26 +138,27 @@ export default function AutomatisationPage() {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Solutions */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4 gradient-text">
-              Solutions d'automatisation
+              Solutions IA disponibles
             </h2>
             <p className="text-xl text-text max-w-2xl mx-auto">
-              Des outils puissants pour automatiser vos processus métier
+              Des technologies d'intelligence artificielle adaptées à vos
+              besoins
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((feature, index) => (
+            {solutions.map((solution, index) => (
               <div
                 key={index}
                 className="flex items-start gap-3 p-4 bg-neutral-50 rounded-lg"
               >
                 <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-text">{feature}</span>
+                <span className="text-text">{solution}</span>
               </div>
             ))}
           </div>
@@ -166,10 +170,10 @@ export default function AutomatisationPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4 gradient-text">
-              Notre approche
+              Processus d'intégration
             </h2>
             <p className="text-xl text-text max-w-2xl mx-auto">
-              Une méthodologie éprouvée pour automatiser efficacement
+              Méthodologie structurée pour une intégration IA réussie
             </p>
           </div>
 
@@ -205,25 +209,25 @@ export default function AutomatisationPage() {
       <section className="py-20 px-4 bg-primary text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">
-            Prêt à automatiser vos processus ?
+            Prêt à intégrer l'IA dans votre business ?
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Libérez le potentiel de votre équipe avec nos solutions
-            d'automatisation sur mesure.
+            Découvrez comment l'intelligence artificielle peut transformer vos
+            processus et booster votre productivité.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <button
               onClick={handleOpenAppointment}
-              className="bg-white text-primary px-8 py-4 rounded-full text-lg transition flex items-center gap-2 font-medium"
+              className="bg-white text-primary px-8 py-4 rounded-full text-lg hover:bg-neutral-100 transition flex items-center gap-2 font-medium"
             >
               Demander un devis
               <ArrowRight className="w-5 h-5" />
             </button>
             <button
-              onClick={handleOpenDemo}
+              onClick={handleOpenAppointment}
               className="bg-transparent border border-white text-white px-8 py-4 rounded-full text-lg hover:bg-white/10 transition font-medium"
             >
-              Démo gratuite
+              Cas d'usage IA
             </button>
           </div>
         </div>

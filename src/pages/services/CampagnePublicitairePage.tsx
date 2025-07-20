@@ -1,66 +1,62 @@
 import {
-  Zap,
+  Megaphone,
   CheckCircle,
   ArrowRight,
   Clock,
-  Bot,
+  Target,
   BarChart,
-  Workflow,
+  TrendingUp,
+  Zap,
 } from "lucide-react";
 import { useAppointment } from "../../contexts/AppointmentContext";
 
-export default function AutomatisationPage() {
+export default function CampagnePublicitairePage() {
   const { openAppointment } = useAppointment();
 
   const handleOpenAppointment = () => {
-    openAppointment("Automatisation");
-  };
-
-  const handleOpenDemo = () => {
-    openAppointment("Automatisation - Démo gratuite");
+    openAppointment("Campagne Publicitaire");
   };
 
   const processSteps = [
     {
       step: 1,
-      title: "Audit des processus",
-      description:
-        "Analyse de vos workflows actuels et identification des opportunités",
-      duration: "1 semaine",
-      icon: <BarChart className="w-6 h-6" />,
+      title: "Stratégie & Ciblage",
+      description: "Définition des objectifs et audiences cibles",
+      duration: "3-5 jours",
+      icon: <Target className="w-6 h-6" />,
     },
     {
       step: 2,
-      title: "Conception des workflows",
-      description: "Design des processus automatisés personnalisés",
-      duration: "2 semaines",
-      icon: <Workflow className="w-6 h-6" />,
+      title: "Création Publicitaire",
+      description: "Design des visuels et rédaction des messages",
+      duration: "1 semaine",
+      icon: <Megaphone className="w-6 h-6" />,
     },
     {
       step: 3,
-      title: "Implémentation",
-      description: "Mise en place des solutions d'automatisation",
-      duration: "2-3 semaines",
-      icon: <Bot className="w-6 h-6" />,
+      title: "Lancement & Suivi",
+      description: "Mise en ligne et monitoring en temps réel",
+      duration: "1-2 jours",
+      icon: <Zap className="w-6 h-6" />,
     },
     {
       step: 4,
       title: "Optimisation",
-      description: "Tests, ajustements et formation de vos équipes",
-      duration: "1 semaine",
-      icon: <Zap className="w-6 h-6" />,
+      description: "Analyse des performances et optimisations",
+      duration: "En continu",
+      icon: <TrendingUp className="w-6 h-6" />,
     },
   ];
 
-  const features = [
-    "Workflows automatisés sur mesure",
-    "Intégration CRM complète",
-    "Email marketing automation",
-    "Lead scoring et nurturing",
-    "Reporting automatique",
-    "Notifications intelligentes",
-    "Formation de votre équipe",
-    "Support technique 3 mois",
+  const platforms = [
+    "Google Ads (Search, Display, YouTube)",
+    "Facebook & Instagram Ads",
+    "LinkedIn Ads (B2B)",
+    "TikTok Ads (Gen Z)",
+    "Twitter/X Ads",
+    "Publicité programmatique",
+    "Retargeting avancé",
+    "Campagnes cross-device",
   ];
 
   return (
@@ -72,32 +68,38 @@ export default function AutomatisationPage() {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center">
-                  <Zap className="w-6 h-6" />
+                  <Megaphone className="w-6 h-6" />
                 </div>
-                <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
-                  Plus populaire
+                <span className="text-primary font-medium">
+                  Publicité Digitale
                 </span>
               </div>
 
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                <span className="excellence-gradient">Automatisation</span>{" "}
-                Intelligente
+                Campagne{" "}
+                <span className="excellence-gradient">Publicitaire</span>
               </h1>
 
               <p className="text-xl text-text mb-8 leading-relaxed">
-                Optimisez vos processus métier avec des solutions
-                d'automatisation sur mesure. Gagnez du temps, réduisez les
-                erreurs et concentrez-vous sur l'essentiel.
+                Campagnes publicitaires performantes sur tous les canaux
+                digitaux. Maximisez votre visibilité et générez des leads
+                qualifiés.
               </p>
 
               <div className="flex flex-wrap gap-4 mb-8">
                 <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
-                  <Zap className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium">+70% productivité</span>
+                  <Target className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium">Ciblage précis</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
-                  <Clock className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium">ROI en 3 mois</span>
+                  <TrendingUp className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium">ROI optimisé</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
+                  <BarChart className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium">
+                    Reporting détaillé
+                  </span>
                 </div>
               </div>
 
@@ -106,28 +108,28 @@ export default function AutomatisationPage() {
                   onClick={handleOpenAppointment}
                   className="bg-primary text-white px-8 py-4 rounded-full text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium shadow-lg"
                 >
-                  Automatiser maintenant
+                  Lancer ma campagne
                   <ArrowRight className="w-5 h-5" />
                 </button>
                 <button
-                  onClick={handleOpenDemo}
+                  onClick={handleOpenAppointment}
                   className="bg-white text-secondary border border-neutral-200 px-8 py-4 rounded-full text-lg hover:bg-neutral-50 transition font-medium"
                 >
-                  Démo gratuite
+                  Audit publicitaire
                 </button>
               </div>
             </div>
 
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80"
-                alt="Automatisation"
+                src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=800&q=80"
+                alt="Campagne Publicitaire"
                 className="rounded-2xl shadow-xl w-full h-[500px] object-cover"
               />
               <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg">
                 <div className="text-center">
-                  <p className="text-3xl font-bold text-primary mb-1">70%</p>
-                  <p className="text-sm text-text">Temps économisé</p>
+                  <p className="text-3xl font-bold text-primary mb-1">5x</p>
+                  <p className="text-sm text-text">ROI moyen</p>
                 </div>
               </div>
             </div>
@@ -135,26 +137,26 @@ export default function AutomatisationPage() {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Platforms */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4 gradient-text">
-              Solutions d'automatisation
+              Plateformes publicitaires
             </h2>
             <p className="text-xl text-text max-w-2xl mx-auto">
-              Des outils puissants pour automatiser vos processus métier
+              Présence optimisée sur toutes les plateformes digitales
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((feature, index) => (
+            {platforms.map((platform, index) => (
               <div
                 key={index}
                 className="flex items-start gap-3 p-4 bg-neutral-50 rounded-lg"
               >
                 <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-text">{feature}</span>
+                <span className="text-text">{platform}</span>
               </div>
             ))}
           </div>
@@ -166,10 +168,10 @@ export default function AutomatisationPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4 gradient-text">
-              Notre approche
+              Processus de campagne
             </h2>
             <p className="text-xl text-text max-w-2xl mx-auto">
-              Une méthodologie éprouvée pour automatiser efficacement
+              Méthodologie éprouvée pour des campagnes performantes
             </p>
           </div>
 
@@ -205,25 +207,25 @@ export default function AutomatisationPage() {
       <section className="py-20 px-4 bg-primary text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">
-            Prêt à automatiser vos processus ?
+            Prêt à booster votre visibilité ?
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Libérez le potentiel de votre équipe avec nos solutions
-            d'automatisation sur mesure.
+            Lancez des campagnes publicitaires performantes et générez des leads
+            qualifiés dès aujourd'hui.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <button
               onClick={handleOpenAppointment}
-              className="bg-white text-primary px-8 py-4 rounded-full text-lg transition flex items-center gap-2 font-medium"
+              className="bg-secondary text-white px-8 py-4 rounded-full text-lg hover:bg-secondary-dark transition flex items-center gap-2 font-medium"
             >
               Demander un devis
               <ArrowRight className="w-5 h-5" />
             </button>
             <button
-              onClick={handleOpenDemo}
+              onClick={handleOpenAppointment}
               className="bg-transparent border border-white text-white px-8 py-4 rounded-full text-lg hover:bg-white/10 transition font-medium"
             >
-              Démo gratuite
+              Audit publicitaire
             </button>
           </div>
         </div>

@@ -1,66 +1,62 @@
 import {
-  Zap,
+  RefreshCw,
   CheckCircle,
   ArrowRight,
   Clock,
-  Bot,
+  Users,
   BarChart,
-  Workflow,
+  Target,
+  Lightbulb,
 } from "lucide-react";
 import { useAppointment } from "../../contexts/AppointmentContext";
 
-export default function AutomatisationPage() {
+export default function TransformationDigitalePage() {
   const { openAppointment } = useAppointment();
 
   const handleOpenAppointment = () => {
-    openAppointment("Automatisation");
-  };
-
-  const handleOpenDemo = () => {
-    openAppointment("Automatisation - Démo gratuite");
+    openAppointment("Transformation Digitale");
   };
 
   const processSteps = [
     {
       step: 1,
-      title: "Audit des processus",
-      description:
-        "Analyse de vos workflows actuels et identification des opportunités",
-      duration: "1 semaine",
+      title: "Audit Digital",
+      description: "Évaluation complète de votre maturité digitale",
+      duration: "2 semaines",
       icon: <BarChart className="w-6 h-6" />,
     },
     {
       step: 2,
-      title: "Conception des workflows",
-      description: "Design des processus automatisés personnalisés",
+      title: "Stratégie de Transformation",
+      description: "Définition de la roadmap et des priorités",
       duration: "2 semaines",
-      icon: <Workflow className="w-6 h-6" />,
+      icon: <Target className="w-6 h-6" />,
     },
     {
       step: 3,
       title: "Implémentation",
-      description: "Mise en place des solutions d'automatisation",
-      duration: "2-3 semaines",
-      icon: <Bot className="w-6 h-6" />,
+      description: "Déploiement des solutions et formation",
+      duration: "3-6 mois",
+      icon: <RefreshCw className="w-6 h-6" />,
     },
     {
       step: 4,
-      title: "Optimisation",
-      description: "Tests, ajustements et formation de vos équipes",
-      duration: "1 semaine",
-      icon: <Zap className="w-6 h-6" />,
+      title: "Accompagnement",
+      description: "Suivi et optimisation continue",
+      duration: "En continu",
+      icon: <Users className="w-6 h-6" />,
     },
   ];
 
-  const features = [
-    "Workflows automatisés sur mesure",
-    "Intégration CRM complète",
-    "Email marketing automation",
-    "Lead scoring et nurturing",
-    "Reporting automatique",
-    "Notifications intelligentes",
-    "Formation de votre équipe",
-    "Support technique 3 mois",
+  const services = [
+    "Audit digital complet (360°)",
+    "Stratégie de transformation personnalisée",
+    "Formation et accompagnement des équipes",
+    "Change management et conduite du changement",
+    "Digitalisation des processus métier",
+    "Mise en place d'outils collaboratifs",
+    "Optimisation de l'expérience client",
+    "Suivi des KPIs et ROI",
   ];
 
   return (
@@ -72,32 +68,38 @@ export default function AutomatisationPage() {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center">
-                  <Zap className="w-6 h-6" />
+                  <RefreshCw className="w-6 h-6" />
                 </div>
-                <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
-                  Plus populaire
+                <span className="text-primary font-medium">
+                  Innovation & Changement
                 </span>
               </div>
 
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                <span className="excellence-gradient">Automatisation</span>{" "}
-                Intelligente
+                Transformation{" "}
+                <span className="excellence-gradient">Digitale</span>
               </h1>
 
               <p className="text-xl text-text mb-8 leading-relaxed">
-                Optimisez vos processus métier avec des solutions
-                d'automatisation sur mesure. Gagnez du temps, réduisez les
-                erreurs et concentrez-vous sur l'essentiel.
+                Accompagnement complet dans votre transition vers le digital.
+                Modernisez vos processus, formez vos équipes et accélérez votre
+                croissance.
               </p>
 
               <div className="flex flex-wrap gap-4 mb-8">
                 <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
-                  <Zap className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium">+70% productivité</span>
+                  <Lightbulb className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium">
+                    Innovation continue
+                  </span>
                 </div>
                 <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
-                  <Clock className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium">ROI en 3 mois</span>
+                  <Users className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium">Formation incluse</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
+                  <BarChart className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium">ROI mesurable</span>
                 </div>
               </div>
 
@@ -106,28 +108,28 @@ export default function AutomatisationPage() {
                   onClick={handleOpenAppointment}
                   className="bg-primary text-white px-8 py-4 rounded-full text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium shadow-lg"
                 >
-                  Automatiser maintenant
+                  Transformer maintenant
                   <ArrowRight className="w-5 h-5" />
                 </button>
                 <button
-                  onClick={handleOpenDemo}
+                  onClick={handleOpenAppointment}
                   className="bg-white text-secondary border border-neutral-200 px-8 py-4 rounded-full text-lg hover:bg-neutral-50 transition font-medium"
                 >
-                  Démo gratuite
+                  Audit gratuit
                 </button>
               </div>
             </div>
 
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80"
-                alt="Automatisation"
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80"
+                alt="Transformation Digitale"
                 className="rounded-2xl shadow-xl w-full h-[500px] object-cover"
               />
               <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg">
                 <div className="text-center">
-                  <p className="text-3xl font-bold text-primary mb-1">70%</p>
-                  <p className="text-sm text-text">Temps économisé</p>
+                  <p className="text-3xl font-bold text-primary mb-1">85%</p>
+                  <p className="text-sm text-text">Productivité améliorée</p>
                 </div>
               </div>
             </div>
@@ -135,26 +137,27 @@ export default function AutomatisationPage() {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Services */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4 gradient-text">
-              Solutions d'automatisation
+              Services de transformation
             </h2>
             <p className="text-xl text-text max-w-2xl mx-auto">
-              Des outils puissants pour automatiser vos processus métier
+              Un accompagnement complet pour réussir votre transformation
+              digitale
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((feature, index) => (
+            {services.map((service, index) => (
               <div
                 key={index}
                 className="flex items-start gap-3 p-4 bg-neutral-50 rounded-lg"
               >
                 <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-text">{feature}</span>
+                <span className="text-text">{service}</span>
               </div>
             ))}
           </div>
@@ -169,7 +172,7 @@ export default function AutomatisationPage() {
               Notre approche
             </h2>
             <p className="text-xl text-text max-w-2xl mx-auto">
-              Une méthodologie éprouvée pour automatiser efficacement
+              Méthodologie éprouvée pour une transformation réussie
             </p>
           </div>
 
@@ -202,32 +205,32 @@ export default function AutomatisationPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-4 bg-primary text-white">
+      <section className="py-20 px-4 bg-secondary text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">
-            Prêt à automatiser vos processus ?
+            Prêt pour votre transformation digitale ?
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Libérez le potentiel de votre équipe avec nos solutions
-            d'automatisation sur mesure.
+            Modernisez votre entreprise et prenez une longueur d'avance sur vos
+            concurrents.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <button
               onClick={handleOpenAppointment}
-              className="bg-white text-primary px-8 py-4 rounded-full text-lg transition flex items-center gap-2 font-medium"
+              className="bg-primary text-white px-8 py-4 rounded-full text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium"
             >
               Demander un devis
               <ArrowRight className="w-5 h-5" />
             </button>
             <button
-              onClick={handleOpenDemo}
+              onClick={handleOpenAppointment}
               className="bg-transparent border border-white text-white px-8 py-4 rounded-full text-lg hover:bg-white/10 transition font-medium"
             >
-              Démo gratuite
+              Audit gratuit
             </button>
           </div>
         </div>
       </section>
     </div>
   );
-}
+};

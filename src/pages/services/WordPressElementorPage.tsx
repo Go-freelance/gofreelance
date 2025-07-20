@@ -1,66 +1,61 @@
 import {
-  Zap,
   CheckCircle,
   ArrowRight,
   Clock,
-  Bot,
-  BarChart,
-  Workflow,
+  Palette,
+  Code,
+  Smartphone,
+  Search,
 } from "lucide-react";
 import { useAppointment } from "../../contexts/AppointmentContext";
 
-export default function AutomatisationPage() {
+export default function WordPressElementorPage() {
   const { openAppointment } = useAppointment();
 
   const handleOpenAppointment = () => {
-    openAppointment("Automatisation");
-  };
-
-  const handleOpenDemo = () => {
-    openAppointment("Automatisation - Démo gratuite");
+    openAppointment("WordPress Elementor");
   };
 
   const processSteps = [
     {
       step: 1,
-      title: "Audit des processus",
-      description:
-        "Analyse de vos workflows actuels et identification des opportunités",
+      title: "Conception & Design",
+      description: "Création de maquettes et choix du design",
       duration: "1 semaine",
-      icon: <BarChart className="w-6 h-6" />,
+      icon: <Palette className="w-6 h-6" />,
     },
     {
       step: 2,
-      title: "Conception des workflows",
-      description: "Design des processus automatisés personnalisés",
-      duration: "2 semaines",
-      icon: <Workflow className="w-6 h-6" />,
+      title: "Développement",
+      description: "Intégration WordPress avec Elementor",
+      duration: "2-3 semaines",
+      icon: <Code className="w-6 h-6" />,
     },
     {
       step: 3,
-      title: "Implémentation",
-      description: "Mise en place des solutions d'automatisation",
-      duration: "2-3 semaines",
-      icon: <Bot className="w-6 h-6" />,
+      title: "Optimisation",
+      description: "SEO, performance et responsive design",
+      duration: "1 semaine",
+      icon: <Search className="w-6 h-6" />,
     },
     {
       step: 4,
-      title: "Optimisation",
-      description: "Tests, ajustements et formation de vos équipes",
-      duration: "1 semaine",
-      icon: <Zap className="w-6 h-6" />,
+      title: "Formation & Livraison",
+      description: "Formation à l'utilisation et mise en ligne",
+      duration: "3 jours",
+      icon: <Smartphone className="w-6 h-6" />,
     },
   ];
 
   const features = [
-    "Workflows automatisés sur mesure",
-    "Intégration CRM complète",
-    "Email marketing automation",
-    "Lead scoring et nurturing",
-    "Reporting automatique",
-    "Notifications intelligentes",
-    "Formation de votre équipe",
-    "Support technique 3 mois",
+    "Design responsive et moderne",
+    "Interface Elementor intuitive",
+    "Optimisation SEO avancée",
+    "E-commerce WooCommerce",
+    "Sécurité renforcée",
+    "Performance optimisée",
+    "Formation complète incluse",
+    "Maintenance 6 mois",
   ];
 
   return (
@@ -72,32 +67,33 @@ export default function AutomatisationPage() {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center">
-                  <Zap className="w-6 h-6" />
+                  <Code className="w-6 h-6" />
                 </div>
-                <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
-                  Plus populaire
-                </span>
+                <span className="text-primary font-medium">CMS Populaire</span>
               </div>
 
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                <span className="excellence-gradient">Automatisation</span>{" "}
-                Intelligente
+                WordPress <span className="excellence-gradient">Elementor</span>
               </h1>
 
               <p className="text-xl text-text mb-8 leading-relaxed">
-                Optimisez vos processus métier avec des solutions
-                d'automatisation sur mesure. Gagnez du temps, réduisez les
-                erreurs et concentrez-vous sur l'essentiel.
+                Créez un site web professionnel avec WordPress et Elementor. Une
+                solution flexible, facile à gérer et optimisée pour votre
+                business.
               </p>
 
               <div className="flex flex-wrap gap-4 mb-8">
                 <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
-                  <Zap className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium">+70% productivité</span>
+                  <Palette className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium">Design sur mesure</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
+                  <Smartphone className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium">100% Responsive</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
                   <Clock className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium">ROI en 3 mois</span>
+                  <span className="text-sm font-medium">3-4 semaines</span>
                 </div>
               </div>
 
@@ -106,28 +102,28 @@ export default function AutomatisationPage() {
                   onClick={handleOpenAppointment}
                   className="bg-primary text-white px-8 py-4 rounded-full text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium shadow-lg"
                 >
-                  Automatiser maintenant
+                  Créer mon site
                   <ArrowRight className="w-5 h-5" />
                 </button>
                 <button
-                  onClick={handleOpenDemo}
+                  onClick={handleOpenAppointment}
                   className="bg-white text-secondary border border-neutral-200 px-8 py-4 rounded-full text-lg hover:bg-neutral-50 transition font-medium"
                 >
-                  Démo gratuite
+                  Voir des exemples
                 </button>
               </div>
             </div>
 
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80"
-                alt="Automatisation"
+                src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=800&q=80"
+                alt="WordPress Elementor"
                 className="rounded-2xl shadow-xl w-full h-[500px] object-cover"
               />
               <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg">
                 <div className="text-center">
-                  <p className="text-3xl font-bold text-primary mb-1">70%</p>
-                  <p className="text-sm text-text">Temps économisé</p>
+                  <p className="text-3xl font-bold text-primary mb-1">40%</p>
+                  <p className="text-sm text-text">Du web mondial</p>
                 </div>
               </div>
             </div>
@@ -140,10 +136,10 @@ export default function AutomatisationPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4 gradient-text">
-              Solutions d'automatisation
+              Fonctionnalités incluses
             </h2>
             <p className="text-xl text-text max-w-2xl mx-auto">
-              Des outils puissants pour automatiser vos processus métier
+              Tout ce dont vous avez besoin pour un site web professionnel
             </p>
           </div>
 
@@ -166,10 +162,10 @@ export default function AutomatisationPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4 gradient-text">
-              Notre approche
+              Processus de création
             </h2>
             <p className="text-xl text-text max-w-2xl mx-auto">
-              Une méthodologie éprouvée pour automatiser efficacement
+              De l'idée à la mise en ligne, nous vous accompagnons
             </p>
           </div>
 
@@ -202,28 +198,28 @@ export default function AutomatisationPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-4 bg-primary text-white">
+      <section className="py-20 px-4 bg-secondary text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">
-            Prêt à automatiser vos processus ?
+            Prêt à créer votre site WordPress ?
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Libérez le potentiel de votre équipe avec nos solutions
-            d'automatisation sur mesure.
+            Bénéficiez de la puissance de WordPress et de la simplicité
+            d'Elementor pour votre présence web.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <button
               onClick={handleOpenAppointment}
-              className="bg-white text-primary px-8 py-4 rounded-full text-lg transition flex items-center gap-2 font-medium"
+              className="bg-primary text-white px-8 py-4 rounded-full text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium"
             >
               Demander un devis
               <ArrowRight className="w-5 h-5" />
             </button>
             <button
-              onClick={handleOpenDemo}
+              onClick={handleOpenAppointment}
               className="bg-transparent border border-white text-white px-8 py-4 rounded-full text-lg hover:bg-white/10 transition font-medium"
             >
-              Démo gratuite
+              Voir des exemples
             </button>
           </div>
         </div>

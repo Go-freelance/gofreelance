@@ -1,5 +1,4 @@
 import type React from "react";
-import { Footer } from "./Footer";
 import {
   Mail,
   Phone,
@@ -158,7 +157,6 @@ export const ContactPage: React.FC = () => {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
   );
 };
