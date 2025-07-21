@@ -73,7 +73,7 @@ export const brands: Brand[] = [
   },
   {
     id: "mbs",
-    name: "Micro Business School",
+    name: "Modern Business School",
     description: "Programme de formation pour les compétences professionnelles",
     url: "https://mbschool.site",
     accentColor: "#333333",
