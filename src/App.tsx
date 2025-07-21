@@ -13,6 +13,10 @@ import { About } from "./components/About";
 import { WhyUs } from "./components/WhyUs";
 import { ContactPage } from "./components/ContactPage";
 import ThirdPartyManagement from "./pages/ThirdPartyManagement";
+import { CGUPage } from "./pages/legal/CGUPage";
+import { CGVPage } from "./pages/legal/CGVPage";
+import { PolitiqueConfidentialitePage } from "./pages/legal/PolitiqueConfidentialitePage";
+import { PolitiqueProtectionDonneesPage } from "./pages/legal/PolitiqueProtectionDonneesPage";
 
 function HomePage() {
   return (
@@ -40,6 +44,16 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/tiers" element={<ThirdPartyManagement />} />
+        <Route path="/cgu" element={<CGUPage />} />
+        <Route path="/cgv" element={<CGVPage />} />
+        <Route
+          path="/privatepolicy"
+          element={<PolitiqueConfidentialitePage />}
+        />
+        <Route
+          path="/politique-protection-donnees"
+          element={<PolitiqueProtectionDonneesPage />}
+        />
       </Routes>
     </>
   );

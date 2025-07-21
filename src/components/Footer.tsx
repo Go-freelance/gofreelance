@@ -1,5 +1,6 @@
 import React from "react";
 import { Linkedin, Twitter, Facebook } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const Footer: React.FC = () => {
   const date = new Date();
@@ -114,8 +115,38 @@ export const Footer: React.FC = () => {
             <p className="text-neutral-300">RDC, Kinshasa/Gombe</p>
           </div>
         </div>
-        <div className="border-t border-neutral-700 mt-12 pt-8 text-neutral-300 text-sm">
-          <p>© {year} Go Freelance. Tous droits réservés.</p>
+        <div className="border-t flex flex-wrap gap-4 justify-between border-neutral-700 mt-12 pt-8 text-neutral-300 text-sm">
+          <div>
+            <p>© {year} Go Freelance. Tous droits réservés.</p>
+          </div>
+          <div>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                to="/privatepolicy"
+                className="text-neutral-300 hover:text-primary transition"
+              >
+                Politique de confidentialité
+              </Link>
+              <Link
+                to="/cgu"
+                className="text-neutral-300 hover:text-primary transition"
+              >
+                Conditions générales d'utilisation
+              </Link>
+              <Link
+                to="/cgv"
+                className="text-neutral-300 hover:text-primary transition"
+              >
+                Conditions générales de vente
+              </Link>
+              <Link
+                to="/politique-protection-donnees"
+                className="text-neutral-300 hover:text-primary transition"
+              >
+                Politique de protection des données
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

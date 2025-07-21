@@ -25,6 +25,30 @@ const routes = [
     changefreq: "monthly",
     lastmod: CURRENT_DATE,
   },
+  {
+    path: "/cgu",
+    priority: 0.4,
+    changefreq: "yearly",
+    lastmod: CURRENT_DATE,
+  },
+  {
+    path: "/cgv",
+    priority: 0.4,
+    changefreq: "yearly",
+    lastmod: CURRENT_DATE,
+  },
+  {
+    path: "/privatepolicy",
+    priority: 0.4,
+    changefreq: "yearly",
+    lastmod: CURRENT_DATE,
+  },
+  {
+    path: "/politique-protection-donnees",
+    priority: 0.4,
+    changefreq: "yearly",
+    lastmod: CURRENT_DATE,
+  },
 ];
 
 // Fonction pour générer le XML du sitemap
