@@ -179,22 +179,28 @@ export const Footer: React.FC = () => {
             </p>
             <div className="flex items-center gap-6 text-sm">
               <Link
-                to="/contact"
+                to="/privatepolicy"
                 className="text-neutral-300 hover:text-primary transition"
               >
                 Politique de confidentialité
               </Link>
               <Link
-                to="/contact"
+                to="/cgu"
                 className="text-neutral-300 hover:text-primary transition"
               >
-                Conditions d'utilisation
+                Conditions générales d'utilisation
               </Link>
               <Link
-                to="/contact"
+                to="/cgv"
                 className="text-neutral-300 hover:text-primary transition"
               >
-                Mentions légales
+                Conditions générales de vente
+              </Link>
+              <Link
+                to="/politique-protection-donnees"
+                className="text-neutral-300 hover:text-primary transition"
+              >
+                Politique de protection des données
               </Link>
             </div>
           </div>

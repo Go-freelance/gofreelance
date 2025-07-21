@@ -24,6 +24,10 @@ import {
 } from "./pages/services";
 import ThirdPartyManagement from "./pages/ThirdPartyManagement";
 import { AppointmentProvider } from "./contexts/AppointmentContext";
+import { CGUPage } from "./pages/legal/CGUPage";
+import { CGVPage } from "./pages/legal/CGVPage";
+import { PolitiqueConfidentialitePage } from "./pages/legal/PolitiqueConfidentialitePage";
+import { PolitiqueProtectionDonneesPage } from "./pages/legal/PolitiqueProtectionDonneesPage";
 
 function HomePage() {
   return (
@@ -81,6 +85,16 @@ function App() {
         <Route
           path="/services/developpement-wordpress-elementor"
           element={<WordPressElementorPage />}
+        />
+        <Route path="/cgu" element={<CGUPage />} />
+        <Route path="/cgv" element={<CGVPage />} />
+        <Route
+          path="/privatepolicy"
+          element={<PolitiqueConfidentialitePage />}
+        />
+        <Route
+          path="/politique-protection-donnees"
+          element={<PolitiqueProtectionDonneesPage />}
         />
       </Routes>
       <Footer />
