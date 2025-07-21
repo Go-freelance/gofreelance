@@ -216,7 +216,7 @@ export default function CampagnePublicitairePage() {
           <div className="flex flex-wrap justify-center gap-4">
             <button
               onClick={handleOpenAppointment}
-              className="bg-secondary text-white px-8 py-4 rounded-full text-lg hover:bg-secondary-dark transition flex items-center gap-2 font-medium"
+              className="bg-white text-primary px-8 py-4 rounded-full text-lg transition flex items-center gap-2 font-medium"
             >
               Demander un devis
               <ArrowRight className="w-5 h-5" />

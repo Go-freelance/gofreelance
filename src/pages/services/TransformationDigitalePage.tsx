@@ -205,7 +205,7 @@ export default function TransformationDigitalePage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-4 bg-secondary text-white">
+      <section className="py-20 px-4 bg-primary text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">
             Prêt pour votre transformation digitale ?
@@ -217,7 +217,7 @@ export default function TransformationDigitalePage() {
           <div className="flex flex-wrap justify-center gap-4">
             <button
               onClick={handleOpenAppointment}
-              className="bg-primary text-white px-8 py-4 rounded-full text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium"
+              className="bg-white text-primary px-8 py-4 rounded-full text-lg transition flex items-center gap-2 font-medium"
             >
               Demander un devis
               <ArrowRight className="w-5 h-5" />
@@ -233,4 +233,4 @@ export default function TransformationDigitalePage() {
       </section>
     </div>
   );
-};
+}
