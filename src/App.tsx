@@ -28,6 +28,7 @@ import { CGUPage } from "./pages/legal/CGUPage";
 import { CGVPage } from "./pages/legal/CGVPage";
 import { PolitiqueConfidentialitePage } from "./pages/legal/PolitiqueConfidentialitePage";
 import { PolitiqueProtectionDonneesPage } from "./pages/legal/PolitiqueProtectionDonneesPage";
+import { ScrollToTop } from "./components/ScrollToTop";
 
 function HomePage() {
   return (
@@ -49,6 +50,7 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <AppointmentProvider>
+      <ScrollToTop />
       <Navigation isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <Routes>
         <Route path="/" element={<HomePage />} />

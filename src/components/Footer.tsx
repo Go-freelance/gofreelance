@@ -124,9 +124,6 @@ export const Footer: React.FC = () => {
                   className="text-neutral-300 hover:text-primary transition flex items-center gap-2"
                 >
                   Solution Enterprise
-                  <span className="bg-gradient-to-r from-primary to-secondary text-white text-xs px-2 py-0.5 rounded-full font-medium">
-                    Premium
-                  </span>
                 </Link>
               </li>
             </ul>
