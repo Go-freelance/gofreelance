@@ -3,6 +3,82 @@ import { Gem, CheckCircle, ArrowRight } from "lucide-react";
 import { ServiceCard } from "./ServiceCard";
 import { services } from "../data/services";
 import { useAppointment } from "../contexts/AppointmentContext";
+import { motion, Variants } from "framer-motion";
+
+// Animation variants
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
+const cardVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+    scale: 0.9,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
+const buttonVariants: Variants = {
+  hover: {
+    scale: 1.05,
+    y: -2,
+    transition: {
+      duration: 0.2,
+      ease: "easeInOut",
+    },
+  },
+  tap: {
+    scale: 0.98,
+  },
+};
+
+const enterpriseVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 40,
+    scale: 0.95,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut",
+    },
+  },
+};
 
 export const Services: React.FC = () => {
   const { openAppointment } = useAppointment();
@@ -17,32 +93,64 @@ export const Services: React.FC = () => {
       className="sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 bg-neutral-100"
     >
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 gradient-text">
+        <motion.div
+          className="text-center mb-12 sm:mb-16"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.h2
+            className="text-3xl sm:text-4xl font-bold mb-4 gradient-text"
+            variants={itemVariants}
+          >
             Nos Services
-          </h2>
-          <p className="text-lg sm:text-xl text-text max-w-3xl mx-auto">
+          </motion.h2>
+          <motion.p
+            className="text-lg sm:text-xl text-text max-w-3xl mx-auto"
+            variants={itemVariants}
+          >
             Des solutions digitales complètes pour transformer votre business et
             accélérer votre croissance
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 mb-16">
+        <motion.div
+          className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 mb-16"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {services.map((service, index) => (
-            <ServiceCard
+            <motion.div
               key={index}
-              icon={service.icon}
-              title={service.title}
-              description={service.description}
-              features={service.features}
-              popular={service.popular}
-            />
+              variants={cardVariants}
+              whileHover={{
+                y: -5,
+                transition: { duration: 0.3 },
+              }}
+            >
+              <ServiceCard
+                icon={service.icon}
+                title={service.title}
+                description={service.description}
+                features={service.features}
+                popular={service.popular}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Enterprise Section */}
-        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg">
+        <motion.div
+          className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg"
+          variants={enterpriseVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div>
               <div className="flex items-center gap-3 mb-4">
@@ -80,16 +188,24 @@ export const Services: React.FC = () => {
               <p className="text-3xl sm:text-4xl font-bold text-secondary mb-6">
                 Sur devis
               </p>
-              <button
+              <motion.button
                 className="bg-secondary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full hover:bg-secondary-dark transition flex items-center gap-2 w-full sm:w-auto justify-center"
                 onClick={handleOpenAppointment}
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
               >
                 Demander un devis
-                <ArrowRight className="w-5 h-5" />
-              </button>
+                <motion.div
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <ArrowRight className="w-5 h-5" />
+                </motion.div>
+              </motion.button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
