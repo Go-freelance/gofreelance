@@ -1,5 +1,3 @@
-"use client";
-
 import type React from "react";
 import { useState, useRef, useEffect } from "react";
 import {
@@ -86,7 +84,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   const navigate = useNavigate();
   const location = useLocation();
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const handleAnchorClick = (anchor: string) => {
     setIsMenuOpen(false);
