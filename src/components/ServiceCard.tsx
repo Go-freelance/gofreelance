@@ -1,8 +1,13 @@
+"use client";
+
 import type React from "react";
 import { CheckCircle, ArrowRight, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { ServiceCardProps } from "../types/common";
 import { useAppointment } from "../contexts/AppointmentContext";
+import { useRef, useEffect } from "react";
+import { gsap } from "gsap";
+// Removed: import { ScrollTrigger } from "gsap/ScrollTrigger"; // Not directly used here
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({
   icon,
@@ -12,6 +17,9 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   popular = false,
 }) => {
   const { openAppointment } = useAppointment();
+  const cardRef = useRef<HTMLDivElement>(null);
+  const arrowRightRef = useRef(null);
+  const quoteButtonRef = useRef(null);
 
   const handleOpenAppointment = () => {
     openAppointment(title);
@@ -28,17 +36,57 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
       .replace(/[^a-z0-9-]/g, "");
   };
 
+  useEffect(() => {
+    if (cardRef.current) {
+      // GSAP hover animations for service cards
+      cardRef.current.addEventListener("mouseenter", () => {
+        gsap.to(cardRef.current, {
+          y: -8, // Lift up
+          scale: 1.02, // Slight scale
+          boxShadow:
+            "0 20px 30px -5px rgba(0, 0, 0, 0.15), 0 10px 15px -6px rgba(0, 0, 0, 0.08)", // Deeper shadow
+          duration: 0.3,
+          ease: "power1.out",
+          overwrite: true,
+        });
+        gsap.to(arrowRightRef.current, {
+          x: 5,
+          duration: 0.3,
+          ease: "power1.out",
+        });
+      });
+      cardRef.current.addEventListener("mouseleave", () => {
+        gsap.to(cardRef.current, {
+          y: 0,
+          scale: 1,
+          boxShadow: popular
+            ? "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+            : "0 1px 2px 0 rgba(0, 0, 0, 0.05)", // Reset shadow
+          duration: 0.3,
+          ease: "power1.out",
+          overwrite: true,
+        });
+        gsap.to(arrowRightRef.current, {
+          x: 0,
+          duration: 0.3,
+          ease: "power1.out",
+        });
+      });
+    }
+  }, [popular]);
+
   return (
     <>
       <div
-        className={`bg-white p-6 rounded-2xl transition relative h-full flex flex-col ${
+        ref={cardRef}
+        className={`bg-white p-6 rounded-2xl relative h-full flex flex-col ${
           popular
             ? "shadow-xl scale-105 border-2 border-primary/20"
-            : "shadow-sm hover:shadow-lg"
+            : "shadow-sm"
         }`}
       >
         {popular && (
-          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm font-medium">
+          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm font-medium shadow-md">
             Plus populaire
           </div>
         )}
@@ -72,13 +120,16 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
           </Link>
 
           <button
+            ref={quoteButtonRef}
             onClick={handleOpenAppointment}
             className={`w-full ${
               popular ? "bg-primary text-white" : "bg-primary text-white"
             } px-4 py-2.5 rounded-full hover:bg-primary-dark transition font-medium flex items-center justify-center gap-2 text-sm`}
           >
             Demander un devis
-            <ArrowRight className="w-4 h-4" />
+            <div ref={arrowRightRef}>
+              <ArrowRight className="w-4 h-4" />
+            </div>
           </button>
         </div>
       </div>

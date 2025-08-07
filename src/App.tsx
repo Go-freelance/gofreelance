@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navigation } from "./components/Navigation";
 import { Route, Routes } from "react-router-dom";
 import { Hero } from "./components/Hero";
@@ -30,6 +30,13 @@ import { PolitiqueConfidentialitePage } from "./pages/legal/PolitiqueConfidentia
 import { PolitiqueProtectionDonneesPage } from "./pages/legal/PolitiqueProtectionDonneesPage";
 import { ScrollToTop } from "./components/ScrollToTop";
 
+// Import GSAP and ScrollTrigger
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
+
 function HomePage() {
   return (
     <>
@@ -48,6 +55,14 @@ function HomePage() {
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Clean up ScrollTrigger instances on unmount
+  useEffect(() => {
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
   return (
     <AppointmentProvider>
       <ScrollToTop />
