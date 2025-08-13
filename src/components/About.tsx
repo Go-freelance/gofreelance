@@ -1,8 +1,7 @@
-import type React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ArrowRight, Target } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
 import { AppointmentForm } from "./AppointmentForm";
-import { gsap } from "gsap";
+import { motion, useInView, useAnimation } from "framer-motion";
 
 export const About: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
@@ -13,147 +12,167 @@ export const About: React.FC = () => {
   const excellenceTextRef = useRef<HTMLSpanElement>(null);
   const arrowIconRef = useRef<HTMLDivElement>(null);
 
+  // Animation controls
+  const contentControls = useAnimation();
+  const imageControls = useAnimation();
+  const missionCardControls = useAnimation();
+
+  // InView hooks
+  const isSectionInView = useInView(sectionRef, { once: true, amount: 0.2 });
+
+  // Trigger animations when elements come into view
+  useEffect(() => {
+    if (isSectionInView) {
+      contentControls.start("visible");
+      imageControls.start("visible");
+      missionCardControls.start("visible");
+    }
+  }, [isSectionInView, contentControls, imageControls, missionCardControls]);
+
+  // Animation variants
+  const contentVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const contentItemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8 },
+    },
+  };
+
+  const imageVariants = {
+    hidden: { opacity: 0, scale: 0.8, x: -50 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      x: 0,
+      transition: { duration: 0.8 },
+    },
+  };
+
+  const missionCardVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.6, delay: 0.5 },
+    },
+  };
+
+  const arrowVariants = {
+    animate: {
+      x: [0, 5, 0],
+      transition: {
+        duration: 1.5,
+        repeat: Infinity,
+      },
+    },
+  };
+
   const handleShowForm = () => {
     setShowForm(!showForm);
   };
+
   const handleCloseForm = () => {
     setShowForm(false);
   };
-
-  useEffect(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 80%",
-        toggleActions: "play none none none",
-        once: true,
-      },
-      defaults: { ease: "power3.out", duration: 0.8 },
-    });
-
-    // Initial state for elements
-    if (contentRef.current && imageRef.current && missionCardRef.current) {
-      gsap.set(
-        [contentRef.current.children, imageRef.current, missionCardRef.current],
-        { autoAlpha: 0, y: 50 }
-      );
-    }
-
-    tl.to(sectionRef.current, { duration: 0, autoAlpha: 1 }); // Make section visible immediately
-    if (imageRef.current) {
-      tl.fromTo(
-        imageRef.current,
-        { autoAlpha: 0, scale: 0.8, x: -50 },
-        { autoAlpha: 1, scale: 1, x: 0, duration: 0.8, ease: "easeOut" }
-      ).to(
-        imageRef.current,
-        { y: 5, duration: 2, repeat: -1, yoyo: true, ease: "easeInOut" },
-        "<"
-      ); // Floating effect
-    }
-    if (contentRef.current) {
-      tl.fromTo(
-        contentRef.current.children,
-        { autoAlpha: 0, y: 30 },
-        { autoAlpha: 1, y: 0, stagger: 0.3 },
-        "-=0.5"
-      );
-    }
-    if (missionCardRef.current) {
-      tl.fromTo(
-        missionCardRef.current,
-        { autoAlpha: 0, scale: 0.8 },
-        { autoAlpha: 1, scale: 1, duration: 0.6, delay: 0.5 },
-        "-=0.5"
-      );
-    }
-
-    // Excellence Gradient Text Animation (background-position)
-    if (excellenceTextRef.current) {
-      gsap.to(excellenceTextRef.current, {
-        backgroundPosition: "100% 50%",
-        duration: 3,
-        repeat: -1,
-        yoyo: true,
-        ease: "none",
-      });
-    }
-
-    // Button Hover Animation
-    if (contentRef.current) {
-      const button = contentRef.current.querySelector("button");
-      if (button) {
-        gsap.to(button, {
-          scale: 1.05,
-          y: -2,
-          // duration: 0.2,
-          // ease: "easeInOut",
-          // paused: true,
-          // overwrite: true,
-        });
-        button.addEventListener("mouseenter", () =>
-          gsap.to(button, { scale: 1.05, y: -2 })
-        );
-        button.addEventListener("mouseleave", () =>
-          gsap.to(button, { scale: 1, y: 0 })
-        );
-      }
-    }
-
-    // Arrow animation
-    if (arrowIconRef.current) {
-      gsap.to(arrowIconRef.current, {
-        x: 5,
-        duration: 1.5,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut",
-      });
-    }
-  }, []);
 
   return (
     <section id="about" ref={sectionRef} className="bg-white">
       <div className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 bg-neutral-100">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
-            <div ref={contentRef} className="text-center lg:text-left">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 leading-tight">
+            <motion.div
+              ref={contentRef}
+              variants={contentVariants}
+              initial="hidden"
+              animate={contentControls}
+              className="text-center lg:text-left"
+            >
+              <motion.h1
+                variants={contentItemVariants}
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 leading-tight"
+              >
                 Nous sommes{" "}
-                <span
+                <motion.span
                   ref={excellenceTextRef}
                   className="excellence-gradient"
                   style={{ backgroundPosition: "0% 50%" }}
+                  animate={{
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
                 >
                   Go freelance
-                </span>
-              </h1>
-              <p className="text-base sm:text-lg lg:text-xl text-text mb-6 sm:mb-8 max-w-xl mx-auto lg:mx-0">
+                </motion.span>
+              </motion.h1>
+              <motion.p
+                variants={contentItemVariants}
+                className="text-base sm:text-lg lg:text-xl text-text mb-6 sm:mb-8 max-w-xl mx-auto lg:mx-0"
+              >
                 une agence digitale stratégique et créative spécialisée dans la
                 communication et marketing 360º ; Ainsi que la prospection
                 commerciale 2.0 (Acquisition multicanale de nouveaux clients).
                 Go freelance c'est aussi un puissant réseau de Freelances
                 qualifiés et plate forme de télétravail, découvrir Go freelance
                 | Jobs.
-              </p>
-              <button
+              </motion.p>
+              <motion.button
+                variants={contentItemVariants}
+                whileHover="hover"
                 onClick={handleShowForm}
                 className="bg-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium w-fit mx-auto lg:mx-0"
               >
                 Prendre un rendez-vous
-                <div ref={arrowIconRef}>
+                <motion.div
+                  ref={arrowIconRef}
+                  variants={arrowVariants}
+                  animate="animate"
+                >
                   <ArrowRight className="w-5 h-5" />
-                </div>
-              </button>
-            </div>
-            <div ref={imageRef} className="relative">
-              <img
+                </motion.div>
+              </motion.button>
+            </motion.div>
+            <motion.div
+              ref={imageRef}
+              variants={imageVariants}
+              initial="hidden"
+              animate={imageControls}
+              className="relative"
+            >
+              <motion.img
                 src="/images/equipe.jpg"
                 alt="L'équipe Go Freelance"
                 className="rounded-2xl shadow-xl w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover"
+                animate={{
+                  y: [0, 5, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               />
-              <div
+              <motion.div
                 ref={missionCardRef}
+                variants={missionCardVariants}
+                initial="hidden"
+                animate={missionCardControls}
                 className="absolute -bottom-6 sm:-bottom-10 -right-6 sm:-right-10 bg-white p-4 sm:p-6 rounded-xl shadow-lg hidden md:block"
               >
                 <div className="flex items-center gap-3 sm:gap-4">
@@ -169,8 +188,8 @@ export const About: React.FC = () => {
                     </p>
                   </div>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </div>

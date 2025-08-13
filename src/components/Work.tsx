@@ -1,9 +1,8 @@
-import type React from "react";
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { ArrowUpRight, ExternalLink, Calendar } from "lucide-react";
 import type { WorkCardProps } from "../types/common";
 import { works } from "../data/work";
-import { gsap } from "gsap";
+import { motion, useInView, useAnimation, Variants } from "framer-motion";
 
 const WorkCard: React.FC<WorkCardProps> = ({
   image,
@@ -15,58 +14,42 @@ const WorkCard: React.FC<WorkCardProps> = ({
   year,
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(cardRef, { once: true, amount: 0.3 });
 
-  useEffect(() => {
-    if (cardRef.current) {
-      // ScrollTrigger for individual card entrance
-      gsap.fromTo(
-        cardRef.current,
-        { opacity: 0, y: 50, scale: 0.95 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.8,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: cardRef.current,
-            start: "top 90%",
-            toggleActions: "play none none none",
-            once: true,
-          },
-        }
-      );
-
-      // GSAP hover animations for work cards
-      cardRef.current.addEventListener("mouseenter", () => {
-        gsap.to(cardRef.current, {
-          y: -8,
-          scale: 1.03,
-          boxShadow:
-            "0 15px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)",
-          duration: 0.3,
-          ease: "power1.out",
-          overwrite: true,
-        });
-      });
-      cardRef.current.addEventListener("mouseleave", () => {
-        gsap.to(cardRef.current, {
-          y: 0,
-          scale: 1,
-          boxShadow:
-            "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05)",
-          duration: 0.3,
-          ease: "power1.out",
-          overwrite: true,
-        });
-      });
-    }
-  }, []);
+  // Animation variants for the card
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 50, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        type: "spring",
+        damping: 15,
+        stiffness: 100,
+      },
+    },
+  };
 
   return (
-    <div
+    <motion.div
       ref={cardRef}
-      className="group bg-white rounded-xl overflow-hidden shadow-sm transition-shadow duration-300"
+      variants={cardVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      whileHover={{
+        y: -8,
+        scale: 1.03,
+        boxShadow:
+          "0 15px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)",
+      }}
+      transition={{ duration: 0.3 }}
+      className="group bg-white rounded-xl overflow-hidden shadow-sm"
+      style={{
+        boxShadow:
+          "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05)",
+      }}
     >
       {/* Image Container */}
       <div className="relative overflow-hidden h-64">
@@ -125,7 +108,7 @@ const WorkCard: React.FC<WorkCardProps> = ({
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -136,6 +119,24 @@ export const Work: React.FC = () => {
   const filterTabsRef = useRef<HTMLDivElement>(null);
   const projectsGridRef = useRef(null);
   const viewAllButtonRef = useRef(null);
+
+  // Animation controls
+  const headerControls = useAnimation();
+  const filterTabsControls = useAnimation();
+  const viewAllButtonControls = useAnimation();
+  const gridControls = useAnimation();
+
+  // InView hooks
+  const isHeaderInView = useInView(headerRef, { once: true, amount: 0.3 });
+  const isFilterTabsInView = useInView(filterTabsRef, {
+    once: true,
+    amount: 0.3,
+  });
+  const isViewAllButtonInView = useInView(viewAllButtonRef, {
+    once: true,
+    amount: 0.3,
+  });
+  const isGridInView = useInView(projectsGridRef, { once: true, amount: 0.1 });
 
   const categories = [
     { key: "all", label: "Tous les projets" },
@@ -150,67 +151,98 @@ export const Work: React.FC = () => {
   const filteredWorks =
     filter === "all" ? works : works.filter((work) => work.category === filter);
 
-  useEffect(() => {
-    // ScrollTrigger for section header
-    if (headerRef.current) {
-      gsap.fromTo(
-        headerRef.current.children,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-            once: true,
-          },
-        }
-      );
-    }
+  // Animation variants
+  const headerVariants: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        staggerChildren: 0.2,
+      },
+    },
+  };
 
-    // ScrollTrigger for filter tabs
-    if (filterTabsRef.current) {
-      gsap.fromTo(
-        filterTabsRef.current.children,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: filterTabsRef.current,
-            start: "top 90%",
-            toggleActions: "play none none none",
-            once: true,
-          },
-        }
-      );
-    }
+  const headerItemVariants: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8 },
+    },
+  };
 
-    // ScrollTrigger for view all projects button
-    gsap.fromTo(
-      viewAllButtonRef.current,
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1,
-        y: 0,
+  const filterTabsVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
         duration: 0.6,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: viewAllButtonRef.current,
-          start: "top 90%",
-          toggleActions: "play none none none",
-          once: true,
-        },
-      }
-    );
-  }, []);
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const filterTabVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 },
+    },
+  };
+
+  const buttonVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 },
+    },
+  };
+
+  const gridVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  // Trigger animations when elements come into view
+  React.useEffect(() => {
+    if (isHeaderInView) {
+      headerControls.start("visible");
+    }
+  }, [isHeaderInView, headerControls]);
+
+  React.useEffect(() => {
+    if (isFilterTabsInView) {
+      filterTabsControls.start("visible");
+    }
+  }, [isFilterTabsInView, filterTabsControls]);
+
+  React.useEffect(() => {
+    if (isViewAllButtonInView) {
+      viewAllButtonControls.start("visible");
+    }
+  }, [isViewAllButtonInView, viewAllButtonControls]);
+
+  React.useEffect(() => {
+    if (isGridInView) {
+      gridControls.start("visible");
+    }
+  }, [isGridInView, gridControls]);
+
+  // Re-animate grid when filter changes
+  React.useEffect(() => {
+    gridControls.start("visible");
+  }, [filter, gridControls]);
 
   return (
     <section
@@ -220,31 +252,53 @@ export const Work: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div
+        <motion.div
           ref={headerRef}
+          variants={headerVariants}
+          initial="hidden"
+          animate={headerControls}
           className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-16"
         >
-          <div>
+          <motion.div variants={headerItemVariants}>
             <h2 className="text-4xl font-bold mb-4">Projets récents</h2>
             <p className="text-neutral-300 text-lg max-w-2xl">
               Découvrez comment nous aidons nos clients à atteindre leurs
               objectifs digitaux avec des solutions innovantes et sur mesure.
             </p>
-          </div>
-          <button
+          </motion.div>
+          <motion.button
             ref={viewAllButtonRef}
+            variants={buttonVariants}
+            initial="hidden"
+            animate={viewAllButtonControls}
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.98 }}
             className="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors font-medium"
           >
             Voir tous les projets
-            <ArrowUpRight className="w-5 h-5" />
-          </button>
-        </div>
+            <motion.div
+              animate={{ rotate: [0, 15, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <ArrowUpRight className="w-5 h-5" />
+            </motion.div>
+          </motion.button>
+        </motion.div>
 
         {/* Filter Tabs */}
-        <div ref={filterTabsRef} className="flex flex-wrap gap-2 mb-12">
+        <motion.div
+          ref={filterTabsRef}
+          variants={filterTabsVariants}
+          initial="hidden"
+          animate={filterTabsControls}
+          className="flex flex-wrap gap-2 mb-12"
+        >
           {categories.map((category) => (
-            <button
+            <motion.button
               key={category.key}
+              variants={filterTabVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setFilter(category.key)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 filter === category.key
@@ -253,19 +307,34 @@ export const Work: React.FC = () => {
               }`}
             >
               {category.label}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Projects Grid */}
-        <div
+        <motion.div
           ref={projectsGridRef}
+          variants={gridVariants}
+          initial="hidden"
+          animate={gridControls}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
         >
-          {filteredWorks.map((work) => (
-            <WorkCard key={work.id} {...work} />
+          {filteredWorks.map((work, index) => (
+            <motion.div
+              key={work.id}
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: index * 0.1 },
+                },
+              }}
+            >
+              <WorkCard {...work} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

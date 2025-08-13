@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Navigation } from "./components/Navigation";
 import { Route, Routes } from "react-router-dom";
 import { Hero } from "./components/Hero";
@@ -29,13 +29,7 @@ import { CGVPage } from "./pages/legal/CGVPage";
 import { PolitiqueConfidentialitePage } from "./pages/legal/PolitiqueConfidentialitePage";
 import { PolitiqueProtectionDonneesPage } from "./pages/legal/PolitiqueProtectionDonneesPage";
 import { ScrollToTop } from "./components/ScrollToTop";
-
-// Import GSAP and ScrollTrigger
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
+import { Page404 } from "./pages/Page404";
 
 function HomePage() {
   return (
@@ -55,13 +49,6 @@ function HomePage() {
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Clean up ScrollTrigger instances on unmount
-  useEffect(() => {
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
 
   return (
     <AppointmentProvider>
@@ -113,6 +100,7 @@ function App() {
           path="/politique-protection-donnees"
           element={<PolitiqueProtectionDonneesPage />}
         />
+        <Route path="*" element={<Page404 />} />
       </Routes>
       <Footer />
     </AppointmentProvider>

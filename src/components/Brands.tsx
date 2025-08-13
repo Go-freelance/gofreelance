@@ -1,90 +1,68 @@
-import type React from "react";
+import React, { useRef, useEffect } from "react";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import { brands } from "../data/brands";
-import { useRef, useEffect } from "react";
-import { gsap } from "gsap";
-// import { ScrollTrigger } from "gsap/ScrollTrigger"; // supprimé car inutilisé
+import { motion, useInView, useAnimation } from "framer-motion";
 
 export const Brands: React.FC = () => {
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const brandsGridRef = useRef(null);
-  const brandCardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+
+  // Animation controls
+  const headerControls = useAnimation();
+  const cardControls = useAnimation();
+
+  // InView hooks
+  const isHeaderInView = useInView(headerRef, { once: true, amount: 0.3 });
+  const isGridInView = useInView(brandsGridRef, { once: true, amount: 0.1 });
+
+  // Trigger animations when elements come into view
+  useEffect(() => {
+    if (isHeaderInView) {
+      headerControls.start("visible");
+    }
+  }, [isHeaderInView, headerControls]);
 
   useEffect(() => {
-    // ScrollTrigger for section header
-    if (headerRef.current) {
-      gsap.fromTo(
-        headerRef.current,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-            once: true,
-          },
-        }
-      );
+    if (isGridInView) {
+      cardControls.start("visible");
     }
+  }, [isGridInView, cardControls]);
 
-    // ScrollTrigger for individual brand cards
-    brandCardRefs.current.forEach((cardRef) => {
-      if (cardRef) {
-        gsap.fromTo(
-          cardRef,
-          { opacity: 0, y: 50, scale: 0.9 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.8,
-            ease: "back.out(1.7)",
-            scrollTrigger: {
-              trigger: cardRef,
-              start: "top 90%",
-              toggleActions: "play none none none",
-              once: true,
-            },
-          }
-        );
+  // Animation variants
+  const headerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8 },
+    },
+  };
 
-        // GSAP hover animations for brand cards
-        cardRef.addEventListener("mouseenter", () => {
-          gsap.to(cardRef, {
-            scale: 1.03,
-            y: -8,
-            boxShadow:
-              "0 15px 25px rgba(0, 0, 0, 0.1), 0 8px 10px rgba(0, 0, 0, 0.05)",
-            duration: 0.3,
-            ease: "power1.out",
-            overwrite: true,
-          });
-        });
-        cardRef.addEventListener("mouseleave", () => {
-          gsap.to(cardRef, {
-            scale: 1,
-            y: 0,
-            boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
-            duration: 0.3,
-            ease: "power1.out",
-            overwrite: true,
-          });
-        });
-      }
-    });
-  }, []);
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        delay: i * 0.1,
+      },
+    }),
+  };
 
   return (
     <section ref={sectionRef} className="py-20 px-4 bg-neutral-100">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div ref={headerRef} className="text-center mb-12">
+        <motion.div
+          ref={headerRef}
+          variants={headerVariants}
+          initial="hidden"
+          animate={headerControls}
+          className="text-center mb-12"
+        >
           <h2 className="text-3xl font-bold mb-4 gradient-text">
             Notre Écosystème
           </h2>
@@ -92,7 +70,7 @@ export const Brands: React.FC = () => {
             Découvrez les marques innovantes que nous avons développées pour
             répondre aux besoins du marché digital
           </p>
-        </div>
+        </motion.div>
 
         {/* Brands Grid */}
         <div
@@ -100,13 +78,20 @@ export const Brands: React.FC = () => {
           className="grid md:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
           {brands.map((brand, index) => (
-            <a
+            <motion.a
               key={brand.id}
-              ref={(el) => (brandCardRefs.current[index] = el)}
               href={brand.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group block rounded-xl bg-neutral-200 border border-neutral-100 overflow-hidden"
+              custom={index}
+              variants={cardVariants}
+              initial="hidden"
+              animate={cardControls}
+              whileHover={{ scale: 1.03, y: -8 }}
+              className="group block rounded-xl bg-neutral-200 border border-neutral-100 overflow-hidden cursor-pointer"
+              style={{
+                boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+              }}
             >
               {/* Brand Logo */}
               <div
@@ -166,7 +151,7 @@ export const Brands: React.FC = () => {
                   style={{ color: brand.color || "#333333" }}
                 />
               </div>
-            </a>
+            </motion.a>
           ))}
         </div>
       </div>

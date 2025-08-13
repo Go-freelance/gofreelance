@@ -6,16 +6,10 @@ import "swiper/css";
 
 export const Partners: React.FC = () => {
   return (
-    <section className="py-16 px-4 bg-secondary text-white">
+    <section className="py-12 mt-8 px-4 bg-secondary">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ils nous font confiance
-          </h2>
-          <p className="text-lg text-gray-300">
-            Découvrez les entreprises et organisations qui nous font confiance
-            pour leurs projets digitaux.
-          </p>
+          <p className="text-white font-medium">Ils nous font confiance</p>
         </div>
         <Swiper
           modules={[Autoplay]}
@@ -29,28 +23,19 @@ export const Partners: React.FC = () => {
           breakpoints={{
             320: {
               slidesPerView: 3,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 4,
-              spaceBetween: 30,
             },
             1024: {
               slidesPerView: 5,
-              spaceBetween: 40,
             },
           }}
           className="partners-carousel"
         >
           {partners.map((partner) => (
-            <SwiperSlide
-              key={partner.id}
-              className="flex justify-center items-center"
-            >
+            <SwiperSlide key={partner.id}>
               <img
-                src={partner.image || "/placeholder.svg"}
+                src={partner.image}
                 alt={partner.name}
-                className="h-16 w-auto object-contain  transition-all duration-300 ease-in-out"
+                className="w-36 brightness-0 invert opacity-50 hover:brightness-100 hover:invert-0 hover:opacity-100 transition duration-300"
               />
             </SwiperSlide>
           ))}
