@@ -2,7 +2,6 @@ import { Router } from "express";
 import { Request, Response } from "express";
 import * as EmailController from "../controllers/EmailController";
 
-
 const router = Router();
 
 /**

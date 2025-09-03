@@ -1,6 +1,15 @@
 import config from "../config/env";
 import { google } from "googleapis";
 import { ThirdPartySubmission } from "../types/thirdParty";
+import { EmailData } from "../types/email";
+import { getAppointmentSheetName } from "../utils/sheetMappers";
+import {
+  formatAppointmentData,
+  formatContactData,
+  appointmentDataToArray,
+  contactDataToArray,
+} from "../utils/dataFormatters";
+import { buildThirdPartySheetData } from "../utils/thirdPartyDataBuilder";
 
 type sheetsClient = ReturnType<typeof google.sheets>;
 let client: sheetsClient | null = null;
@@ -14,114 +23,81 @@ export function initSheetService() {
   client = google.sheets({ version: "v4", auth });
 }
 
-export async function appendThirdParty(ThirdParty: ThirdPartySubmission) {
+export async function appendThirdParty(thirdParty: ThirdPartySubmission) {
   if (!client) {
     throw new Error("Google Sheets client is not initialized");
   }
 
-  const banking = ThirdParty.bankingDetails?.[0] || {};
+  const banking = thirdParty.bankingDetails?.[0] || {};
   const timestamp = new Date().toLocaleString();
 
-  const { range, values } = buildSheetData(ThirdParty, banking, timestamp);
+  const sheetData = buildThirdPartySheetData(thirdParty, banking, timestamp);
 
-  if (range && values.length) {
+  if (sheetData && sheetData.values.length) {
     await client.spreadsheets.values.append({
       spreadsheetId,
-      range,
+      range: sheetData.range,
       valueInputOption: "USER_ENTERED",
-      requestBody: { values },
+      requestBody: { values: sheetData.values },
     });
   }
 }
 
-//Helper function to build the data structure for the Google Sheet
-function buildSheetData(
-  thirdParty: ThirdPartySubmission,
-  banking: {
-    bankName?: string;
-    accountNumber?: string;
-    iban?: string;
-    swiftBicCode?: string;
-  },
-  timestamp: string
-) {
-  switch (thirdParty.entityType) {
-    case "SOCIETE":
-      return {
-        range: "SOCIETE!A1",
-        values: [
-          [
-            thirdParty.denominationSociale || "",
-            thirdParty.numeroRCCM || "",
-            thirdParty.formeJuridique || "",
-            thirdParty.autreFormeJuridique || "",
-            thirdParty.numeroIDNAT || "",
-            thirdParty.numeroNIF || "",
-            thirdParty.siegeSocial || "",
-            thirdParty.activitePrincipale || "",
-            thirdParty.capitalSocial || "",
-            thirdParty.siteWeb || "",
-            JSON.stringify(thirdParty.responsables) || "",
-            thirdParty.telephone || "",
-            thirdParty.email || "",
-            banking.bankName || "",
-            banking.accountNumber || "",
-            banking.iban || "",
-            banking.swiftBicCode || "",
-            timestamp,
-          ],
-        ],
-      };
-    case "PARTICULIER":
-      return {
-        range: "PARTICULIER!A1",
-        values: [
-          [
-            thirdParty.nom || "",
-            thirdParty.prenoms || "",
-            thirdParty.dateNaissance || "",
-            thirdParty.lieuNaissance || "",
-            thirdParty.nationalite || "",
-            thirdParty.typeDocument || "",
-            thirdParty.numeroDocument || "",
-            thirdParty.dateExpiration || "",
-            thirdParty.adresse || "",
-            thirdParty.telephone || "",
-            thirdParty.email || "",
-            thirdParty.profession || "",
-            thirdParty.employeur || "",
-            banking.bankName || "",
-            banking.accountNumber || "",
-            banking.iban || "",
-            banking.swiftBicCode || "",
-            timestamp,
-          ],
-        ],
-      };
-    case "ADMINISTRATION":
-      return {
-        range: "ADMINISTRATION!A1",
-        values: [
-          [
-            thirdParty.nomOfficiel || "",
-            thirdParty.categorieAdministrative || "",
-            thirdParty.adresseInstitutionnelle || "",
-            thirdParty.personneContact || "",
-            thirdParty.fonctionContact || "",
-            thirdParty.telephoneContact || "",
-            thirdParty.emailContact || "",
-            thirdParty.numeroIFU || "",
-            thirdParty.compteBancaire || "",
-            thirdParty.referenceInterne || "",
-            thirdParty.acteDeclencheur || "",
-            thirdParty.cadreJuridique || "",
-            banking.bankName || "",
-            banking.accountNumber || "",
-            banking.iban || "",
-            banking.swiftBicCode || "",
-            timestamp,
-          ],
-        ],
-      };
+export async function appendAppointment(appointmentData: EmailData) {
+  if (!client) {
+    throw new Error("Google Sheets client is not initialized");
+  }
+
+  const sheetName = getAppointmentSheetName(appointmentData.service || "");
+  const formattedData = formatAppointmentData(appointmentData);
+  const values = [appointmentDataToArray(formattedData)];
+
+  try {
+    const result = await client.spreadsheets.values.append({
+      spreadsheetId,
+      range: `${sheetName}!A1`,
+      valueInputOption: "USER_ENTERED",
+      requestBody: { values },
+    });
+
+    return {
+      success: true,
+      message: `Rendez-vous sauvegardé avec succès dans ${sheetName}`,
+      data: result.data,
+      sheetName: sheetName,
+    };
+  } catch (error) {
+    console.error("Erreur lors de la sauvegarde dans Google Sheets:", error);
+    throw error;
+  }
+}
+
+export async function appendContact(contactData: EmailData) {
+  if (!client) {
+    throw new Error("Google Sheets client is not initialized");
+  }
+
+  const formattedData = formatContactData(contactData);
+  const values = [contactDataToArray(formattedData)];
+
+  try {
+    const result = await client.spreadsheets.values.append({
+      spreadsheetId,
+      range: "CONTACTS!A1",
+      valueInputOption: "USER_ENTERED",
+      requestBody: { values },
+    });
+
+    return {
+      success: true,
+      message: "Contact sauvegardé avec succès",
+      data: result.data,
+    };
+  } catch (error) {
+    console.error(
+      "Erreur lors de la sauvegarde du contact dans Google Sheets:",
+      error
+    );
+    throw error;
   }
 }
