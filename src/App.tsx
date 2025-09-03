@@ -29,6 +29,7 @@ import { CGVPage } from "./pages/legal/CGVPage";
 import { PolitiqueConfidentialitePage } from "./pages/legal/PolitiqueConfidentialitePage";
 import { PolitiqueProtectionDonneesPage } from "./pages/legal/PolitiqueProtectionDonneesPage";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { Page404 } from "./pages/Page404";
 
 function HomePage() {
   return (
@@ -48,6 +49,7 @@ function HomePage() {
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <AppointmentProvider>
       <ScrollToTop />
@@ -98,6 +100,7 @@ function App() {
           path="/politique-protection-donnees"
           element={<PolitiqueProtectionDonneesPage />}
         />
+        <Route path="*" element={<Page404 />} />
       </Routes>
       <Footer />
     </AppointmentProvider>

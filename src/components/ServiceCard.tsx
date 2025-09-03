@@ -1,8 +1,9 @@
-import type React from "react";
+import React from "react";
 import { CheckCircle, ArrowRight, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { ServiceCardProps } from "../types/common";
 import { useAppointment } from "../contexts/AppointmentContext";
+import { motion } from "framer-motion";
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({
   icon,
@@ -30,15 +31,30 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 
   return (
     <>
-      <div
-        className={`bg-white p-6 rounded-2xl transition relative h-full flex flex-col ${
+      <motion.div
+        className={`bg-white p-6 rounded-2xl relative h-full flex flex-col ${
           popular
             ? "shadow-xl scale-105 border-2 border-primary/20"
-            : "shadow-sm hover:shadow-lg"
+            : "shadow-sm"
         }`}
+        whileHover={{
+          y: -8,
+          scale: 1.02,
+          boxShadow:
+            "0 20px 30px -5px rgba(0, 0, 0, 0.15), 0 10px 15px -6px rgba(0, 0, 0, 0.08)",
+        }}
+        transition={{
+          duration: 0.3,
+          ease: "easeOut",
+        }}
+        style={{
+          boxShadow: popular
+            ? "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+            : "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+        }}
       >
         {popular && (
-          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm font-medium">
+          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm font-medium shadow-md">
             Plus populaire
           </div>
         )}
@@ -71,17 +87,20 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
             En savoir plus
           </Link>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.02 }}
             onClick={handleOpenAppointment}
             className={`w-full ${
               popular ? "bg-primary text-white" : "bg-primary text-white"
             } px-4 py-2.5 rounded-full hover:bg-primary-dark transition font-medium flex items-center justify-center gap-2 text-sm`}
           >
             Demander un devis
-            <ArrowRight className="w-4 h-4" />
-          </button>
+            <motion.div whileHover={{ x: 5 }} transition={{ duration: 0.3 }}>
+              <ArrowRight className="w-4 h-4" />
+            </motion.div>
+          </motion.button>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };

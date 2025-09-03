@@ -17,7 +17,6 @@ app.use(
 // Logger des requêtes HTTP
 app.use(morgan("common"));
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -27,9 +26,8 @@ app.use("/api/emails", emailRoutes);
 // Route par défaut pour tester que le serveur fonctionne
 app.get("/", (req, res) => {
   res.json({
-    message: "API Go Freelance fonctionnelle",
+    message: "API Go Freelance",
     env: config.nodeEnv,
-    version: "1.0.0",
   });
 });
 
