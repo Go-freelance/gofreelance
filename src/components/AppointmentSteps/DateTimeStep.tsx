@@ -1,35 +1,27 @@
 import React from "react";
 import { Calendar, Clock } from "lucide-react";
-import type { FormData } from "../../hooks/useAppointmentForm";
+import { UseFormRegister, FieldErrors } from "react-hook-form";
+import { CompleteAppointmentFormData } from "../../hooks/useAppointmentForm";
 
 interface DateTimeStepProps {
-  formData: FormData;
+  register: UseFormRegister<CompleteAppointmentFormData>;
+  errors: FieldErrors<CompleteAppointmentFormData>;
+  selectedDate: string;
   availableTimeSlots: string[];
-  handleChange: (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => void;
 }
 
 export const DateTimeStep: React.FC<DateTimeStepProps> = ({
-  formData,
+  register,
+  errors,
+  selectedDate,
   availableTimeSlots,
-  handleChange,
 }) => {
   // Fonction pour vérifier si une date est un weekend
   const isWeekend = (dateString: string) => {
+    if (!dateString) return false;
     const date = new Date(dateString);
     const day = date.getDay();
     return day === 0 || day === 6; // 0 = Dimanche, 6 = Samedi
-  };
-
-  // Fonction pour gérer le changement de date
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const date = e.target.value;
-    if (!isWeekend(date)) {
-      handleChange(e);
-    }
   };
 
   return (
@@ -44,12 +36,9 @@ export const DateTimeStep: React.FC<DateTimeStepProps> = ({
           </div>
           <input
             type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleDateChange}
-            required
             min={new Date().toISOString().split("T")[0]}
             className="w-full bg-neutral-50 border border-neutral-200 rounded-lg py-2 sm:py-3 pl-8 sm:pl-10 pr-3 sm:pr-4 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+            {...register("date", { required: "La date est requise" })}
           />
         </div>
       </div>
@@ -63,15 +52,12 @@ export const DateTimeStep: React.FC<DateTimeStepProps> = ({
             <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-neutral-400" />
           </div>
           <select
-            name="time"
-            value={formData.time}
-            onChange={handleChange}
-            required
-            disabled={!formData.date || availableTimeSlots.length === 0}
+            disabled={!selectedDate || availableTimeSlots.length === 0}
             className="w-full bg-neutral-50 border border-neutral-200 rounded-lg py-2 sm:py-3 pl-8 sm:pl-10 pr-3 sm:pr-4 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary disabled:bg-neutral-100 disabled:text-neutral-400"
+            {...register("time", { required: "L'heure est requise" })}
           >
             <option value="">
-              {!formData.date
+              {!selectedDate
                 ? "Sélectionnez d'abord une date"
                 : availableTimeSlots.length === 0
                 ? "Aucun créneau disponible"
@@ -86,11 +72,23 @@ export const DateTimeStep: React.FC<DateTimeStepProps> = ({
         </div>
       </div>
 
-      {formData.date && availableTimeSlots.length === 0 && (
+      {selectedDate && availableTimeSlots.length === 0 && (
         <div className="md:col-span-2 p-3 sm:p-4 bg-amber-50 text-amber-700 rounded-lg text-xs sm:text-sm">
-          {isWeekend(formData.date)
+          {isWeekend(selectedDate)
             ? "Les rendez-vous ne sont pas disponibles le weekend. Veuillez sélectionner un jour de semaine."
             : "Aucun créneau disponible pour cette date. Veuillez sélectionner une autre date."}
+        </div>
+      )}
+
+      {/* Affichage des erreurs de validation */}
+      {errors?.date && (
+        <div className="md:col-span-2 text-red-600 text-sm">
+          {errors.date.message}
+        </div>
+      )}
+      {errors?.time && (
+        <div className="md:col-span-2 text-red-600 text-sm">
+          {errors.time.message}
         </div>
       )}
     </div>

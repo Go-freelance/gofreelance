@@ -1,9 +1,9 @@
 import React from "react";
 import { Check, CalendarIcon } from "lucide-react";
-import type { FormData } from "../../hooks/useAppointmentForm";
+import type { CompleteAppointmentFormData } from "../../hooks/useAppointmentForm";
 
 interface SuccessStepProps {
-  formData: FormData;
+  formData: CompleteAppointmentFormData;
 }
 
 export const SuccessStep: React.FC<SuccessStepProps> = ({ formData }) => {
@@ -22,12 +22,18 @@ export const SuccessStep: React.FC<SuccessStepProps> = ({ formData }) => {
       <div className="flex items-center justify-center gap-2 text-primary text-sm sm:text-base">
         <CalendarIcon className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
         <span className="font-medium">
-          {new Date(formData.date).toLocaleDateString("fr-FR", {
-            weekday: "long",
-            day: "numeric",
-            month: "long",
-          })}{" "}
-          à {formData.time}
+          {formData.date ? (
+            <>
+              {new Date(formData.date).toLocaleDateString("fr-FR", {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+              })}{" "}
+              à {formData.time || "Heure non définie"}
+            </>
+          ) : (
+            "Date et heure à confirmer"
+          )}
         </span>
       </div>
     </div>

@@ -1,16 +1,16 @@
 import React from "react";
-import { FormData, TeamMember } from "../../hooks/useAppointmentForm";
+import { TeamMember } from "../../hooks/useAppointmentForm";
 
 interface TeamMemberStepProps {
-  formData: FormData;
+  selectedTeamMember: string;
   teamMembers: TeamMember[];
-  handleTeamMemberSelect: (member: TeamMember) => void;
+  onTeamMemberSelect: (member: TeamMember) => void;
 }
 
 export const TeamMemberStep: React.FC<TeamMemberStepProps> = ({
-  formData,
+  selectedTeamMember,
   teamMembers,
-  handleTeamMemberSelect,
+  onTeamMemberSelect,
 }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4">
@@ -18,11 +18,11 @@ export const TeamMemberStep: React.FC<TeamMemberStepProps> = ({
         <div
           key={member.id}
           className={`p-3 sm:p-4 rounded-xl border-2 cursor-pointer transition-all ${
-            formData.selectedTeamMember?.id === member.id
+            selectedTeamMember === member.name
               ? "border-primary bg-primary/5"
               : "border-neutral-200 hover:border-primary/30"
           }`}
-          onClick={() => handleTeamMemberSelect(member)}
+          onClick={() => onTeamMemberSelect(member)}
         >
           <div className="flex flex-col items-center text-center">
             <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full overflow-hidden mb-2 sm:mb-3 border-4 border-white shadow-md">

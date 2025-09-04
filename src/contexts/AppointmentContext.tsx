@@ -49,7 +49,7 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
       {/* Render du modal global */}
       {isOpen && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-2xl max-w-2xl overflow-y-auto">
             <AppointmentForm
               serviceTitle={serviceTitle}
               onClose={closeAppointment}

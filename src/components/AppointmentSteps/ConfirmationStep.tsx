@@ -1,14 +1,19 @@
 import React from "react";
 import { CalendarIcon, Clock, Building, Video } from "lucide-react";
-import type { FormData } from "../../hooks/useAppointmentForm";
+import type { CompleteAppointmentFormData } from "../../hooks/useAppointmentForm";
+import { teamMembers } from "../../data/teams";
 
 interface ConfirmationStepProps {
-  formData: FormData;
+  formData: CompleteAppointmentFormData;
 }
 
 export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
   formData,
 }) => {
+  // Trouver le membre d'équipe sélectionné par son nom
+  const selectedTeamMember = teamMembers.find(
+    (member) => member.name === formData.selectedTeamMember
+  );
   return (
     <div className="space-y-3 sm:space-y-6">
       <div className="bg-neutral-50 p-3 sm:p-6 rounded-xl">
@@ -51,16 +56,25 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
             <div>
               <p className="mb-1 text-xs sm:text-sm text-neutral-500">Agent</p>
               <div className="flex items-center gap-2">
-                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden flex-shrink-0">
-                  <img
-                    src={formData.selectedTeamMember?.avatar}
-                    alt={formData.selectedTeamMember?.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <span className="text-sm sm:text-base">
-                  {formData.selectedTeamMember?.name}
-                </span>
+                {selectedTeamMember && (
+                  <>
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden flex-shrink-0">
+                      <img
+                        src={selectedTeamMember.avatar}
+                        alt={selectedTeamMember.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <span className="text-sm sm:text-base">
+                      {selectedTeamMember.name}
+                    </span>
+                  </>
+                )}
+                {!selectedTeamMember && (
+                  <span className="text-sm sm:text-base">
+                    {formData.selectedTeamMember || "Aucun agent sélectionné"}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -73,12 +87,14 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
               <div className="flex items-center gap-2">
                 <CalendarIcon className="w-3 h-3 sm:w-4 sm:h-4 text-primary flex-shrink-0" />
                 <span className="text-sm sm:text-base">
-                  {new Date(formData.date).toLocaleDateString("fr-FR", {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
+                  {formData.date
+                    ? new Date(formData.date).toLocaleDateString("fr-FR", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })
+                    : "Date non sélectionnée"}
                 </span>
               </div>
               <div className="flex items-center gap-2 mt-1">
@@ -90,7 +106,7 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
             <div>
               <p className="text-xs sm:text-sm text-neutral-500">Coordonnées</p>
               <p className="font-medium text-sm sm:text-base">
-                {formData.name}
+                {formData.firstName} {formData.lastName}
               </p>
               <p className="text-sm sm:text-base">{formData.email}</p>
               <p className="text-sm sm:text-base">{formData.phone}</p>

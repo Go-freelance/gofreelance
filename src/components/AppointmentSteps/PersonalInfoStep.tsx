@@ -1,137 +1,111 @@
 import React from "react";
-import { User, Mail, Phone, MessageSquare } from "lucide-react";
-import type { FormData } from "../../hooks/useAppointmentForm";
+import { User, Mail, Phone, MessageSquare, Briefcase } from "lucide-react";
+import { UseFormRegister, FieldErrors } from "react-hook-form";
 import { services } from "../../data/services";
+import { FormField } from "../forms/FormField";
+import { InputField } from "../forms/InputField";
+import { SelectField } from "../forms/SelectField";
+import { TextareaField } from "../forms/TextareaField";
+import { CompleteAppointmentFormData } from "../../hooks/useAppointmentForm";
 
 interface PersonalInfoStepProps {
-  formData: FormData;
-  handleChange: (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => void;
+  register: UseFormRegister<CompleteAppointmentFormData>;
+  errors: FieldErrors<CompleteAppointmentFormData>;
 }
 
 export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
-  formData,
-  handleChange,
+  register,
+  errors,
 }) => {
+  // Options pour le select des services
+  const serviceOptions = [
+    ...services.map((service) => ({
+      value: service.title,
+      label: service.title,
+    })),
+    { value: "Solution Enterprise", label: "Solution Enterprise" },
+    { value: "Autre", label: "Autre" },
+  ];
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-6">
-      <div>
-        <label className="block text-xs sm:text-sm font-medium text-text mb-1 sm:mb-2">
-          Nom complet
-        </label>
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-2 sm:pl-3 flex items-center pointer-events-none">
-            <User className="w-4 h-4 sm:w-5 sm:h-5 text-neutral-400" />
-          </div>
-          <input
+    <div className="w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
+        <FormField label="Nom" error={errors?.lastName} required>
+          <InputField
             type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            className="w-full bg-neutral-50 border border-neutral-200 rounded-lg py-2 sm:py-3 pl-8 sm:pl-10 pr-3 sm:pr-4 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
             placeholder="Votre nom"
+            icon={User}
+            error={!!errors?.lastName}
+            className="text-sm sm:text-base md:text-base lg:text-base py-2.5 sm:py-3 md:py-3 pl-9 sm:pl-10 md:pl-11 pr-3 sm:pr-4"
+            {...register("lastName")}
           />
-        </div>
-      </div>
+        </FormField>
 
-      <div>
-        <label className="block text-xs sm:text-sm font-medium text-text mb-1 sm:mb-2">
-          Email
-        </label>
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-2 sm:pl-3 flex items-center pointer-events-none">
-            <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-neutral-400" />
-          </div>
-          <input
+        <FormField label="Prénom" error={errors?.firstName} required>
+          <InputField
+            type="text"
+            placeholder="Votre prénom"
+            icon={User}
+            error={!!errors?.firstName}
+            className="text-sm sm:text-base md:text-base lg:text-base py-2.5 sm:py-3 md:py-3 pl-9 sm:pl-10 md:pl-11 pr-3 sm:pr-4"
+            {...register("firstName")}
+          />
+        </FormField>
+
+        <FormField label="Email" error={errors?.email} required>
+          <InputField
             type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full bg-neutral-50 border border-neutral-200 rounded-lg py-2 sm:py-3 pl-8 sm:pl-10 pr-3 sm:pr-4 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
             placeholder="votre@email.com"
+            icon={Mail}
+            error={!!errors?.email}
+            className="text-sm sm:text-base md:text-base lg:text-base py-2.5 sm:py-3 md:py-3 pl-9 sm:pl-10 md:pl-11 pr-3 sm:pr-4"
+            {...register("email")}
           />
-        </div>
-      </div>
+        </FormField>
 
-      <div>
-        <label className="block text-xs sm:text-sm font-medium text-text mb-1 sm:mb-2">
-          Téléphone
-        </label>
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-2 sm:pl-3 flex items-center pointer-events-none">
-            <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-neutral-400" />
-          </div>
-          <input
+        <FormField label="Téléphone" error={errors?.phone} required>
+          <InputField
             type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-            className="w-full bg-neutral-50 border border-neutral-200 rounded-lg py-2 sm:py-3 pl-8 sm:pl-10 pr-3 sm:pr-4 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
-            placeholder="+243 000 000 000"
+            placeholder="0123456789"
+            icon={Phone}
+            error={!!errors?.phone}
+            className="text-sm sm:text-base md:text-base lg:text-base py-2.5 sm:py-3 md:py-3 pl-9 sm:pl-10 md:pl-11 pr-3 sm:pr-4"
+            {...register("phone")}
           />
-        </div>
-      </div>
+        </FormField>
 
-      <div>
-        <label className="block text-xs sm:text-sm font-medium text-text mb-1 sm:mb-2">
-          Service
-        </label>
-        <div className="relative">
-          <select
-            name="service"
-            value={formData.service}
-            onChange={handleChange}
-            required
-            className="w-full bg-neutral-50 border border-neutral-200 rounded-lg py-2 sm:py-3 px-3 sm:px-4 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary appearance-none"
-          >
-            <option value="">Sélectionnez un service</option>
-            {services.map((service, index) => (
-              <option key={index} value={service.title}>
-                {service.title}
-              </option>
-            ))}
-            <option value="Solution Enterprise">Solution Enterprise</option>
-            <option value="Autre">Autre</option>
-          </select>
-          <div className="absolute inset-y-0 right-0 pr-2 sm:pr-3 flex items-center pointer-events-none">
-            <svg
-              className="w-4 h-4 sm:w-5 sm:h-5 text-neutral-400"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
+        <FormField
+          label="Service"
+          error={errors?.service}
+          required
+          className="sm:col-span-1 md:col-span-2 lg:col-span-1"
+        >
+          <SelectField
+            placeholder="Sélectionnez un service"
+            options={serviceOptions}
+            icon={Briefcase}
+            error={!!errors?.service}
+            className="text-sm sm:text-base md:text-base lg:text-base py-2.5 sm:py-3 md:py-3 pl-9 sm:pl-10 md:pl-11 pr-3 sm:pr-4"
+            {...register("service")}
+          />
+        </FormField>
 
-      <div className="md:col-span-2">
-        <label className="block text-xs sm:text-sm font-medium text-text mb-1 sm:mb-2">
-          Message (optionnel)
-        </label>
-        <div className="relative">
-          <div className="absolute top-2 sm:top-3 left-0 pl-2 sm:pl-3 flex items-start pointer-events-none">
-            <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-neutral-400" />
-          </div>
-          <textarea
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            rows={3}
-            className="w-full bg-neutral-50 border border-neutral-200 rounded-lg py-2 sm:py-3 pl-8 sm:pl-10 pr-3 sm:pr-4 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+        <div className="hidden lg:block md:hidden"></div>
+      </div>
+      <div className="mt-6 sm:mt-6 md:mt-8">
+        <FormField
+          label="Message (optionnel)"
+          error={errors?.message}
+          className="w-full"
+        >
+          <TextareaField
             placeholder="Ajoutez plus de détails sur votre projet..."
-          ></textarea>
-        </div>
+            rows={3}
+            icon={MessageSquare}
+            error={!!errors?.message}
+            className="text-sm sm:text-base md:text-base lg:text-base py-2.5 sm:py-3 md:py-3 pl-9 sm:pl-10 md:pl-11 pr-3 sm:pr-4 min-h-[80px] sm:min-h-[90px] md:min-h-[100px]"
+            {...register("message")}
+          />
+        </FormField>
       </div>
     </div>
   );

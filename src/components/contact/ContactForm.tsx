@@ -8,16 +8,26 @@ import {
   Briefcase,
 } from "lucide-react";
 import { useContactForm } from "../../hooks/useContactForm";
+import { FormField } from "../forms/FormField";
+import { InputField } from "../forms/InputField";
+import { SelectField } from "../forms/SelectField";
+import { TextareaField } from "../forms/TextareaField";
+import { CONTACT_SUBJECTS } from "../../types/contact";
 
 export const ContactForm: FC = () => {
+  const { form, onSubmit, error, isSubmitting, isSuccess } = useContactForm();
+
   const {
-    formData,
-    handleChange,
+    register,
     handleSubmit,
-    error,
-    isSubmitting,
-    isSuccess,
-  } = useContactForm();
+    formState: { errors },
+  } = form;
+
+  // Options pour le select des sujets
+  const subjectOptions = CONTACT_SUBJECTS.map((subject) => ({
+    value: subject,
+    label: subject,
+  }));
 
   return (
     <>
@@ -35,129 +45,72 @@ export const ContactForm: FC = () => {
           </p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div>
-              <label className="block text-sm font-medium text-text mb-2">
-                Nom complet
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="w-5 h-5 text-neutral-400" />
-                </div>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full bg-neutral-50 border border-neutral-200 rounded-lg py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
-                  placeholder="Votre nom"
-                />
-              </div>
-            </div>
+            <FormField label="Prénom" error={errors.firstName} required>
+              <InputField
+                type="text"
+                placeholder="Votre prénom"
+                icon={User}
+                error={!!errors.firstName}
+                {...register("firstName")}
+              />
+            </FormField>
 
-            <div>
-              <label className="block text-sm font-medium text-text mb-2">
-                Email
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="w-5 h-5 text-neutral-400" />
-                </div>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full bg-neutral-50 border border-neutral-200 rounded-lg py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
-                  placeholder="votre@email.com"
-                />
-              </div>
-            </div>
+            <FormField label="Nom" error={errors.lastName} required>
+              <InputField
+                type="text"
+                placeholder="Votre nom"
+                icon={User}
+                error={!!errors.lastName}
+                {...register("lastName")}
+              />
+            </FormField>
 
-            <div>
-              <label className="block text-sm font-medium text-text mb-2">
-                Téléphone
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Phone className="w-5 h-5 text-neutral-400" />
-                </div>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full bg-neutral-50 border border-neutral-200 rounded-lg py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
-                  placeholder="+243 000 000 000"
-                />
-              </div>
-            </div>
+            <FormField label="Email" error={errors.email} required>
+              <InputField
+                type="email"
+                placeholder="votre@email.com"
+                icon={Mail}
+                error={!!errors.email}
+                {...register("email")}
+              />
+            </FormField>
 
-            <div>
-              <label className="block text-sm font-medium text-text mb-2">
-                Sujet
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Briefcase className="w-5 h-5 text-neutral-400" />
-                </div>
-                <select
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full bg-neutral-50 border border-neutral-200 rounded-lg py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary appearance-none"
-                >
-                  <option value="">Sélectionnez un sujet</option>
-                  <option value="Demande de devis">Demande de devis</option>
-                  <option value="Stratégie & Conseil">
-                    Stratégie & Conseil
-                  </option>
-                  <option value="Growth Marketing">Growth Marketing</option>
-                  <option value="Web & E-commerce">Web & E-commerce</option>
-                  <option value="Solution Enterprise">
-                    Solution Enterprise
-                  </option>
-                  <option value="Autre">Autre</option>
-                </select>
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <svg
-                    className="w-5 h-5 text-neutral-400"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
+            <FormField label="Téléphone" error={errors.phone}>
+              <InputField
+                type="tel"
+                placeholder="+243 000 000 000"
+                icon={Phone}
+                error={!!errors.phone}
+                {...register("phone")}
+              />
+            </FormField>
 
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-text mb-2">
-                Message
-              </label>
-              <div className="relative">
-                <div className="absolute top-3 left-0 pl-3 flex items-start pointer-events-none">
-                  <MessageSquare className="w-5 h-5 text-neutral-400" />
-                </div>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={6}
-                  className="w-full bg-neutral-50 border border-neutral-200 rounded-lg py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
-                  placeholder="Comment pouvons-nous vous aider ?"
-                ></textarea>
-              </div>
-            </div>
+            <FormField label="Sujet" error={errors.subject} required>
+              <SelectField
+                placeholder="Sélectionnez un sujet"
+                options={subjectOptions}
+                icon={Briefcase}
+                error={!!errors.subject}
+                {...register("subject")}
+              />
+            </FormField>
+
+            <FormField
+              label="Message"
+              error={errors.message}
+              required
+              className="md:col-span-2"
+            >
+              <TextareaField
+                placeholder="Comment pouvons-nous vous aider ?"
+                rows={6}
+                icon={MessageSquare}
+                error={!!errors.message}
+                {...register("message")}
+              />
+            </FormField>
           </div>
 
           {error && (

@@ -5,7 +5,8 @@
 import { EmailData } from "../types/email";
 
 export interface FormattedAppointmentData {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   service: string;
@@ -17,7 +18,8 @@ export interface FormattedAppointmentData {
 }
 
 export interface FormattedContactData {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   subject: string;
@@ -37,7 +39,8 @@ export function formatAppointmentData(
   const formattedDateTime = `${appointmentData.date} à ${appointmentData.time}`;
 
   return {
-    name: appointmentData.name || "",
+    firstName: appointmentData.firstName || "",
+    lastName: appointmentData.lastName || "",
     email: appointmentData.email || "",
     phone: appointmentData.phone || "",
     service: appointmentData.service || "",
@@ -60,7 +63,8 @@ export function formatContactData(
   const timestamp = new Date().toLocaleString();
 
   return {
-    name: contactData.name || "",
+    firstName: contactData.firstName || "",
+    lastName: contactData.lastName || "",
     email: contactData.email || "",
     phone: contactData.phone || "",
     subject: contactData.service || "", // Le service correspond au sujet pour les contacts
@@ -78,7 +82,8 @@ export function appointmentDataToArray(
   data: FormattedAppointmentData
 ): string[] {
   return [
-    data.name,
+    data.firstName,
+    data.lastName,
     data.email,
     data.phone,
     data.service,
@@ -97,7 +102,8 @@ export function appointmentDataToArray(
  */
 export function contactDataToArray(data: FormattedContactData): string[] {
   return [
-    data.name,
+    data.firstName,
+    data.lastName,
     data.email,
     data.phone,
     data.subject,

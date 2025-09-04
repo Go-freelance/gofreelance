@@ -4,9 +4,9 @@ export interface EmailResponse {
   success: boolean;
   message: string;
 }
-
 export interface EmailData {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   date: string;

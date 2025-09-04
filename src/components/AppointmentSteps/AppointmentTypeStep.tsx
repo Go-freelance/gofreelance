@@ -1,30 +1,30 @@
 import React from "react";
 import { Building, Video, MapPin, Check } from "lucide-react";
-import { AppointmentType, FormData } from "../../hooks/useAppointmentForm";
+import { AppointmentType } from "../../hooks/useAppointmentForm";
 
 interface AppointmentTypeStepProps {
-  formData: FormData;
-  handleAppointmentTypeChange: (type: AppointmentType) => void;
+  selectedType: AppointmentType;
+  onTypeChange: (type: AppointmentType) => void;
 }
 
 export const AppointmentTypeStep: React.FC<AppointmentTypeStepProps> = ({
-  formData,
-  handleAppointmentTypeChange,
+  selectedType,
+  onTypeChange,
 }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-6">
       <div
         className={`p-3 sm:p-6 rounded-xl border-2 cursor-pointer transition-all ${
-          formData.appointmentType === "in-person"
+          selectedType === "in-person"
             ? "border-primary bg-primary/5"
             : "border-neutral-200 hover:border-primary/30"
         }`}
-        onClick={() => handleAppointmentTypeChange("in-person")}
+        onClick={() => onTypeChange("in-person")}
       >
         <div className="flex items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
           <div
             className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center ${
-              formData.appointmentType === "in-person"
+              selectedType === "in-person"
                 ? "bg-primary text-white"
                 : "bg-neutral-100 text-neutral-500"
             }`}
@@ -46,16 +46,16 @@ export const AppointmentTypeStep: React.FC<AppointmentTypeStepProps> = ({
 
       <div
         className={`p-3 sm:p-6 rounded-xl border-2 cursor-pointer transition-all ${
-          formData.appointmentType === "online"
+          selectedType === "online"
             ? "border-primary bg-primary/5"
             : "border-neutral-200 hover:border-primary/30"
         }`}
-        onClick={() => handleAppointmentTypeChange("online")}
+        onClick={() => onTypeChange("online")}
       >
         <div className="flex items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
           <div
             className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center ${
-              formData.appointmentType === "online"
+              selectedType === "online"
                 ? "bg-primary text-white"
                 : "bg-neutral-100 text-neutral-500"
             }`}

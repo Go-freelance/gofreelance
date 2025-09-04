@@ -22,7 +22,9 @@ export class ContactTemplate {
             <table>
               <tr>
                 <td style="padding: 8px; width: 150px;"><strong>Nom:</strong></td>
-                <td style="padding: 8px;">${data.name}</td>
+                <td style="padding: 8px;">${data.firstName} ${
+      data.lastName
+    }</td>
               </tr>
               <tr>
                 <td style="padding: 8px;"><strong>Email:</strong></td>

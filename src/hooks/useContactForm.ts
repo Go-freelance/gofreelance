@@ -1,88 +1,109 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import {
+  ContactFormData,
+  validateContactForm,
+  hasValidationErrors,
+  sanitizeContactFormData,
+} from "../schemas/contactSchema";
 import { EmailService, type EmailData } from "../services/emailService";
 
-export interface ContactFormData {
-  name: string;
-  email: string;
-  phone: string;
-  subject: string;
-  message: string;
+interface UseContactFormReturn {
+  form: ReturnType<typeof useForm<ContactFormData>>;
+  isSubmitting: boolean;
+  isSuccess: boolean;
+  error: string | null;
+  onSubmit: (data: ContactFormData) => Promise<void>;
 }
 
-export const useContactForm = () => {
-  const [formData, setFormData] = useState<ContactFormData>({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-  });
-
+export const useContactForm = (): UseContactFormReturn => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const form = useForm<ContactFormData>({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+    },
+    mode: "onBlur", // Validation en temps réel lors de la perte de focus
+  });
 
-  // Handle form submission
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
     setError(null);
+
+    // Nettoyer et valider les données
+    const cleanData = sanitizeContactFormData(data);
+    const validationErrors = validateContactForm(cleanData);
+
+    // Si il y a des erreurs de validation, les appliquer au formulaire
+    if (hasValidationErrors(validationErrors)) {
+      // Appliquer les erreurs au formulaire
+      Object.entries(validationErrors).forEach(([field, message]) => {
+        form.setError(field as keyof ContactFormData, {
+          type: "manual",
+          message: message,
+        });
+      });
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const emailService = EmailService.getInstance();
 
+      // Transformer les données pour correspondre à l'interface EmailData
       const emailData: EmailData = {
-        ...formData,
+        firstName: cleanData.firstName,
+        lastName: cleanData.lastName,
+        email: cleanData.email,
+        phone: cleanData.phone || "",
         date: new Date().toISOString(),
         time: new Date().toLocaleTimeString(),
-        service: formData.subject,
+        service: cleanData.subject,
+        message: cleanData.message,
       };
 
-      const adminEmailSent = await emailService.sendAdminNotificationNewContact(
+      const success = await emailService.sendAdminNotificationNewContact(
         emailData
       );
 
-      if (adminEmailSent) {
+      if (success) {
         setIsSuccess(true);
+        form.reset();
 
+        // Revenir à l'état initial après 5 secondes
         setTimeout(() => {
-          setFormData({
-            name: "",
-            email: "",
-            phone: "",
-            subject: "",
-            message: "",
-          });
           setIsSuccess(false);
-        }, 3000);
+        }, 5000);
       } else {
         setError(
-          "Une erreur est survenue lors de l'envoi des emails. Veuillez réessayer."
+          "Une erreur est survenue lors de l'envoi de votre message. Veuillez réessayer."
         );
       }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      setError("Une erreur est survenue. Veuillez réessayer plus tard.");
+    } catch (err) {
+      console.error("Erreur lors de l'envoi du formulaire de contact:", err);
+      setError(
+        "Une erreur inattendue s'est produite. Veuillez réessayer plus tard."
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return {
-    formData,
+    form,
     isSubmitting,
     isSuccess,
     error,
-    handleChange,
-    handleSubmit,
+    onSubmit,
   };
 };
+
+// Export du type pour la compatibilité
+export type { ContactFormData };

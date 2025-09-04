@@ -30,7 +30,9 @@ export class AppointmentTemplate {
             <table>
               <tr>
                 <td style="padding: 8px; width: 150px;"><strong>Nom:</strong></td>
-                <td style="padding: 8px;">${data.name}</td>
+                <td style="padding: 8px;">${data.firstName} ${
+      data.lastName
+    }</td>
               </tr>
               <tr>
                 <td style="padding: 8px;"><strong>Email:</strong></td>
@@ -112,7 +114,7 @@ export class AppointmentTemplate {
       <body>
         <div class="container">
           <h1>Confirmation de votre rendez-vous</h1>
-          <p>Bonjour ${data.name},</p>
+          <p>Bonjour ${data.firstName} ${data.lastName},</p>
           <p>Nous vous confirmons votre rendez-vous pour le service <strong>${
             data.service
           }</strong>.</p>

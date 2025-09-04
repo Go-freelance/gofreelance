@@ -12,7 +12,8 @@ import { EmailData } from "../types/email";
 export function validateEmailData(data: Partial<EmailData>): boolean {
   return !!(
     data &&
-    data.name &&
+    data.firstName &&
+    data.lastName &&
     data.email &&
     data.phone &&
     data.date &&
@@ -27,5 +28,12 @@ export function validateEmailData(data: Partial<EmailData>): boolean {
  * @returns true si valide, false sinon
  */
 export function validateContactData(data: Partial<EmailData>): boolean {
-  return !!(data && data.name && data.email && data.phone && data.service);
+  return !!(
+    data &&
+    data.firstName &&
+    data.lastName &&
+    data.email &&
+    data.phone &&
+    data.service
+  );
 }

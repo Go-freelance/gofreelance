@@ -1,20 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useForm } from "react-hook-form";
 import { EmailService, type EmailData } from "../services/emailService";
 import { teamMembers } from "../data/teams";
+import {
+  AppointmentFormData,
+  validatePersonalInfo,
+  hasValidationErrors,
+} from "../schemas/appointmentSchema";
 
 export type AppointmentType = "in-person" | "online";
 export type TeamMember = (typeof teamMembers)[0];
 
-export interface FormData {
-  name: string;
-  email: string;
-  phone: string;
-  date: string;
-  time: string;
-  message: string;
-  service: string;
-  appointmentType: AppointmentType;
-  selectedTeamMember: TeamMember | null;
+export interface CompleteAppointmentFormData extends AppointmentFormData {
+  selectedTeamMember: string;
 }
 
 interface UseAppointmentFormProps {
@@ -29,18 +27,32 @@ export const useAppointmentForm = ({
   // Current step in the booking process
   const [currentStep, setCurrentStep] = useState(1);
 
-  // Form data state
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    email: "",
-    phone: "",
-    date: "",
-    time: "",
-    message: "",
-    service: initialService,
-    appointmentType: "in-person",
-    selectedTeamMember: null,
+  // React Hook Form configuration
+  const form = useForm<CompleteAppointmentFormData>({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      service: initialService,
+      message: "",
+      date: "",
+      time: "",
+      appointmentType: "in-person",
+      selectedTeamMember: "",
+    },
+    mode: "onBlur",
   });
+
+  const {
+    register,
+    formState: { errors },
+    watch,
+    setValue,
+    handleSubmit: rhfHandleSubmit,
+  } = form;
+
+  const watchedValues = watch();
 
   // Form submission states
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -50,42 +62,10 @@ export const useAppointmentForm = ({
   // Available time slots based on date
   const [availableTimeSlots, setAvailableTimeSlots] = useState<string[]>([]);
 
-  // Update available time slots when date changes
-  useEffect(() => {
-    if (!formData.date) return;
-
-    const selectedDate = new Date(formData.date);
-    const day = selectedDate.getDay();
-
-    // Vérifier si c'est un jour de semaine (1-5 = Lundi-Vendredi)
-    if (day >= 1 && day <= 5) {
-      // Créneaux de 9h à 17h
-      const baseSlots = [
-        "09:00",
-        "10:00",
-        "11:00",
-        "12:00",
-        "13:00",
-        "14:00",
-        "15:00",
-        "16:00",
-        "17:00",
-      ];
-      setAvailableTimeSlots(baseSlots);
-    } else {
-      // Si c'est le weekend, aucun créneau disponible
-      setAvailableTimeSlots([]);
-    }
-  }, [formData.date]);
-
-  // Gérer la réinitialisation du time sélectionné
-  useEffect(() => {
-    if (!formData.date || !formData.time) return;
-
-    const selectedDate = new Date(formData.date);
-    const day = selectedDate.getDay();
-    const isWeekday = day >= 1 && day <= 5;
-    const baseSlots = [
+  // Créneaux de 9h à 17h (constante memoized)
+  // Memoization pour éviter de recalculer les créneaux à chaque changement de date
+  const baseSlots = useMemo(
+    () => [
       "09:00",
       "10:00",
       "11:00",
@@ -95,31 +75,50 @@ export const useAppointmentForm = ({
       "15:00",
       "16:00",
       "17:00",
-    ];
+    ],
+    []
+  );
 
-    if (!isWeekday || !baseSlots.includes(formData.time)) {
-      setFormData((prev) => ({ ...prev, time: "" }));
+  // Update available time slots when date changes
+  useEffect(() => {
+    const currentDate = watchedValues.date;
+    if (!currentDate) return;
+
+    const selectedDate = new Date(currentDate);
+    const day = selectedDate.getDay();
+
+    // Vérifier si c'est un jour de semaine (1-5 = Lundi-Vendredi)
+    if (day >= 1 && day <= 5) {
+      setAvailableTimeSlots(baseSlots);
+    } else {
+      // Si c'est le weekend, aucun créneau disponible
+      setAvailableTimeSlots([]);
     }
-  }, [formData.date, formData.time]);
+  }, [watchedValues.date, baseSlots]);
 
-  // Handle form field changes
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  // Gérer la réinitialisation du time sélectionné
+  useEffect(() => {
+    const currentDate = watchedValues.date;
+    const currentTime = watchedValues.time;
 
-  // Handle appointment type selection
+    if (!currentDate || !currentTime) return;
+
+    const selectedDate = new Date(currentDate);
+    const day = selectedDate.getDay();
+    const isWeekday = day >= 1 && day <= 5;
+
+    if (!isWeekday || !baseSlots.includes(currentTime)) {
+      setValue("time", "");
+    }
+  }, [watchedValues.date, watchedValues.time, setValue, baseSlots]);
+
+  // Handlers simplifiés avec React Hook Form
   const handleAppointmentTypeChange = (type: AppointmentType) => {
-    setFormData((prev) => ({ ...prev, appointmentType: type }));
+    setValue("appointmentType", type);
   };
 
-  // Handle team member selection
   const handleTeamMemberSelect = (member: TeamMember) => {
-    setFormData((prev) => ({ ...prev, selectedTeamMember: member }));
+    setValue("selectedTeamMember", member.name);
   };
 
   // Navigate to next step
@@ -135,36 +134,50 @@ export const useAppointmentForm = ({
   // Check if current step is valid and can proceed
   const canProceedToNextStep = () => {
     switch (currentStep) {
-      case 1: // Personal info
-        return (
-          formData.name && formData.email && formData.phone && formData.service
-        );
+      case 1: {
+        // Personal info - validation avec React Hook Form
+        const personalInfoErrors = validatePersonalInfo({
+          firstName: watchedValues.firstName || "",
+          lastName: watchedValues.lastName || "",
+          email: watchedValues.email || "",
+          phone: watchedValues.phone || "",
+          service: watchedValues.service || "",
+          message: watchedValues.message || "",
+        });
+        return !hasValidationErrors(personalInfoErrors);
+      }
       case 2: // Appointment type
-        return formData.appointmentType !== null;
+        return !!watchedValues.appointmentType;
       case 3: // Team member selection
-        return formData.selectedTeamMember !== null;
+        return !!watchedValues.selectedTeamMember;
       case 4: // Date and time
-        return formData.date && formData.time;
+        return !!watchedValues.date && !!watchedValues.time;
       default:
         return true;
     }
   };
 
-  // Handle form submission
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Handle form submission avec React Hook Form
+  const handleSubmit = rhfHandleSubmit(async (data) => {
     setIsSubmitting(true);
     setError("");
 
     try {
       const emailService = EmailService.getInstance();
 
-      // Prepare email data with all form fields
+      // Prepare email data with all form fields from React Hook Form
       const emailData: EmailData = {
-        ...formData,
-        teamMember: formData.selectedTeamMember?.name || "",
-        appointmentType: formData.appointmentType,
-      } as EmailData;
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        phone: data.phone,
+        service: data.service,
+        message: data.message || "",
+        date: data.date || "",
+        time: data.time || "",
+        teamMember: data.selectedTeamMember || "",
+        appointmentType: data.appointmentType || "in-person",
+      };
 
       // Send admin notification
       const adminEmailSent = await emailService.sendAdminNotification(
@@ -172,25 +185,24 @@ export const useAppointmentForm = ({
       );
 
       // Send client confirmation
-      // const clientEmailSent = await emailService.sendClientConfirmation(
-      //   emailData
-      // );
+      // const clientEmailSent = await emailService.sendClientConfirmation(emailData);
 
       if (adminEmailSent) {
         setIsSuccess(true);
 
         // Reset form and close modal after 3 seconds
         setTimeout(() => {
-          setFormData({
-            name: "",
+          form.reset({
+            firstName: "",
+            lastName: "",
             email: "",
             phone: "",
+            service: initialService,
+            message: "",
             date: "",
             time: "",
-            message: "",
-            service: initialService,
             appointmentType: "in-person",
-            selectedTeamMember: null,
+            selectedTeamMember: "",
           });
           setIsSuccess(false);
           onClose();
@@ -206,22 +218,54 @@ export const useAppointmentForm = ({
     } finally {
       setIsSubmitting(false);
     }
-  };
+  });
 
   return {
     currentStep,
-    formData,
     isSubmitting,
     isSuccess,
     error,
     availableTimeSlots,
-    handleChange,
-    handleAppointmentTypeChange,
-    handleTeamMemberSelect,
     goToNextStep,
     goToPreviousStep,
     canProceedToNextStep,
     handleSubmit,
     teamMembers,
+
+    // React Hook Form
+    register,
+    errors,
+    watch: watchedValues,
+
+    // Handlers
+    handleAppointmentTypeChange,
+    handleTeamMemberSelect,
+
+    // Validation et navigation
+    validateAndGoNext: () => {
+      const personalInfoData = {
+        firstName: watchedValues.firstName || "",
+        lastName: watchedValues.lastName || "",
+        email: watchedValues.email || "",
+        phone: watchedValues.phone || "",
+        service: watchedValues.service || "",
+        message: watchedValues.message || "",
+      };
+
+      const validationErrors = validatePersonalInfo(personalInfoData);
+
+      if (hasValidationErrors(validationErrors)) {
+        Object.entries(validationErrors).forEach(([field, message]) => {
+          form.setError(field as keyof AppointmentFormData, {
+            type: "manual",
+            message: message,
+          });
+        });
+        return false;
+      }
+
+      goToNextStep();
+      return true;
+    },
   };
 };

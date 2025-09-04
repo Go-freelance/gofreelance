@@ -20,19 +20,21 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
 }) => {
   const {
     currentStep,
-    formData,
     isSubmitting,
     isSuccess,
     error,
     availableTimeSlots,
-    handleChange,
-    handleAppointmentTypeChange,
-    handleTeamMemberSelect,
     goToNextStep,
     goToPreviousStep,
     canProceedToNextStep,
     handleSubmit,
     teamMembers,
+    register,
+    errors,
+    watch,
+    handleAppointmentTypeChange,
+    handleTeamMemberSelect,
+    validateAndGoNext,
   } = useAppointmentForm({ initialService: serviceTitle, onClose });
 
   // Render step indicator
@@ -91,34 +93,33 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
-        return (
-          <PersonalInfoStep formData={formData} handleChange={handleChange} />
-        );
+        return <PersonalInfoStep register={register} errors={errors} />;
       case 2:
         return (
           <AppointmentTypeStep
-            formData={formData}
-            handleAppointmentTypeChange={handleAppointmentTypeChange}
+            selectedType={watch.appointmentType || "in-person"}
+            onTypeChange={handleAppointmentTypeChange}
           />
         );
       case 3:
         return (
           <TeamMemberStep
-            formData={formData}
+            selectedTeamMember={watch.selectedTeamMember || ""}
             teamMembers={teamMembers}
-            handleTeamMemberSelect={handleTeamMemberSelect}
+            onTeamMemberSelect={handleTeamMemberSelect}
           />
         );
       case 4:
         return (
           <DateTimeStep
-            formData={formData}
+            register={register}
+            errors={errors}
+            selectedDate={watch.date || ""}
             availableTimeSlots={availableTimeSlots}
-            handleChange={handleChange}
           />
         );
       case 5:
-        return <ConfirmationStep formData={formData} />;
+        return <ConfirmationStep formData={watch} />;
       default:
         return null;
     }
@@ -150,7 +151,7 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
         {currentStep < 5 ? (
           <button
             type="button"
-            onClick={goToNextStep}
+            onClick={currentStep === 1 ? validateAndGoNext : goToNextStep}
             disabled={!canProceedToNextStep()}
             className={`px-4 sm:px-6 py-2 sm:py-3 bg-primary text-white rounded-full hover:bg-primary-dark transition flex items-center gap-2 text-sm sm:text-base ${
               !canProceedToNextStep() ? "opacity-50 cursor-not-allowed" : ""
@@ -161,8 +162,8 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
           </button>
         ) : (
           <button
-            type="button"
-            onClick={(e) => handleSubmit(e)}
+            type="submit"
+            onClick={handleSubmit}
             disabled={isSubmitting}
             className={`px-4 sm:px-6 py-2 sm:py-3 bg-primary text-white rounded-full hover:bg-primary-dark transition flex items-center gap-2 text-sm sm:text-base ${
               isSubmitting ? "opacity-75 cursor-not-allowed" : ""
@@ -233,7 +234,7 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <SuccessStep formData={formData} />
+                <SuccessStep formData={watch} />
               </motion.div>
             ) : (
               <motion.div
