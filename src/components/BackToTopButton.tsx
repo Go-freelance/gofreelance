@@ -1,5 +1,7 @@
 
 import { useState, useEffect } from "react";
+import {ArrowUp} from "lucide-react"
+
 
 
 export function BackToTopButton() {
@@ -35,9 +37,9 @@ const [visible, setVisible] = useState(false);
       {visible && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-5 right-5 bg-primary text-white px-4 py-2 rounded-full shadow-lg hover:bg-pink-600"
+          className="fixed h-16 w-16 bottom-5 right-5 bg-primary text-white px-4 py-2 rounded-full shadow-lg hover:bg-pink-600"
         >
-          ↑ Up
+          <ArrowUp size={24} className="text-center font-bold" />
         </button>
       )}
     </>
