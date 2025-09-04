@@ -1,11 +1,118 @@
-import type React from "react";
+"use client";
+
+import React, { useRef } from "react";
 import { Gem, CheckCircle, ArrowRight } from "lucide-react";
 import { ServiceCard } from "./ServiceCard";
 import { services } from "../data/services";
 import { useAppointment } from "../contexts/AppointmentContext";
+import { motion, useInView, useAnimation } from "framer-motion";
 
 export const Services: React.FC = () => {
   const { openAppointment } = useAppointment();
+  const sectionRef = useRef(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const servicesGridRef = useRef<HTMLDivElement>(null);
+  const enterpriseSectionRef = useRef<HTMLDivElement>(null);
+
+  // Animation controls
+  const headerControls = useAnimation();
+  const servicesGridControls = useAnimation();
+  const enterpriseSectionControls = useAnimation();
+
+  // InView hooks
+  const isHeaderInView = useInView(headerRef, { once: true, amount: 0.3 });
+  const isServicesGridInView = useInView(servicesGridRef, {
+    once: true,
+    amount: 0.2,
+  });
+  const isEnterpriseSectionInView = useInView(enterpriseSectionRef, {
+    once: true,
+    amount: 0.3,
+  });
+
+  // Trigger animations when elements come into view
+  React.useEffect(() => {
+    if (isHeaderInView) {
+      headerControls.start("visible");
+    }
+  }, [isHeaderInView, headerControls]);
+
+  React.useEffect(() => {
+    if (isServicesGridInView) {
+      servicesGridControls.start("visible");
+    }
+  }, [isServicesGridInView, servicesGridControls]);
+
+  React.useEffect(() => {
+    if (isEnterpriseSectionInView) {
+      enterpriseSectionControls.start("visible");
+    }
+  }, [isEnterpriseSectionInView, enterpriseSectionControls]);
+
+  // Animation variants
+  const headerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const headerItemVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8 },
+    },
+  };
+
+  const servicesGridVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const serviceCardVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.8 },
+    },
+  };
+
+  const enterpriseSectionVariants = {
+    hidden: { opacity: 0, y: 40, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.8 },
+    },
+  };
+
+  const arrowVariants = {
+    animate: {
+      x: [0, 5, 0],
+      transition: {
+        duration: 1.5,
+        repeat: Infinity,
+      },
+    },
+  };
 
   const handleOpenAppointment = () => {
     openAppointment("Solution Enterprise");
@@ -14,35 +121,61 @@ export const Services: React.FC = () => {
   return (
     <section
       id="services"
+      ref={sectionRef}
       className="sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 bg-neutral-100"
     >
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 gradient-text">
+        <motion.div
+          ref={headerRef}
+          variants={headerVariants}
+          initial="hidden"
+          animate={headerControls}
+          className="text-center mb-12 sm:mb-16"
+        >
+          <motion.h2
+            variants={headerItemVariants}
+            className="text-3xl sm:text-4xl font-bold mb-4 gradient-text"
+          >
             Nos Services
-          </h2>
-          <p className="text-lg sm:text-xl text-text max-w-3xl mx-auto">
+          </motion.h2>
+          <motion.p
+            variants={headerItemVariants}
+            className="text-lg sm:text-xl text-text max-w-3xl mx-auto"
+          >
             Des solutions digitales complètes pour transformer votre business et
             accélérer votre croissance
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 mb-16">
+        <motion.div
+          ref={servicesGridRef}
+          variants={servicesGridVariants}
+          initial="hidden"
+          animate={servicesGridControls}
+          className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 mb-16"
+        >
           {services.map((service, index) => (
-            <ServiceCard
-              key={index}
-              icon={service.icon}
-              title={service.title}
-              description={service.description}
-              features={service.features}
-              popular={service.popular}
-            />
+            <motion.div key={index} variants={serviceCardVariants}>
+              <ServiceCard
+                icon={service.icon}
+                title={service.title}
+                description={service.description}
+                features={service.features}
+                popular={service.popular}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Enterprise Section */}
-        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg">
+        <motion.div
+          ref={enterpriseSectionRef}
+          variants={enterpriseSectionVariants}
+          initial="hidden"
+          animate={enterpriseSectionControls}
+          className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg"
+        >
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div>
               <div className="flex items-center gap-3 mb-4">
@@ -80,16 +213,20 @@ export const Services: React.FC = () => {
               <p className="text-3xl sm:text-4xl font-bold text-secondary mb-6">
                 Sur devis
               </p>
-              <button
+              <motion.button
+                whileHover={{ scale: 1.05, y: -2 }}
+                transition={{ duration: 0.2 }}
                 className="bg-secondary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full hover:bg-secondary-dark transition flex items-center gap-2 w-full sm:w-auto justify-center"
                 onClick={handleOpenAppointment}
               >
                 Demander un devis
-                <ArrowRight className="w-5 h-5" />
-              </button>
+                <motion.div variants={arrowVariants} animate="animate">
+                  <ArrowRight className="w-5 h-5" />
+                </motion.div>
+              </motion.button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

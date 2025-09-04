@@ -182,22 +182,22 @@ export const Footer: React.FC = () => {
                 Politique de confidentialité
               </Link>
               <Link
+                to="/politique-protection-donnees"
+                className="text-neutral-300 hover:text-primary transition"
+              >
+                Politique de protection des données
+              </Link>
+              <Link
                 to="/cgu"
                 className="text-neutral-300 hover:text-primary transition"
               >
-                Conditions générales d'utilisation
+                CGU
               </Link>
               <Link
                 to="/cgv"
                 className="text-neutral-300 hover:text-primary transition"
               >
-                Conditions générales de vente
-              </Link>
-              <Link
-                to="/politique-protection-donnees"
-                className="text-neutral-300 hover:text-primary transition"
-              >
-                Politique de protection des données
+                CGV
               </Link>
             </div>
           </div>

@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { X, ArrowRight, ArrowLeft, Check } from "lucide-react";
 import { useAppointmentForm } from "../hooks/useAppointmentForm";
@@ -9,6 +7,7 @@ import { TeamMemberStep } from "./AppointmentSteps/TeamMemberStep";
 import { DateTimeStep } from "./AppointmentSteps/DateTimeStep";
 import { ConfirmationStep } from "./AppointmentSteps/ConfirmationStep";
 import { SuccessStep } from "./AppointmentSteps/SuccessStep";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface AppointmentFormProps {
   serviceTitle?: string;
@@ -178,51 +177,100 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4 overflow-y-auto">
-      <div className="bg-white rounded-2xl w-full max-w-3xl overflow-hidden shadow-xl my-2 sm:my-8">
-        {/* Header */}
-        <div className="flex justify-between items-center p-4 sm:p-6 border-b">
-          <h2 className="text-lg sm:text-2xl font-bold text-secondary truncate">
-            {serviceTitle ? `Réserver: ${serviceTitle}` : "Prendre rendez-vous"}
-          </h2>
-          <button
-            onClick={onClose}
-            className="text-neutral-400 hover:text-secondary transition flex-shrink-0"
+    <AnimatePresence>
+      <motion.div
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4 overflow-y-auto"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <motion.div
+          className="bg-white rounded-2xl w-full max-w-3xl overflow-hidden shadow-xl my-2 sm:my-8"
+          initial={{ opacity: 0, scale: 0.8, y: 50 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.8, y: 50 }}
+          transition={{
+            duration: 0.4,
+            ease: "easeOut",
+            type: "spring",
+            stiffness: 300,
+            damping: 30,
+          }}
+        >
+          {/* Header */}
+          <motion.div
+            className="flex justify-between items-center p-4 sm:p-6 border-b"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.3 }}
           >
-            <X className="w-5 h-5 sm:w-6 sm:h-6" />
-          </button>
-        </div>
+            <h2 className="text-lg sm:text-2xl font-bold text-secondary truncate">
+              {serviceTitle
+                ? `Réserver: ${serviceTitle}`
+                : "Prendre rendez-vous"}
+            </h2>
+            <motion.button
+              onClick={onClose}
+              className="text-neutral-400 hover:text-secondary transition flex-shrink-0"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
+            </motion.button>
+          </motion.div>
 
-        {/* Form */}
-        <div className="p-4 sm:p-6">
-          {isSuccess ? (
-            <SuccessStep formData={formData} />
-          ) : (
-            <div>
-              {/* Step indicator */}
-              {renderStepIndicator()}
+          {/* Form */}
+          <motion.div
+            className="p-4 sm:p-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.4 }}
+          >
+            {isSuccess ? (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <SuccessStep formData={formData} />
+              </motion.div>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                {/* Step indicator */}
+                {renderStepIndicator()}
 
-              {/* Step title */}
-              <h3 className="text-base sm:text-xl font-bold mb-4 sm:mb-6 text-center">
-                {getStepTitle()}
-              </h3>
+                {/* Step title */}
+                <h3 className="text-base sm:text-xl font-bold mb-4 sm:mb-6 text-center">
+                  {getStepTitle()}
+                </h3>
 
-              {/* Step content */}
-              {renderStepContent()}
+                {/* Step content */}
+                {renderStepContent()}
 
-              {/* Error message */}
-              {error && (
-                <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-red-50 text-red-700 rounded-lg text-sm">
-                  {error}
-                </div>
-              )}
+                {/* Error message */}
+                {error && (
+                  <motion.div
+                    className="mt-4 sm:mt-6 p-3 sm:p-4 bg-red-50 text-red-700 rounded-lg text-sm"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {error}
+                  </motion.div>
+                )}
 
-              {/* Navigation buttons */}
-              {renderNavButtons()}
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+                {/* Navigation buttons */}
+                {renderNavButtons()}
+              </motion.div>
+            )}
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 };

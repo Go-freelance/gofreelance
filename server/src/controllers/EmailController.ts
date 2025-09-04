@@ -1,15 +1,21 @@
 import { Request, Response } from "express";
 import {
   initEmailService,
-  sendAdminNotification,
-  sendClientConfirmation,
   sendAdminNotificationNewThirdParty,
-  sendContactEmail,
 } from "../services/EmailService";
 import { initSheetService, appendThirdParty } from "../services/SheetService";
+import { processAppointment } from "../services/AppointmentService";
+import { processContact } from "../services/ContactService";
+import { processClientConfirmation } from "../services/ClientConfirmationService";
 import { ThirdPartySubmission } from "../types/thirdParty";
 import { EmailData } from "../types/email";
 import { handleFileUpload } from "../middleware/fileUpload";
+import { validateEmailData, validateContactData } from "../utils/validation";
+import {
+  sendSuccessResponse,
+  sendValidationErrorResponse,
+  sendServerErrorResponse,
+} from "../utils/apiResponses";
 import fs from "fs";
 
 // Type pour la requête avec fichier uploadé
@@ -21,105 +27,78 @@ interface RequestWithFile extends Request {
 initEmailService();
 initSheetService();
 
-async function sendAdminNotificationHandler(
-  req: Request,
-  res: Response
-) {
+async function sendAdminNotificationHandler(req: Request, res: Response) {
   try {
     const emailData: EmailData = req.body;
+
     if (!validateEmailData(emailData)) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "Données invalides. Veuillez vérifier les champs obligatoires.",
-      });
+      return sendValidationErrorResponse(res);
     }
-    const sent = await sendAdminNotification(emailData);
-    if (!sent) {
-      return res.status(500).json({
-        success: false,
-        message: "Erreur lors de l'envoi de l'email de notification.",
-      });
+
+    const result = await processAppointment(emailData);
+
+    if (result.success) {
+      return sendSuccessResponse(res, result.message);
+    } else {
+      return sendServerErrorResponse(res, result.message);
     }
-    return res.status(200).json({
-      success: true,
-      message: "Email de notification envoyé avec succès.",
-    });
   } catch (error) {
     console.error("Erreur dans sendAdminNotificationHandler:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Erreur serveur lors de l'envoi de l'email.",
-      error: error instanceof Error ? error.message : "Erreur inconnue",
-    });
+    return sendServerErrorResponse(
+      res,
+      "Erreur serveur lors de l'enregistrement du rendez-vous.",
+      error
+    );
   }
 }
 
-async function sendClientConfirmationHandler(
-  req: Request,
-  res: Response
-) {
+async function sendClientEmailConfirmationHandler(req: Request, res: Response) {
   try {
     const emailData: EmailData = req.body;
+
     if (!validateEmailData(emailData)) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "Données invalides. Veuillez vérifier les champs obligatoires.",
-      });
+      return sendValidationErrorResponse(res);
     }
-    const sent = await sendClientConfirmation(emailData);
-    if (!sent) {
-      return res.status(500).json({
-        success: false,
-        message: "Erreur lors de l'envoi de l'email de confirmation.",
-      });
+
+    const result = await processClientConfirmation(emailData);
+
+    if (result.success) {
+      return sendSuccessResponse(res, result.message);
+    } else {
+      return sendServerErrorResponse(res, result.message);
     }
-    return res.status(200).json({
-      success: true,
-      message: "Email de confirmation envoyé avec succès.",
-    });
   } catch (error) {
     console.error("Erreur dans sendClientConfirmationHandler:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Erreur serveur lors de l'envoi de l'email.",
-      error: error instanceof Error ? error.message : "Erreur inconnue",
-    });
+    return sendServerErrorResponse(
+      res,
+      "Erreur serveur lors de l'envoi de l'email.",
+      error
+    );
   }
 }
 
-async function sendAdminEmailNewContactHandler(
-  req: Request,
-  res: Response
-) {
+async function sendAdminEmailNewContactHandler(req: Request, res: Response) {
   try {
     const emailData: EmailData = req.body;
-    if (!validateEmailData(emailData)) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "Données invalides. Veuillez vérifier les champs obligatoires.",
-      });
+
+    if (!validateContactData(emailData)) {
+      return sendValidationErrorResponse(res);
     }
-    const sent = await sendContactEmail(emailData);
-    if (!sent) {
-      return res.status(500).json({
-        success: false,
-        message: "Erreur lors de l'envoi de l'email de contact.",
-      });
+
+    const result = await processContact(emailData);
+
+    if (result.success) {
+      return sendSuccessResponse(res, result.message);
+    } else {
+      return sendServerErrorResponse(res, result.message);
     }
-    return res.status(200).json({
-      success: true,
-      message: "Email de contact envoyé avec succès.",
-    });
   } catch (error) {
     console.error("Erreur dans sendAdminEmailNewContactHandler:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Erreur serveur lors de l'envoi de l'email.",
-      error: error instanceof Error ? error.message : "Erreur inconnue",
-    });
+    return sendServerErrorResponse(
+      res,
+      "Erreur serveur lors de l'enregistrement du contact.",
+      error
+    );
   }
 }
 
@@ -170,7 +149,7 @@ function sendAdminNotificationNewThirdPartyHandler(
       });
     } catch (error) {
       console.error(
-        "❌ Erreur dans sendAdminNotificationNewThirdPartyHandler:",
+        "Erreur dans sendAdminNotificationNewThirdPartyHandler:",
         error
       );
       return res.status(500).json({
@@ -181,21 +160,9 @@ function sendAdminNotificationNewThirdPartyHandler(
   });
 }
 
-function validateEmailData(data: Partial<EmailData>): boolean {
-  return !!(
-    data &&
-    data.name &&
-    data.email &&
-    data.phone &&
-    data.date &&
-    data.time &&
-    data.service
-  );
-}
-
 export default {
   sendAdminNotification: sendAdminNotificationHandler,
   sendAdminNotificationNewContact: sendAdminEmailNewContactHandler,
-  sendClientConfirmation: sendClientConfirmationHandler,
+  sendClientConfirmation: sendClientEmailConfirmationHandler,
   sendAdminNotificationNewThirdParty: sendAdminNotificationNewThirdPartyHandler,
 };

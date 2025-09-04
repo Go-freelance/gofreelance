@@ -3,12 +3,10 @@ import { useState, useEffect } from "react";
 import {ArrowUp} from "lucide-react"
 
 
-
 export function BackToTopButton() {
 
 const [visible, setVisible] = useState(false);
 
-  // Quand on scrolle, on active et désactive le bouton
   useEffect(() => {
     const toggleVisibility = () => {
       if (window.scrollY > 200) {
@@ -24,7 +22,6 @@ const [visible, setVisible] = useState(false);
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
-  // Remonte au dessus
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -37,9 +34,9 @@ const [visible, setVisible] = useState(false);
       {visible && (
         <button
           onClick={scrollToTop}
-          className="fixed h-16 w-16 bottom-5 right-5 bg-primary text-white px-4 py-2 rounded-full shadow-lg hover:bg-pink-600"
+          className="fixed bottom-5 right-5 bg-primary text-white  w-10 h-10 sm:w-16 sm:h-16 flex items-center justify-center rounded-full shadow-lg hover:bg-pink-600 "
         >
-          <ArrowUp size={24} className="text-center font-bold" />
+          < ArrowUp className="w-8 h-6" />
         </button>
       )}
     </>
