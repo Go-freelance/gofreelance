@@ -29,6 +29,7 @@ import { CGVPage } from "./pages/legal/CGVPage";
 import { PolitiqueConfidentialitePage } from "./pages/legal/PolitiqueConfidentialitePage";
 import { PolitiqueProtectionDonneesPage } from "./pages/legal/PolitiqueProtectionDonneesPage";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { BackToTopButton } from "./components/BackToTopButton";
 import { Page404 } from "./pages/Page404";
 
 function HomePage() {
@@ -43,6 +44,8 @@ function HomePage() {
       <Work />
       <Brands />
       <CallToAction />
+      <BackToTopButton/>
+
     </>
   );
 }
