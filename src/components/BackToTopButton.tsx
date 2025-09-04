@@ -7,7 +7,6 @@ export function BackToTopButton() {
 
 const [visible, setVisible] = useState(false);
 
-  // Quand on scrolle, on active et désactive le bouton
   useEffect(() => {
     const toggleVisibility = () => {
       if (window.scrollY > 200) {
