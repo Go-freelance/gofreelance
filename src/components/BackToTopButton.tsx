@@ -1,4 +1,5 @@
 
+import { ArrowUp } from "lucide-react";
 import { useState, useEffect } from "react";
 
 
@@ -22,7 +23,6 @@ const [visible, setVisible] = useState(false);
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
-  // Remonte au dessus
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -35,9 +35,9 @@ const [visible, setVisible] = useState(false);
       {visible && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-5 right-5 bg-primary text-white px-4 py-2 rounded-full shadow-lg hover:bg-pink-600"
+          className="fixed bottom-5 right-5 bg-primary text-white  w-10 h-10 sm:w-16 sm:h-16 flex items-center justify-center rounded-full shadow-lg hover:bg-pink-600 "
         >
-          ↑ Up
+          < ArrowUp className="w-8 h-6" />
         </button>
       )}
     </>
