@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import type React from "react";
 import { X, ArrowRight, ArrowLeft, Check } from "lucide-react";
 import { useAppointmentForm } from "../hooks/useAppointmentForm";
 import { PersonalInfoStep } from "./AppointmentSteps/PersonalInfoStep";
@@ -40,11 +42,11 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
   // Render step indicator
   const renderStepIndicator = () => {
     return (
-      <div className="flex items-center justify-center mb-8 overflow-x-auto pb-2 sm:overflow-visible sm:pb-0">
+      <div className="flex items-center justify-center mb-6 md:mb-8 overflow-x-auto pb-2 sm:overflow-visible sm:pb-0">
         {[1, 2, 3, 4, 5].map((step) => (
           <div key={step} className="flex items-center flex-shrink-0">
             <div
-              className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-medium ${
+              className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-medium text-sm md:text-base ${
                 currentStep === step
                   ? "bg-primary text-white"
                   : currentStep > step
@@ -53,14 +55,14 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
               }`}
             >
               {currentStep > step ? (
-                <Check className="w-3 h-3 sm:w-4 sm:h-4" />
+                <Check className="w-4 h-4 md:w-5 md:h-5" />
               ) : (
                 step
               )}
             </div>
             {step < 5 && (
               <div
-                className={`w-6 sm:w-12 h-1 ${
+                className={`w-8 md:w-12 h-1 ${
                   currentStep > step ? "bg-primary" : "bg-neutral-200"
                 }`}
               />
@@ -128,21 +130,21 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
   // Render navigation buttons
   const renderNavButtons = () => {
     return (
-      <div className="flex justify-between mt-8 flex-wrap gap-3">
+      <div className="flex justify-between mt-8 gap-4">
         {currentStep > 1 ? (
           <button
             type="button"
             onClick={goToPreviousStep}
-            className="px-4 sm:px-6 py-2 sm:py-3 border border-neutral-200 rounded-full text-secondary hover:bg-neutral-50 transition flex items-center gap-2 text-sm sm:text-base"
+            className="px-6 py-3 border border-neutral-200 rounded-full text-secondary hover:bg-neutral-50 transition flex items-center gap-2 text-sm md:text-base"
           >
-            <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
             Retour
           </button>
         ) : (
           <button
             type="button"
             onClick={onClose}
-            className="px-4 sm:px-6 py-2 sm:py-3 border border-neutral-200 rounded-full text-secondary hover:bg-neutral-50 transition text-sm sm:text-base"
+            className="px-6 py-3 border border-neutral-200 rounded-full text-secondary hover:bg-neutral-50 transition text-sm md:text-base"
           >
             Annuler
           </button>
@@ -153,24 +155,24 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
             type="button"
             onClick={currentStep === 1 ? validateAndGoNext : goToNextStep}
             disabled={!canProceedToNextStep()}
-            className={`px-4 sm:px-6 py-2 sm:py-3 bg-primary text-white rounded-full hover:bg-primary-dark transition flex items-center gap-2 text-sm sm:text-base ${
+            className={`px-6 py-3 bg-primary text-white rounded-full hover:bg-primary-dark transition flex items-center gap-2 text-sm md:text-base ${
               !canProceedToNextStep() ? "opacity-50 cursor-not-allowed" : ""
             }`}
           >
             Continuer
-            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+            <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
           </button>
         ) : (
           <button
             type="submit"
             onClick={handleSubmit}
             disabled={isSubmitting}
-            className={`px-4 sm:px-6 py-2 sm:py-3 bg-primary text-white rounded-full hover:bg-primary-dark transition flex items-center gap-2 text-sm sm:text-base ${
+            className={`px-6 py-3 bg-primary text-white rounded-full hover:bg-primary-dark transition flex items-center gap-2 text-sm md:text-base ${
               isSubmitting ? "opacity-75 cursor-not-allowed" : ""
             }`}
           >
             {isSubmitting ? "Envoi en cours..." : "Confirmer"}
-            {!isSubmitting && <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />}
+            {!isSubmitting && <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />}
           </button>
         )}
       </div>
@@ -180,14 +182,14 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4 overflow-y-auto"
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-3 md:p-4 overflow-y-auto"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
       >
         <motion.div
-          className="bg-white rounded-2xl w-full max-w-3xl overflow-hidden shadow-xl my-2 sm:my-8"
+          className="bg-white rounded-2xl w-full max-w-4xl overflow-hidden shadow-xl my-4 md:my-8 max-h-[95vh] flex flex-col"
           initial={{ opacity: 0, scale: 0.8, y: 50 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 50 }}
@@ -201,29 +203,29 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
         >
           {/* Header */}
           <motion.div
-            className="flex justify-between items-center p-4 sm:p-6 border-b"
+            className="flex justify-between items-center p-4 md:p-6 border-b flex-shrink-0"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.3 }}
           >
-            <h2 className="text-lg sm:text-2xl font-bold text-secondary truncate">
+            <h2 className="text-lg md:text-2xl font-bold text-secondary truncate pr-4">
               {serviceTitle
                 ? `Réserver: ${serviceTitle}`
                 : "Prendre rendez-vous"}
             </h2>
             <motion.button
               onClick={onClose}
-              className="text-neutral-400 hover:text-secondary transition flex-shrink-0"
+              className="text-neutral-400 hover:text-secondary transition flex-shrink-0 p-1"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <X className="w-5 h-5 sm:w-6 sm:h-6" />
+              <X className="w-5 h-5 md:w-6 md:h-6" />
             </motion.button>
           </motion.div>
 
           {/* Form */}
           <motion.div
-            className="p-4 sm:p-6"
+            className="p-4 md:p-6 overflow-y-auto flex-1"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.4 }}
@@ -246,7 +248,7 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 {renderStepIndicator()}
 
                 {/* Step title */}
-                <h3 className="text-base sm:text-xl font-bold mb-4 sm:mb-6 text-center">
+                <h3 className="text-lg md:text-xl font-bold mb-6 text-center">
                   {getStepTitle()}
                 </h3>
 
@@ -256,7 +258,7 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 {/* Error message */}
                 {error && (
                   <motion.div
-                    className="mt-4 sm:mt-6 p-3 sm:p-4 bg-red-50 text-red-700 rounded-lg text-sm"
+                    className="mt-6 p-4 bg-red-50 text-red-700 rounded-lg text-sm"
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
