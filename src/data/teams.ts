@@ -28,4 +28,12 @@ export const teamMembers: TeamMember[] = [
     specialty: "Web & E-commerce",
     avatar: "./images/mariam.jpg",
   },
+
+  {
+    id: 4,
+    name: "Mirja Mayuku",
+    role: "Role",
+    specialty: "Stratégie & Conseil",
+    avatar: "./images/Mirja.jpg",
+  }
 ];
