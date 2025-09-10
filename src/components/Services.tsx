@@ -174,49 +174,49 @@ export const Services: React.FC = () => {
           variants={enterpriseSectionVariants}
           initial="hidden"
           animate={enterpriseSectionControls}
-          className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg"
+          className="bg-secondary rounded-2xl p-6 sm:p-8 shadow-lg"
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <Gem className="w-6 h-6 text-primary" />
-                <h3 className="text-xl sm:text-2xl font-bold text-secondary">
+                <h3 className="text-xl sm:text-2xl font-bold text-white">
                   Solution Enterprise
                 </h3>
               </div>
-              <p className="text-text mb-6 max-w-2xl">
+              <p className="text-white mb-6 max-w-2xl">
                 Besoin d'une solution personnalisée ? Nous créons des packages
                 sur mesure pour les grandes entreprises avec des besoins
                 spécifiques.
               </p>
               <ul className="grid sm:grid-cols-2 gap-3 mb-8">
-                <li className="flex items-center gap-2 text-text">
+                <li className="flex items-center gap-2 text-white">
                   <CheckCircle className="w-5 h-5 text-primary" />
                   Support prioritaire 24/7
                 </li>
-                <li className="flex items-center gap-2 text-text">
+                <li className="flex items-center gap-2 text-white">
                   <CheckCircle className="w-5 h-5 text-primary" />
                   Équipe dédiée
                 </li>
-                <li className="flex items-center gap-2 text-text">
+                <li className="flex items-center gap-2 text-white">
                   <CheckCircle className="w-5 h-5 text-primary" />
                   Solutions personnalisées
                 </li>
-                <li className="flex items-center gap-2 text-text">
+                <li className="flex items-center gap-2 text-white">
                   <CheckCircle className="w-5 h-5 text-primary" />
                   Intégration sur mesure
                 </li>
               </ul>
             </div>
             <div className="text-center md:text-left">
-              <p className="text-text mb-4">Tarification</p>
-              <p className="text-3xl sm:text-4xl font-bold text-secondary mb-6">
+              <p className="text-white mb-4">Tarification</p>
+              <p className="text-3xl sm:text-4xl font-bold text-white mb-6">
                 Sur devis
               </p>
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
                 transition={{ duration: 0.2 }}
-                className="bg-secondary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-md hover:bg-secondary-dark transition flex items-center gap-2 w-full sm:w-auto justify-center"
+                className="bg-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-md hover:bg-secondary-dark transition flex items-center gap-2 w-full sm:w-auto justify-center"
                 onClick={handleOpenAppointment}
               >
                 Demander un devis
