@@ -216,7 +216,7 @@ export const Services: React.FC = () => {
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
                 transition={{ duration: 0.2 }}
-                className="bg-secondary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full hover:bg-secondary-dark transition flex items-center gap-2 w-full sm:w-auto justify-center"
+                className="bg-secondary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-md hover:bg-secondary-dark transition flex items-center gap-2 w-full sm:w-auto justify-center"
                 onClick={handleOpenAppointment}
               >
                 Demander un devis
