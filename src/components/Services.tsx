@@ -174,11 +174,11 @@ export const Services: React.FC = () => {
           variants={enterpriseSectionVariants}
           initial="hidden"
           animate={enterpriseSectionControls}
-          className="bg-secondary rounded-2xl p-6 sm:p-8 shadow-lg"
+          className="bg-secondary rounded-2xl p-6 sm:p-8 shadow-lg mb-12"
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div>
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center gap-3 mb-4 space-y-6 md:space-y-0">
                 <Gem className="w-6 h-6 text-primary" />
                 <h3 className="text-xl sm:text-2xl font-bold text-white">
                   Solution Enterprise
