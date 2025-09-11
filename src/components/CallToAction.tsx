@@ -20,7 +20,7 @@ export const CallToAction: React.FC = () => {
           aider à les atteindre.
         </p>
         <button
-          className="bg-white text-primary px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg hover:bg-neutral-100 transition flex items-center gap-2 mx-auto font-medium"
+          className="bg-white text-primary px-6 sm:px-8 py-3 sm:py-4 rounded-md text-base sm:text-lg hover:bg-neutral-100 transition flex items-center gap-2 mx-auto font-medium"
           onClick={handleOpenAppointment}
         >
           Démarrer votre projet

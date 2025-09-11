@@ -59,8 +59,7 @@ export const Page404: React.FC = () => {
         className="max-w-4xl mt-10 mx-auto text-center"
       >
         {/* 404 Number */}
-        <motion.div variants={numberVariants} className="relative mb-8">
-          <motion.div
+            <motion.div
             variants={floatingVariants}
             animate="animate"
             className="absolute -top-4 -right-4 w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center"

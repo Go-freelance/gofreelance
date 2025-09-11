@@ -105,14 +105,14 @@ export default function SolutionEnterprisePage() {
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={handleOpenAppointment}
-                  className="bg-primary text-white px-8 py-4 rounded-full text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium shadow-lg"
+                  className="bg-primary text-white px-8 py-4 rounded-md text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium shadow-lg"
                 >
                   Demander un devis
                   <ArrowRight className="w-5 h-5" />
                 </button>
                 <button
                   onClick={handleOpenAppointment}
-                  className="bg-white text-secondary border border-neutral-200 px-8 py-4 rounded-full text-lg hover:bg-neutral-50 transition font-medium"
+                  className="bg-white text-secondary border border-neutral-200 px-8 py-4 rounded-md text-lg hover:bg-neutral-50 transition font-medium"
                 >
                   Planifier une démo
                 </button>
@@ -255,7 +255,7 @@ export default function SolutionEnterprisePage() {
 
                 <button
                   onClick={handleOpenAppointment}
-                  className="w-full bg-secondary text-white px-8 py-4 rounded-full text-lg hover:bg-secondary/90 transition flex items-center justify-center gap-2 font-medium mb-4"
+                  className="w-full bg-secondary text-white px-8 py-4 rounded-md text-lg hover:bg-secondary/90 transition flex items-center justify-center gap-2 font-medium mb-4"
                 >
                   Demander un devis
                   <ArrowRight className="w-5 h-5" />
@@ -283,14 +283,14 @@ export default function SolutionEnterprisePage() {
           <div className="flex flex-wrap justify-center gap-4">
             <button
               onClick={handleOpenAppointment}
-              className="bg-white text-primary px-8 py-4 rounded-full text-lg transition flex items-center gap-2 font-medium"
+              className="bg-white text-primary px-8 py-4 rounded-md text-lg transition flex items-center gap-2 font-medium"
             >
               Demander un devis
               <ArrowRight className="w-5 h-5" />
             </button>
             <button
               onClick={handleOpenAppointment}
-              className="bg-transparent border border-white text-white px-8 py-4 rounded-full text-lg hover:bg-white/10 transition font-medium"
+              className="bg-transparent border border-white text-white px-8 py-4 rounded-md text-lg hover:bg-white/10 transition font-medium"
             >
               Planifier une démo
             </button>
