@@ -107,14 +107,14 @@ export default function IntegrationIAPage() {
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={handleOpenAppointment}
-                  className="bg-primary text-white px-8 py-4 rounded-full text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium shadow-lg"
+                  className="bg-primary text-white px-8 py-4 rounded-md text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium shadow-lg"
                 >
                   Intégrer l'IA
                   <ArrowRight className="w-5 h-5" />
                 </button>
                 <button
                   onClick={handleOpenAppointment}
-                  className="bg-white text-secondary border border-neutral-200 px-8 py-4 rounded-full text-lg hover:bg-neutral-50 transition font-medium"
+                  className="bg-white text-secondary border border-neutral-200 px-8 py-4 rounded-md  text-lg hover:bg-neutral-50 transition font-medium"
                 >
                   Cas d'usage IA
                 </button>
@@ -218,14 +218,14 @@ export default function IntegrationIAPage() {
           <div className="flex flex-wrap justify-center gap-4">
             <button
               onClick={handleOpenAppointment}
-              className="bg-white text-primary px-8 py-4 rounded-full text-lg hover:bg-neutral-100 transition flex items-center gap-2 font-medium"
+              className="bg-white text-primary px-8 py-4 rounded-md text-lg hover:bg-neutral-100 transition flex items-center gap-2 font-medium"
             >
               Demander un devis
               <ArrowRight className="w-5 h-5" />
             </button>
             <button
               onClick={handleOpenAppointment}
-              className="bg-transparent border border-white text-white px-8 py-4 rounded-full text-lg hover:bg-white/10 transition font-medium"
+              className="bg-transparent border border-white text-white px-8 py-4 rounded-md text-lg hover:bg-white/10 transition font-medium"
             >
               Cas d'usage IA
             </button>
