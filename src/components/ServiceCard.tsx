@@ -81,7 +81,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
         <div className="mt-auto space-y-3">
           <Link
             to={`/services/${getServiceSlug(title)}`}
-            className="w-full bg-neutral-100 text-secondary px-4 py-2.5 rounded-full hover:bg-neutral-200 transition font-medium flex items-center justify-center gap-2 text-sm"
+            className="w-full bg-neutral-100 text-secondary px-4 py-2.5 rounded-md hover:bg-neutral-200 transition font-medium flex items-center justify-center gap-2 text-sm"
           >
             <Eye className="w-4 h-4" />
             En savoir plus
@@ -92,7 +92,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
             onClick={handleOpenAppointment}
             className={`w-full ${
               popular ? "bg-primary text-white" : "bg-primary text-white"
-            } px-4 py-2.5 rounded-full hover:bg-primary-dark transition font-medium flex items-center justify-center gap-2 text-sm`}
+            } px-4 py-2.5 rounded-md hover:bg-primary-dark transition font-medium flex items-center justify-center gap-2 text-sm`}
           >
             Demander un devis
             <motion.div whileHover={{ x: 5 }} transition={{ duration: 0.3 }}>

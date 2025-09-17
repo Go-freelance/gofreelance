@@ -136,7 +136,7 @@ export const About: React.FC = () => {
                 variants={contentItemVariants}
                 whileHover="hover"
                 onClick={handleShowForm}
-                className="bg-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium w-fit mx-auto lg:mx-0"
+                className="bg-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-md text-base sm:text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium w-fit mx-auto lg:mx-0"
               >
                 Prendre un rendez-vous
                 <motion.div
