@@ -268,13 +268,13 @@ export const Navigation: React.FC<NavigationProps> = ({
               </div>
 
               <NavSeparator />
-              <button
+              {/* <button
                 onClick={() => handleAnchorClick("work")}
                 className="text-secondary hover:text-primary transition font-medium"
               >
                 Réalisations
-              </button>
-              <NavSeparator />
+              </button> */}
+              {/* <NavSeparator /> */}
               <Link
                 to="/contact"
                 className="text-secondary hover:text-primary transition font-medium"
@@ -369,12 +369,12 @@ export const Navigation: React.FC<NavigationProps> = ({
                 )}
               </div>
 
-              <button
+              {/* <button
                 onClick={() => handleAnchorClick("work")}
                 className="block text-left text-secondary hover:text-primary transition font-medium py-2"
               >
                 Réalisations
-              </button>
+              </button> */}
               <Link
                 to="/contact"
                 className="block text-secondary hover:text-primary transition font-medium py-2"
