@@ -11,10 +11,10 @@ import {
 import { useAppointment } from "../../contexts/AppointmentContext";
 
 export default function CampagnePublicitairePage() {
-  const { openAppointment } = useAppointment();
+  const { openAppointmentForm } = useAppointment();
 
   const handleOpenAppointment = () => {
-    openAppointment("Campagne Publicitaire");
+    openAppointmentForm("Campagne Publicitaire");
   };
 
   const processSteps = [

@@ -6,7 +6,7 @@ import { useAppointment } from "../contexts/AppointmentContext";
 import { motion, useInView, useAnimation } from "framer-motion";
 
 export const Services: React.FC = () => {
-  const { openAppointment } = useAppointment();
+  const { openAppointmentForm } = useAppointment();
   const sectionRef = useRef(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const servicesGridRef = useRef<HTMLDivElement>(null);
@@ -115,7 +115,7 @@ export const Services: React.FC = () => {
   };
 
   const handleOpenAppointment = () => {
-    openAppointment("Solution Enterprise");
+    openAppointmentForm("Solution Enterprise");
   };
 
   const currentExpertise =

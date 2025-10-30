@@ -11,10 +11,10 @@ import {
 import { useAppointment } from "../../contexts/AppointmentContext";
 
 export default function IntegrationIAPage() {
-  const { openAppointment } = useAppointment();
+  const { openAppointmentForm } = useAppointment();
 
   const handleOpenAppointment = () => {
-    openAppointment("Intégration IA");
+    openAppointmentForm("Intégration IA");
   };
 
   const processSteps = [

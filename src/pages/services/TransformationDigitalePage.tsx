@@ -11,10 +11,10 @@ import {
 import { useAppointment } from "../../contexts/AppointmentContext";
 
 export default function TransformationDigitalePage() {
-  const { openAppointment } = useAppointment();
+  const { openAppointmentForm } = useAppointment();
 
   const handleOpenAppointment = () => {
-    openAppointment("Transformation Digitale");
+    openAppointmentForm("Transformation Digitale");
   };
 
   const processSteps = [

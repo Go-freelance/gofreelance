@@ -3,10 +3,10 @@ import { ArrowRight } from "lucide-react";
 import { useAppointment } from "../contexts/AppointmentContext";
 
 export const CallToAction: React.FC = () => {
-  const { openAppointment } = useAppointment();
+  const { openAppointmentForm } = useAppointment();
 
   const handleOpenAppointment = () => {
-    openAppointment();
+    openAppointmentForm();
   };
 
   return (

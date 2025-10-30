@@ -11,10 +11,10 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   description,
   features,
 }) => {
-  const { openAppointment } = useAppointment();
+  const { openAppointmentForm } = useAppointment();
 
   const handleOpenAppointment = () => {
-    openAppointment(title);
+    openAppointmentForm(title);
   };
 
   // Generate URL slug from title

@@ -30,7 +30,7 @@ import { PolitiqueConfidentialitePage } from "./pages/legal/PolitiqueConfidentia
 import { PolitiqueProtectionDonneesPage } from "./pages/legal/PolitiqueProtectionDonneesPage";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { BackToTopButton } from "./components/BackToTopButton";
-
+import DesignDeMarquePage from "./pages/services/DesignMarque";
 
 function HomePage() {
   return (
@@ -44,8 +44,7 @@ function HomePage() {
       {/* <Work /> */}
       <Brands />
       <CallToAction />
-      <BackToTopButton/>
-
+      <BackToTopButton />
     </>
   );
 }
@@ -63,6 +62,10 @@ function App() {
         <Route
           path="/services/automatisation"
           element={<AutomatisationPage />}
+        />
+        <Route
+          path="/services/design-de-marque"
+          element={<DesignDeMarquePage />}
         />
         <Route
           path="/services/campagne-cross-canal"

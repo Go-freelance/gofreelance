@@ -10,10 +10,10 @@ import {
 import { useAppointment } from "../../contexts/AppointmentContext";
 
 export default function WordPressElementorPage() {
-  const { openAppointment } = useAppointment();
+  const { openAppointmentForm } = useAppointment();
 
   const handleOpenAppointment = () => {
-    openAppointment("WordPress Elementor");
+    openAppointmentForm("WordPress Elementor");
   };
 
   const processSteps = [

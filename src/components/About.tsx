@@ -8,7 +8,6 @@ export const About: React.FC = () => {
   const sectionRef = useRef(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
-  const missionCardRef = useRef<HTMLDivElement>(null);
   const excellenceTextRef = useRef<HTMLSpanElement>(null);
   const arrowIconRef = useRef<HTMLDivElement>(null);
 
@@ -58,15 +57,6 @@ export const About: React.FC = () => {
       scale: 1,
       x: 0,
       transition: { duration: 0.8 },
-    },
-  };
-
-  const missionCardVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.6, delay: 0.5 },
     },
   };
 
@@ -155,26 +145,12 @@ export const About: React.FC = () => {
               animate={imageControls}
               className="relative"
             >
-              <motion.img
+              <img
                 src="/images/equipe.jpg"
                 alt="L'équipe Go Freelance"
                 className="rounded-2xl shadow-xl w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover"
-                animate={{
-                  y: [0, 5, 0],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
               />
-              <motion.div
-                ref={missionCardRef}
-                variants={missionCardVariants}
-                initial="hidden"
-                animate={missionCardControls}
-                className="absolute -bottom-6 sm:-bottom-10 -right-6 sm:-right-10 bg-white p-4 sm:p-6 rounded-xl shadow-lg hidden md:block"
-              >
+              <div className="absolute -bottom-6 sm:-bottom-10 -right-6 sm:-right-10 bg-white p-4 sm:p-6 rounded-xl shadow-lg hidden md:block">
                 <div className="flex items-center gap-3 sm:gap-4">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-full flex items-center justify-center">
                     <Target className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
@@ -188,7 +164,7 @@ export const About: React.FC = () => {
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>

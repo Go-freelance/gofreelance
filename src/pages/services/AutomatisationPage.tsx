@@ -10,14 +10,10 @@ import {
 import { useAppointment } from "../../contexts/AppointmentContext";
 
 export default function AutomatisationPage() {
-  const { openAppointment } = useAppointment();
+  const { openAppointmentForm } = useAppointment();
 
   const handleOpenAppointment = () => {
-    openAppointment("Automatisation");
-  };
-
-  const handleOpenDemo = () => {
-    openAppointment("Automatisation - Démo gratuite");
+    openAppointmentForm("Automatisation");
   };
 
   const processSteps = [
@@ -110,7 +106,7 @@ export default function AutomatisationPage() {
                   <ArrowRight className="w-5 h-5" />
                 </button>
                 <button
-                  onClick={handleOpenDemo}
+                  onClick={handleOpenAppointment}
                   className="bg-white text-secondary border border-neutral-200 px-8 py-4 rounded-md text-lg hover:bg-neutral-50 transition font-medium"
                 >
                   Démo gratuite
@@ -220,7 +216,7 @@ export default function AutomatisationPage() {
               <ArrowRight className="w-5 h-5" />
             </button>
             <button
-              onClick={handleOpenDemo}
+              onClick={handleOpenAppointment}
               className="bg-transparent border border-white text-white px-8 py-4 rounded-md text-lg hover:bg-white/10 transition font-medium"
             >
               Démo gratuite

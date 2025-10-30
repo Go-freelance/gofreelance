@@ -4,8 +4,8 @@ import { AppointmentForm } from "../components/AppointmentForm";
 interface AppointmentContextType {
   isOpen: boolean;
   serviceTitle?: string;
-  openAppointment: (serviceTitle?: string) => void;
-  closeAppointment: () => void;
+  openAppointmentForm: (serviceTitle?: string) => void;
+  closeAppointmentForm: () => void;
 }
 
 const AppointmentContext = createContext<AppointmentContextType | undefined>(
@@ -22,14 +22,14 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [serviceTitle, setServiceTitle] = useState<string | undefined>();
 
-  const openAppointment = useCallback((serviceTitle?: string) => {
+  const openAppointmentForm = useCallback((serviceTitle?: string) => {
     setServiceTitle(serviceTitle);
     setIsOpen(true);
     // Empêcher le scroll du body quand le modal est ouvert
     document.body.style.overflow = "hidden";
   }, []);
 
-  const closeAppointment = useCallback(() => {
+  const closeAppointmentForm = useCallback(() => {
     setIsOpen(false);
     setServiceTitle(undefined);
     // Restaurer le scroll du body
@@ -39,8 +39,8 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
   const value = {
     isOpen,
     serviceTitle,
-    openAppointment,
-    closeAppointment,
+    openAppointmentForm,
+    closeAppointmentForm,
   };
 
   return (
@@ -52,7 +52,7 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
           <div className="bg-white rounded-2xl max-w-2xl overflow-y-auto">
             <AppointmentForm
               serviceTitle={serviceTitle}
-              onClose={closeAppointment}
+              onClose={closeAppointmentForm}
             />
           </div>
         </div>

@@ -11,10 +11,10 @@ import {
 import { useAppointment } from "../../contexts/AppointmentContext";
 
 export default function DeveloppementWebMobilePage() {
-  const { openAppointment } = useAppointment();
+  const { openAppointmentForm } = useAppointment();
 
   const handleOpenAppointment = () => {
-    openAppointment("Développement Web & Mobile");
+    openAppointmentForm("Développement Web & Mobile");
   };
 
   const processSteps = [

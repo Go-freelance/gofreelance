@@ -10,14 +10,14 @@ import {
 import { useAppointment } from "../../contexts/AppointmentContext";
 
 export default function CampagneCrossCanalPage() {
-  const { openAppointment } = useAppointment();
+  const { openAppointmentForm } = useAppointment();
 
   const handleOpenAppointment = () => {
-    openAppointment("Campagne Cross Canal");
+    openAppointmentForm("Campagne Cross Canal");
   };
 
   const handleOpenStrategy = () => {
-    openAppointment("Campagne Cross Canal - Stratégie gratuite");
+    openAppointmentForm("Campagne Cross Canal - Stratégie gratuite");
   };
 
   const processSteps = [
