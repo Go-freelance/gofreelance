@@ -26,15 +26,17 @@ export function initEmailService() {
 export async function sendAdminNotification(data: EmailData): Promise<boolean> {
   if (!transporter) throw new Error("Email service not initialized");
   try {
-    await transporter.sendMail({
+    const mailOptions: nodemailer.SendMailOptions = {
       from: `"Go Freelance" <${config.emails.from}>`,
       to: config.emails.admin,
+      cc: config.emails.additionalRecipients,
       subject: "Nouvelle demande de rendez-vous",
       html: AppointmentTemplate.generateAdminTemplate(data),
-    });
+    };
+    await transporter.sendMail(mailOptions);
     return true;
   } catch (error) {
-    console.error("❌ Erreur lors de l'envoi de l'email admin:", error);
+    console.error("Erreur lors de l'envoi de l'email admin:", error);
     return false;
   }
 }
@@ -42,15 +44,18 @@ export async function sendAdminNotification(data: EmailData): Promise<boolean> {
 export async function sendContactEmail(data: EmailData): Promise<boolean> {
   if (!transporter) throw new Error("Email service not initialized");
   try {
-    await transporter.sendMail({
+    const mailOptions: nodemailer.SendMailOptions = {
       from: `"Go Freelance" <${config.emails.from}>`,
       to: config.emails.admin,
+      cc: config.emails.additionalRecipients,
       subject: "Nouvelle demande de contact",
       html: ContactTemplate.generate(data),
-    });
+    };
+
+    await transporter.sendMail(mailOptions);
     return true;
   } catch (error) {
-    console.error("❌ Erreur lors de l'envoi de l'email contact:", error);
+    console.error("Erreur lors de l'envoi de l'email contact:", error);
     return false;
   }
 }
@@ -68,7 +73,7 @@ export async function sendClientConfirmation(
     });
     return true;
   } catch (error) {
-    console.error("❌ Erreur lors de l'envoi de l'email client:", error);
+    console.error("Erreur lors de l'envoi de l'email client:", error);
     return false;
   }
 }
@@ -82,9 +87,11 @@ export async function sendAdminNotificationNewThirdParty(
     const mailOptions: nodemailer.SendMailOptions = {
       from: `"Go Freelance" <${config.emails.from}>`,
       to: config.emails.admin,
+      cc: config.emails.additionalRecipients,
       subject: "Nouveau tiers créé",
       html: ThirdPartyTemplate.generate(thirdParty),
     };
+
     if (logoFile) {
       mailOptions.attachments = [
         {
@@ -97,7 +104,7 @@ export async function sendAdminNotificationNewThirdParty(
     return true;
   } catch (error) {
     console.error(
-      "❌ Erreur lors de l'envoi de l'email de notification tiers:",
+      "Erreur lors de l'envoi de l'email de notification tiers:",
       error
     );
     return false;

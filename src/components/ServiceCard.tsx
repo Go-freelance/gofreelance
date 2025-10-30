@@ -10,7 +10,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   title,
   description,
   features,
-  popular = false,
 }) => {
   const { openAppointment } = useAppointment();
 
@@ -32,11 +31,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   return (
     <>
       <motion.div
-        className={`bg-white p-6 rounded-2xl relative h-full flex flex-col ${
-          popular
-            ? "shadow-xl scale-105 border-2 border-primary/20"
-            : "shadow-sm"
-        }`}
+        className={`bg-white p-6 rounded-2xl relative h-full flex flex-col shadow-xl border-2 border-white`}
         whileHover={{
           y: -8,
           scale: 1.02,
@@ -48,17 +43,10 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
           ease: "easeOut",
         }}
         style={{
-          boxShadow: popular
-            ? "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
-            : "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+          boxShadow:
+            "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
         }}
       >
-        {popular && (
-          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm font-medium shadow-md">
-            Plus populaire
-          </div>
-        )}
-
         <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mb-4">
           {icon}
         </div>
@@ -90,9 +78,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
           <motion.button
             whileHover={{ scale: 1.02 }}
             onClick={handleOpenAppointment}
-            className={`w-full ${
-              popular ? "bg-primary text-white" : "bg-primary text-white"
-            } px-4 py-2.5 rounded-md hover:bg-primary-dark transition font-medium flex items-center justify-center gap-2 text-sm`}
+            className={`w-full ${"bg-primary text-white"} px-4 py-2.5 rounded-md hover:bg-primary-dark transition font-medium flex items-center justify-center gap-2 text-sm`}
           >
             Demander un devis
             <motion.div whileHover={{ x: 5 }} transition={{ duration: 0.3 }}>

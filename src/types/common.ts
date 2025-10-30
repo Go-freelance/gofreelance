@@ -3,7 +3,6 @@ export interface ServiceCardProps {
   title: string;
   description: string;
   features: string[];
-  popular?: boolean;
 }
 
 export interface WorkCardProps {
