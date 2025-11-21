@@ -17,7 +17,7 @@
 
 .excellence-gradient {
   @apply bg-clip-text text-transparent inline-block;
-  background-image: linear-gradient(90deg, #e10078 0%, #260776 100%);
+  background-image: linear-gradient(90deg, #260776 0%, #e10078 100%);
 }
 
 .section-padding {

@@ -104,22 +104,6 @@ export const expertises: ExpertiseCategory[] = [
         ],
       },
       {
-        icon: React.createElement(Pen, { className: "w-6 h-6" }),
-        title: "Création & Print",
-        description:
-          "Hard copy, audiovisuel et photographie pour une communication complète.",
-        features: [
-          "Hard copy (identité visuelle, brochure, catalogue, leaflet, flyer)",
-          "Audiovisuel & photographie",
-          "Motion design",
-          "UI/UX design",
-          "3D",
-          "Video editing & TVC",
-          "Animation",
-          "PLV & OOH",
-        ],
-      },
-      {
         icon: React.createElement(Megaphone, { className: "w-6 h-6" }),
         title: "Branding, PR & E-réputation",
         description:

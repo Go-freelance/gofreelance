@@ -1,295 +1,207 @@
-import { useRef, useState, useEffect } from "react";
-import { Gem, CheckCircle, ArrowRight } from "lucide-react";
+import React, { useRef, useState, useEffect } from "react";
+import { Gem, ArrowRight } from "lucide-react";
 import { ServiceCard } from "./ServiceCard";
 import { expertises } from "../data/services";
 import { useAppointment } from "../contexts/AppointmentContext";
-import { motion, useInView, useAnimation } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 
 export const Services: React.FC = () => {
   const { openAppointmentForm } = useAppointment();
-  const sectionRef = useRef(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const servicesGridRef = useRef<HTMLDivElement>(null);
-  const enterpriseSectionRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeId, setActiveId] = useState<string>(expertises[0].id);
 
-  const [activeExpertise, setActiveExpertise] = useState(expertises[0].id);
-
-  // Animation controls
-  const headerControls = useAnimation();
-  const servicesGridControls = useAnimation();
-  const enterpriseSectionControls = useAnimation();
-
-  // InView hooks
-  const isHeaderInView = useInView(headerRef, { once: true, amount: 0.3 });
-  const isServicesGridInView = useInView(servicesGridRef, {
-    once: true,
-    amount: 0.2,
-  });
-  const isEnterpriseSectionInView = useInView(enterpriseSectionRef, {
-    once: true,
-    amount: 0.3,
+  // Scroll progress for the sidebar indicator
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
   });
 
-  // Trigger animations when elements come into view
-  useEffect(() => {
-    if (isHeaderInView) {
-      headerControls.start("visible");
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(`expertise-${id}`);
+    if (element) {
+      const offset = 80; // Header height offset
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
     }
-  }, [isHeaderInView, headerControls]);
+  };
 
+  // Intersection Observer to update active state on scroll
   useEffect(() => {
-    if (isServicesGridInView) {
-      servicesGridControls.start("visible");
-    }
-  }, [isServicesGridInView, servicesGridControls]);
+    const observers: IntersectionObserver[] = [];
+    
+    expertises.forEach((expertise) => {
+      const element = document.getElementById(`expertise-${expertise.id}`);
+      if (element) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            if (entries[0].isIntersecting) {
+              setActiveId(expertise.id);
+            }
+          },
+          { threshold: 0.3, rootMargin: "-10% 0px -50% 0px" }
+        );
+        observer.observe(element);
+        observers.push(observer);
+      }
+    });
 
-  useEffect(() => {
-    if (isEnterpriseSectionInView) {
-      enterpriseSectionControls.start("visible");
-    }
-  }, [isEnterpriseSectionInView, enterpriseSectionControls]);
-
-  // Animation variants
-  const headerVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const headerItemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8 },
-    },
-  };
-
-  const servicesGridVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const serviceCardVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.8 },
-    },
-  };
-
-  const enterpriseSectionVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.8 },
-    },
-  };
-
-  const arrowVariants = {
-    animate: {
-      x: [0, 5, 0],
-      transition: {
-        duration: 1.5,
-        repeat: Number.POSITIVE_INFINITY,
-      },
-    },
-  };
-
-  const handleOpenAppointment = () => {
-    openAppointmentForm("Solution Enterprise");
-  };
-
-  const currentExpertise =
-    expertises.find((exp) => exp.id === activeExpertise) || expertises[0];
+    return () => observers.forEach((observer) => observer.disconnect());
+  }, []);
 
   return (
     <section
       id="services"
-      ref={sectionRef}
-      className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-neutral-100 to-white"
+      ref={containerRef}
+      className="relative py-20 lg:py-32 bg-neutral-50"
     >
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          ref={headerRef}
-          variants={headerVariants}
-          initial="hidden"
-          animate={headerControls}
-          className="text-center mb-16 sm:mb-20"
-        >
-          <motion.h2
-            variants={headerItemVariants}
-            className="text-3xl sm:text-4xl font-bold mb-4 gradient-text"
-          >
-            Nos Expertises
-          </motion.h2>
-
-          <motion.p
-            variants={headerItemVariants}
-            className="text-lg sm:text-xl text-text/70 max-w-3xl mx-auto leading-relaxed"
-          >
-            Des solutions digitales sur mesure pour propulser votre entreprise
-            vers l'excellence
-          </motion.p>
-        </motion.div>
-
-        <div className="mb-12">
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            {expertises.map((expertise) => (
-              <button
-                key={expertise.id}
-                onClick={() => setActiveExpertise(expertise.id)}
-                className={`
-                  group flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-300
-                  ${
-                    activeExpertise === expertise.id
-                      ? "bg-primary text-white shadow-lg shadow-primary/30"
-                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
-                  }
-                `}
-              >
-                <span
-                  className={
-                    activeExpertise === expertise.id
-                      ? "text-white"
-                      : "text-primary"
-                  }
-                >
-                  {expertise.icon}
-                </span>
-                <span className="text-sm sm:text-base">{expertise.title}</span>
-              </button>
-            ))}
-          </div>
-
-          <motion.div
-            key={activeExpertise}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-20">
+          <motion.span
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-semibold text-sm mb-6"
           >
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              {currentExpertise.description}
-            </p>
-          </motion.div>
+            Nos Services
+          </motion.span>
+          
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-bold mb-6 text-secondary"
+          >
+            Une expertise <span className="gradient-text">360°</span> pour<br />
+            votre croissance
+          </motion.h2>
         </div>
 
-        <motion.div
-          ref={servicesGridRef}
-          key={activeExpertise}
-          variants={servicesGridVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-20"
-        >
-          {currentExpertise.services.map((service, index) => (
-            <motion.div key={index} variants={serviceCardVariants}>
-              <ServiceCard
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-                features={service.features}
+        <div className="lg:grid lg:grid-cols-12 lg:gap-12 items-start">
+          {/* Sticky Sidebar Navigation */}
+          <div className="hidden lg:block lg:col-span-4 lg:sticky lg:top-32">
+            <div className="relative pl-6 border-l-2 border-neutral-200">
+              <motion.div 
+                className="absolute left-[-2px] top-0 w-[2px] h-full bg-primary origin-top"
+                style={{ scaleY }}
               />
-            </motion.div>
-          ))}
-        </motion.div>
-
-        <motion.div
-          ref={enterpriseSectionRef}
-          variants={enterpriseSectionVariants}
-          initial="hidden"
-          animate={enterpriseSectionControls}
-          className="relative bg-secondary rounded-2xl p-8 sm:p-10 lg:p-12 shadow-2xl overflow-hidden"
-        >
-          <div className="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-primary/20 rounded-xl backdrop-blur-sm">
-                  <Gem className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-2xl sm:text-3xl font-bold text-white">
-                    Solution Enterprise
-                  </h3>
-                </div>
-              </div>
-
-              <p className="text-white/80 text-lg leading-relaxed mb-8 max-w-2xl">
-                Une approche personnalisée et des solutions d'exception pour les
-                entreprises qui visent l'excellence.
-              </p>
-
-              <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                {[
-                  "Support prioritaire 24/7",
-                  "Équipe dédiée d'experts",
-                  "Solutions 100% personnalisées",
-                  "Intégration sur mesure",
-                ].map((feature, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-3 text-white/90"
+              
+              <nav className="space-y-6">
+                {expertises.map((expertise) => (
+                  <button
+                    key={expertise.id}
+                    onClick={() => scrollToSection(expertise.id)}
+                    className={`group flex items-center gap-4 w-full text-left transition-all duration-300 ${
+                      activeId === expertise.id ? "opacity-100 translate-x-2" : "opacity-50 hover:opacity-80"
+                    }`}
                   >
-                    <CheckCircle className="w-5 h-5 text-primary" />
-                    <span className="font-medium">{feature}</span>
-                  </div>
+                    <div className={`
+                      p-2 rounded-lg transition-colors duration-300
+                      ${activeId === expertise.id ? "bg-primary text-white" : "bg-white text-secondary group-hover:bg-neutral-100"}
+                    `}>
+                      {React.cloneElement(expertise.icon as React.ReactElement, { className: "w-5 h-5" })}
+                    </div>
+                    <div>
+                      <span className={`block text-lg font-bold ${activeId === expertise.id ? "text-secondary" : "text-text"}`}>
+                        {expertise.title}
+                      </span>
+                      {activeId === expertise.id && (
+                        <motion.span 
+                          layoutId="activeDesc"
+                          className="text-sm text-text/60 line-clamp-1"
+                        >
+                          {expertise.description}
+                        </motion.span>
+                      )}
+                    </div>
+                  </button>
                 ))}
-              </div>
-            </div>
+              </nav>
 
-            <div className="text-center lg:text-right lg:min-w-[280px]">
-              <div className="mb-6">
-                <p className="text-white/60 text-sm uppercase tracking-wider mb-2">
-                  Tarification
-                </p>
-                <div className="flex items-baseline justify-center lg:justify-end gap-2">
-                  <span className="text-4xl sm:text-5xl font-bold text-white">
-                    Sur devis
-                  </span>
+              <div className="mt-12 p-6 bg-secondary rounded-2xl text-white relative overflow-hidden group cursor-pointer" onClick={() => openAppointmentForm("Consultation")}>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-3xl rounded-full -mr-10 -mt-10" />
+                <h4 className="text-lg font-bold mb-2 relative z-10">Besoin d'un conseil ?</h4>
+                <p className="text-white/70 text-sm mb-4 relative z-10">Discutons de votre projet lors d'un premier échange gratuit.</p>
+                <div className="flex items-center gap-2 text-primary font-medium text-sm group-hover:gap-3 transition-all">
+                  Réserver un appel <ArrowRight className="w-4 h-4" />
                 </div>
-                <p className="text-white/60 text-sm mt-2">
-                  Adapté à vos besoins
-                </p>
               </div>
-
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.2 }}
-                className="group bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 flex items-center gap-10 w-full shadow-lg hover:shadow-xl backdrop-blur-sm"
-                onClick={handleOpenAppointment}
-              >
-                Demander un devis
-                <motion.div
-                  variants={arrowVariants}
-                  animate="animate"
-                  className="group-hover:translate-x-1 transition-transform duration-300"
-                >
-                  <ArrowRight className="w-5 h-5" />
-                </motion.div>
-              </motion.button>
             </div>
           </div>
-        </motion.div>
+
+          {/* Scrollable Content */}
+          <div className="lg:col-span-8 space-y-24 lg:space-y-32">
+            {expertises.map((expertise) => (
+              <motion.div
+                key={expertise.id}
+                id={`expertise-${expertise.id}`}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6 }}
+                className="scroll-mt-32"
+              >
+                <div className="flex items-center gap-4 mb-8 lg:hidden">
+                  <div className="p-3 bg-primary/10 text-primary rounded-xl">
+                    {React.cloneElement(expertise.icon as React.ReactElement, { className: "w-6 h-6" })}
+                  </div>
+                  <h3 className="text-2xl font-bold text-secondary">{expertise.title}</h3>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  {expertise.services.map((service, serviceIndex) => (
+                    <ServiceCard
+                      key={serviceIndex}
+                      {...service}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+
+            {/* Enterprise Section */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="relative rounded-[2.5rem] overflow-hidden bg-secondary text-white p-8 md:p-12"
+            >
+              <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-soft-light" />
+              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/30 blur-[100px] rounded-full" />
+              
+              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 mb-4">
+                    <Gem className="w-4 h-4 text-primary" />
+                    <span className="text-xs font-bold tracking-wider uppercase">Enterprise</span>
+                  </div>
+                  <h3 className="text-3xl font-bold mb-4">Une solution sur mesure ?</h3>
+                  <p className="text-white/70 max-w-md">
+                    Pour les projets complexes nécessitant une infrastructure dédiée et un accompagnement premium.
+                  </p>
+                </div>
+                <button
+                  onClick={() => openAppointmentForm("Solution Enterprise")}
+                  className="whitespace-nowrap bg-white text-secondary px-8 py-4 rounded-xl font-bold hover:bg-neutral-100 transition-colors flex items-center gap-2 group"
+                >
+                  Contacter l'équipe
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );

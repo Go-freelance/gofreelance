@@ -161,14 +161,14 @@ export const Navigation: React.FC<NavigationProps> = ({
             <div className="hidden lg:flex items-center space-x-4">
               <Link
                 to="/"
-                className="text-secondary hover:text-primary transition font-medium"
+                className="text-secondary hover:text-primary transition font-bold"
               >
                 Accueil
               </Link>
               <NavSeparator />
               <button
                 onClick={() => handleAnchorClick("about")}
-                className="text-secondary hover:text-primary transition font-medium"
+                className="text-secondary hover:text-primary transition font-bold"
               >
                 À propos
               </button>
@@ -180,7 +180,7 @@ export const Navigation: React.FC<NavigationProps> = ({
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                   onClick={() => handleAnchorClick("services")}
-                  className="flex items-center gap-1 text-secondary hover:text-primary transition font-medium"
+                  className="flex items-center gap-1 text-secondary hover:text-primary transition font-bold"
                 >
                   Services
                   <ChevronDown
@@ -277,7 +277,7 @@ export const Navigation: React.FC<NavigationProps> = ({
               {/* <NavSeparator /> */}
               <Link
                 to="/contact"
-                className="text-secondary hover:text-primary transition font-medium"
+                className="text-secondary hover:text-primary transition font-bold"
               >
                 Contact
               </Link>
@@ -286,7 +286,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             <div className="hidden lg:flex items-center space-x-4">
               <Link
                 to="/contact"
-                className="bg-primary text-white px-6 py-2.5 rounded-md hover:bg-primary-dark transition font-medium"
+                className="bg-primary text-white px-6 py-2.5 rounded-md hover:bg-primary-dark transition font-bold"
               >
                 Prendre rendez-vous
               </Link>

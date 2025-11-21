@@ -31,6 +31,8 @@ import { PolitiqueProtectionDonneesPage } from "./pages/legal/PolitiqueProtectio
 import { ScrollToTop } from "./components/ScrollToTop";
 import { BackToTopButton } from "./components/BackToTopButton";
 import DesignDeMarquePage from "./pages/services/DesignMarque";
+import CreationGraphiquePage from "./pages/services/CreationGraphique";
+import BrandingPRPage from "./pages/services/Branding";
 
 function HomePage() {
   return (
@@ -82,6 +84,14 @@ function App() {
         <Route
           path="/services/integration-ia"
           element={<IntegrationIAPage />}
+        />
+        <Route
+          path="/services/creation-graphique"
+          element={<CreationGraphiquePage />}
+        />
+        <Route
+          path="/services/branding-pr-e-reputation"
+          element={<BrandingPRPage />}
         />
         <Route
           path="/services/solution-enterprise"
