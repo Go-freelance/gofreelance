@@ -155,7 +155,7 @@ export const Hero: React.FC = () => {
                 variants={buttonVariants}
                 whileHover="hover"
                 whileTap={{ scale: 0.98 }}
-                className="bg-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-md text-base sm:text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30"
+                className="bg-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30"
               >
                 Découvrir nos services
                 <motion.div variants={arrowVariants} animate="animate">
@@ -170,7 +170,7 @@ export const Hero: React.FC = () => {
               >
                 <Link
                   to="/contact"
-                  className="bg-white text-secondary border border-neutral-200 px-6 sm:px-8 py-3 sm:py-4 rounded-md text-base sm:text-lg hover:bg-neutral-50 transition flex items-center gap-2 font-medium shadow-md hover:shadow-lg"
+                  className="bg-white text-secondary border border-neutral-200 px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg hover:bg-neutral-50 transition flex items-center gap-2 font-medium shadow-md hover:shadow-lg"
                 >
                   Nous contacter
                   <ChevronRight className="w-5 h-5" />

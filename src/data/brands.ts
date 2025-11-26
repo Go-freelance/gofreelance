@@ -18,7 +18,7 @@ export const brands: Brand[] = [
     url: "https://streameex.com",
     accentColor: "#2b0e6a",
     color: "#cc057b",
-    logo: "/images/brands/nnnn.png",
+    logo: "/images/brands/streameex-logo.png",
     tags: ["Streaming", "Contenu"],
   },
   {
@@ -68,7 +68,7 @@ export const brands: Brand[] = [
     url: "https://hmsmarts.com",
     accentColor: "#ca203b",
     color: "#ca203b",
-    logo: "/images/brands/hmsmart.png",
+    logo: "/images/brands/hmsmart-logo.png",
     tags: ["Éducation", "E-learning"],
   },
   {

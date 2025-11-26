@@ -7,8 +7,8 @@ import {
   RefreshCw,
   Bot,
   Megaphone,
-  Palette,
-  Pen,
+  // Palette,
+  // Pen,
   Globe,
 } from "lucide-react";
 import type { ServiceCardProps } from "../types/common";
@@ -70,54 +70,54 @@ export const expertises: ExpertiseCategory[] = [
       },
     ],
   },
-  {
-    id: "branding",
-    title: "Identité de Marque & Création Graphique",
-    description:
-      "Créez une identité visuelle forte et mémorable pour votre marque",
-    icon: React.createElement(Palette, { className: "w-6 h-6" }),
-    services: [
-      {
-        icon: React.createElement(Palette, { className: "w-6 h-6" }),
-        title: "Design de Marque",
-        description:
-          "Création d'identités visuelles uniques qui reflètent vos valeurs.",
-        features: [
-          "Logo & charte graphique",
-          "Guide de style complet",
-          "Déclinaisons print & digital",
-          "Brand book professionnel",
-          "Support & évolutions",
-        ],
-      },
-      {
-        icon: React.createElement(Pen, { className: "w-6 h-6" }),
-        title: "Création Graphique",
-        description:
-          "Supports visuels impactants pour tous vos besoins de communication.",
-        features: [
-          "Design print & digital",
-          "Infographies & illustrations",
-          "Supports marketing",
-          "Packaging & merchandising",
-          "Motion design",
-        ],
-      },
-      {
-        icon: React.createElement(Megaphone, { className: "w-6 h-6" }),
-        title: "Branding, PR & E-réputation",
-        description:
-          "Stratégie de marque, relations publiques et réputation en ligne.",
-        features: [
-          "Stratégie de marque",
-          "Positionnement de la marque",
-          "Création de la personnalité",
-          "Développement de la notoriété",
-          "Communication corporate & RSE",
-        ],
-      },
-    ],
-  },
+  // {
+  //   id: "branding",
+  //   title: "Identité de Marque & Création Graphique",
+  //   description:
+  //     "Créez une identité visuelle forte et mémorable pour votre marque",
+  //   icon: React.createElement(Palette, { className: "w-6 h-6" }),
+  //   services: [
+  //     {
+  //       icon: React.createElement(Palette, { className: "w-6 h-6" }),
+  //       title: "Design de Marque",
+  //       description:
+  //         "Création d'identités visuelles uniques qui reflètent vos valeurs.",
+  //       features: [
+  //         "Logo & charte graphique",
+  //         "Guide de style complet",
+  //         "Déclinaisons print & digital",
+  //         "Brand book professionnel",
+  //         "Support & évolutions",
+  //       ],
+  //     },
+  //     {
+  //       icon: React.createElement(Pen, { className: "w-6 h-6" }),
+  //       title: "Création Graphique",
+  //       description:
+  //         "Supports visuels impactants pour tous vos besoins de communication.",
+  //       features: [
+  //         "Design print & digital",
+  //         "Infographies & illustrations",
+  //         "Supports marketing",
+  //         "Packaging & merchandising",
+  //         "Motion design",
+  //       ],
+  //     },
+  //     {
+  //       icon: React.createElement(Megaphone, { className: "w-6 h-6" }),
+  //       title: "Branding, PR & E-réputation",
+  //       description:
+  //         "Stratégie de marque, relations publiques et réputation en ligne.",
+  //       features: [
+  //         "Stratégie de marque",
+  //         "Positionnement de la marque",
+  //         "Création de la personnalité",
+  //         "Développement de la notoriété",
+  //         "Communication corporate & RSE",
+  //       ],
+  //     },
+  //   ],
+  // },
   {
     id: "web",
     title: "Sites Web & Applications",
@@ -187,54 +187,54 @@ export const expertises: ExpertiseCategory[] = [
       },
     ],
   },
-  {
-    id: "training",
-    title: "Formation & Up Skills",
-    description:
-      "Montées en compétences pour équipes marketing et entrepreneurs",
-    icon: React.createElement(Zap, { className: "w-6 h-6" }),
-    services: [
-      {
-        icon: React.createElement(Zap, { className: "w-6 h-6" }),
-        title: "Upskills des équipes",
-        description:
-          "Formations ciblées pour équipes marketing et/ou entrepreneurs.",
-        features: [
-          "Ateliers pratiques",
-          "Parcours personnalisés",
-          "Cas d'usage métiers",
-          "Suivi et évaluations",
-          "Certificats de réussite",
-        ],
-      },
-      {
-        icon: React.createElement(RefreshCw, { className: "w-6 h-6" }),
-        title: "Boot Camp",
-        description:
-          "Programmes intensifs et immersifs pour accélérer les compétences.",
-        features: [
-          "Format intensif",
-          "Coaching expert",
-          "Projets concrets",
-          "Communauté d'entraide",
-          "Accès aux ressources",
-        ],
-      },
-      {
-        icon: React.createElement(Pen, { className: "w-6 h-6" }),
-        title: "Programmes de Formation (long & court)",
-        description:
-          "Formations longues et courtes appuyées sur nos plateformes.",
-        features: [
-          "HMsmarts.com",
-          "mbschool.site",
-          "Formats modulaires",
-          "Blended learning",
-          "Suivi post-formation",
-        ],
-      },
-    ],
-  },
+  // {
+  //   id: "training",
+  //   title: "Formation & Up Skills",
+  //   description:
+  //     "Montées en compétences pour équipes marketing et entrepreneurs",
+  //   icon: React.createElement(Zap, { className: "w-6 h-6" }),
+  //   services: [
+  //     {
+  //       icon: React.createElement(Zap, { className: "w-6 h-6" }),
+  //       title: "Upskills des équipes",
+  //       description:
+  //         "Formations ciblées pour équipes marketing et/ou entrepreneurs.",
+  //       features: [
+  //         "Ateliers pratiques",
+  //         "Parcours personnalisés",
+  //         "Cas d'usage métiers",
+  //         "Suivi et évaluations",
+  //         "Certificats de réussite",
+  //       ],
+  //     },
+  //     {
+  //       icon: React.createElement(RefreshCw, { className: "w-6 h-6" }),
+  //       title: "Boot Camp",
+  //       description:
+  //         "Programmes intensifs et immersifs pour accélérer les compétences.",
+  //       features: [
+  //         "Format intensif",
+  //         "Coaching expert",
+  //         "Projets concrets",
+  //         "Communauté d'entraide",
+  //         "Accès aux ressources",
+  //       ],
+  //     },
+  //     {
+  //       icon: React.createElement(Pen, { className: "w-6 h-6" }),
+  //       title: "Programmes de Formation (long & court)",
+  //       description:
+  //         "Formations longues et courtes appuyées sur nos plateformes.",
+  //       features: [
+  //         "HMsmarts.com",
+  //         "mbschool.site",
+  //         "Formats modulaires",
+  //         "Blended learning",
+  //         "Suivi post-formation",
+  //       ],
+  //     },
+  //   ],
+  // },
 ];
 
 // Keep legacy services export for backward compatibility

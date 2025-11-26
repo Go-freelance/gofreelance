@@ -5,7 +5,7 @@ import { Hero } from "./components/Hero";
 import { Brands } from "./components/Brands";
 import { Services } from "./components/Services";
 import { Partners } from "./components/Partners";
-import { KeyFigures } from "./components/KeyFigures";
+// import { KeyFigures } from "./components/KeyFigures";
 // import { Work } from "./components/Work";
 import { CallToAction } from "./components/CallToAction";
 import { Footer } from "./components/Footer";
@@ -42,7 +42,7 @@ function HomePage() {
       <About />
       <Services />
       <WhyUs />
-      <KeyFigures />
+      {/* <KeyFigures /> */}
       {/* <Work /> */}
       <Brands />
       <CallToAction />

@@ -286,7 +286,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             <div className="hidden lg:flex items-center space-x-4">
               <Link
                 to="/contact"
-                className="bg-primary text-white px-6 py-2.5 rounded-md hover:bg-primary-dark transition font-bold"
+                className="bg-primary text-white px-6 py-2.5 rounded-xl hover:bg-primary-dark transition font-bold"
               >
                 Prendre rendez-vous
               </Link>

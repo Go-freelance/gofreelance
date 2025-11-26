@@ -190,7 +190,7 @@ export const WhyUs: React.FC = () => {
         >
           <div>
             <motion.h2
-              className="text-3xl lg:text-4xl font-bold mb-6"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
               variants={itemVariants}
             >
               Pourquoi choisir{" "}
