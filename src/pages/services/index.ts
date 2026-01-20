@@ -6,3 +6,5 @@ export { default as IntegrationIAPage } from "./IntegrationIAPage";
 export { default as SolutionEnterprisePage } from "./SolutionEnterprisePage";
 export { default as TransformationDigitalePage } from "./TransformationDigitalePage";
 export { default as WordPressElementorPage } from "./WordPressElementorPage";
+export { default as UpskillsEquipesPage } from "./UpskillsEquipesPage";
+export { default as ProgrammesFormationPage } from "./ProgrammesFormationPage";

@@ -190,7 +190,7 @@ export const WhyUs: React.FC = () => {
         >
           <div>
             <motion.h2
-              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
+              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6"
               variants={itemVariants}
             >
               Pourquoi choisir{" "}
@@ -214,7 +214,7 @@ export const WhyUs: React.FC = () => {
             </motion.h2>
 
             <motion.p
-              className="text-md mb-8 lg:text-xl text-neutral-300"
+              className="text-sm md:text-md mb-8 lg:text-lg text-neutral-300"
               variants={itemVariants}
             >
               Nous combinons expertise technique, créativité et connaissance du

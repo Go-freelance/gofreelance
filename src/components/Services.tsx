@@ -36,34 +36,63 @@ export const Services: React.FC = () => {
     }
   };
 
-  // Intersection Observer to update active state on scroll
+  // Intersection Observer with better scroll detection
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
+    const observerOptions = {
+      // Multiple thresholds for more precise detection
+      threshold: [0, 0.25, 0.5, 0.75, 1],
+      // Center the detection zone on the viewport
+      rootMargin: "-20% 0px -60% 0px",
+    };
 
+    const visibleSections = new Map<string, number>();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const id = entry.target.id.replace("expertise-", "");
+
+        if (entry.isIntersecting) {
+          // Store the intersection ratio for each visible section
+          visibleSections.set(id, entry.intersectionRatio);
+        } else {
+          visibleSections.delete(id);
+        }
+      });
+
+      // Find the section with the highest intersection ratio
+      if (visibleSections.size > 0) {
+        let maxRatio = 0;
+        let mostVisibleId = "";
+
+        visibleSections.forEach((ratio, id) => {
+          if (ratio > maxRatio) {
+            maxRatio = ratio;
+            mostVisibleId = id;
+          }
+        });
+
+        if (mostVisibleId) {
+          setActiveId(mostVisibleId);
+        }
+      }
+    }, observerOptions);
+
+    // Observe all expertise sections
     expertises.forEach((expertise) => {
       const element = document.getElementById(`expertise-${expertise.id}`);
       if (element) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            if (entries[0].isIntersecting) {
-              setActiveId(expertise.id);
-            }
-          },
-          { threshold: 0.3, rootMargin: "-10% 0px -50% 0px" }
-        );
         observer.observe(element);
-        observers.push(observer);
       }
     });
 
-    return () => observers.forEach((observer) => observer.disconnect());
+    return () => observer.disconnect();
   }, []);
 
   return (
     <section
       id="services"
       ref={containerRef}
-      className="relative py-20 lg:py-32"
+      className="relative py-20 lg:px-16"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
@@ -73,7 +102,7 @@ export const Services: React.FC = () => {
             viewport={{ once: true }}
             className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-semibold text-sm mb-6"
           >
-            Nos Services
+            NOS SERVICES
           </motion.span>
 
           <motion.h2

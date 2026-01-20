@@ -37,7 +37,7 @@ export const About: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-[1.1]"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 leading-[1.1]"
             >
               Nous sommes <br />
               <span className="text-transparent bg-clip-text excellence-gradient">

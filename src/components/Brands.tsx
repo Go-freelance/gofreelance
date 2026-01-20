@@ -18,10 +18,10 @@ export const Brands: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <span className="inline-block py-1 px-3 rounded-full bg-secondary/5 text-secondary font-semibold text-sm mb-6">
+          <span className="inline-block py-1 uppercase px-3 rounded-full bg-secondary/5 text-secondary font-semibold text-sm mb-6">
             Notre Écosystème
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">
             Des marques <span className="gradient-text">innovantes</span>
           </h2>
           <p className="text-xl text-text/60 max-w-2xl mx-auto leading-relaxed">

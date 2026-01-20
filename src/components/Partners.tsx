@@ -9,7 +9,7 @@ export const Partners: React.FC = () => {
     <section className="py-12 mt-8 px-4 bg-secondary">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <p className="text-white uppercase font-bold">Ils nous ont fait confiance</p>
+          <p className="text-white uppercase font-bold">Ils nous font confiance</p>
         </div>
         <Swiper
           modules={[Autoplay]}

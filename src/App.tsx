@@ -21,6 +21,8 @@ import {
   SolutionEnterprisePage,
   TransformationDigitalePage,
   WordPressElementorPage,
+  UpskillsEquipesPage,
+  ProgrammesFormationPage,
 } from "./pages/services";
 import ThirdPartyManagement from "./pages/ThirdPartyManagement";
 import { AppointmentProvider } from "./contexts/AppointmentContext";
@@ -104,6 +106,14 @@ function App() {
         <Route
           path="/services/developpement-wordpress-elementor"
           element={<WordPressElementorPage />}
+        />
+        <Route
+          path="/services/upskills-des-equipes"
+          element={<UpskillsEquipesPage />}
+        />
+        <Route
+          path="/services/programmes-de-formation-long-court"
+          element={<ProgrammesFormationPage />}
         />
         <Route path="/cgu" element={<CGUPage />} />
         <Route path="/cgv" element={<CGVPage />} />

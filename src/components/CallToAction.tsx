@@ -9,18 +9,11 @@ export const CallToAction: React.FC = () => {
 
   return (
     <section className="relative py-20 lg:py-32 px-4 overflow-hidden bg-primary">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-soft-light" />
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary/30 blur-[120px] rounded-full mix-blend-screen" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-pink-500/20 blur-[100px] rounded-full mix-blend-screen" />
-      </div>
 
       <div className="relative max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Left Column: Content */}
           <div className="text-left">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
               Prêt à propulser <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-secondary/50">
                 votre croissance ?
@@ -53,15 +46,12 @@ export const CallToAction: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Circular Image Mask */}
           <div className="relative flex justify-center lg:justify-end">
-            {/* Decorative Rings */}
             <div className="absolute inset-0 flex items-center justify-center">
                <div className="w-[350px] h-[350px] sm:w-[450px] sm:h-[450px] border border-white/30 rounded-full animate-[spin_30s_linear_infinite]" />
                <div className="absolute w-[380px] h-[380px] sm:w-[480px] sm:h-[480px] border border-white/15 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
             </div>
 
-            {/* Main Circle Container */}
             <div className="relative w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] rounded-full overflow-hidden border-4 border-white/20 shadow-2xl shadow-secondary/50 group">
               <div className="absolute inset-0 bg-secondary/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
               <img 
