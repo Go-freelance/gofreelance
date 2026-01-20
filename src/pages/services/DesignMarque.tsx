@@ -11,11 +11,15 @@ import {
   ChevronDown,
   ChevronUp,
   BarChart3,
-  Star,
 } from "lucide-react";
+import {useAppointment} from "../../contexts/AppointmentContext";
 
 export default function DesignDeMarquePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const {openAppointmentForm} = useAppointment()
+  const handleOpenAppointmentForm = () => {
+    openAppointmentForm("Design de Marque")
+  }
 
   const features = [
     {
@@ -106,23 +110,6 @@ export default function DesignDeMarquePage() {
     },
   ];
 
-  const portfolioItems = [
-    {
-      title: "Startup Tech",
-      category: "Technologie",
-      image: "/modern-tech-startup-branding.jpg",
-    },
-    {
-      title: "Restaurant Gastronomique",
-      category: "Restauration",
-      image: "/elegant-restaurant-branding.jpg",
-    },
-    {
-      title: "Marque de Mode",
-      category: "Fashion",
-      image: "/luxury-fashion-brand-identity.jpg",
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-white">
@@ -140,8 +127,8 @@ export default function DesignDeMarquePage() {
         <div className="relative z-10 max-w-7xl mx-auto my-12">
           <div className="max-w-3xl">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Identité de Marque &{" "}
-              <span className="text-primary">Création Graphique</span>
+              Identité de 
+              <span className="text-primary"> Marque</span>
             </h1>
 
             <p className="text-xl text-gray-200 mb-8 leading-relaxed">
@@ -151,21 +138,21 @@ export default function DesignDeMarquePage() {
             </p>
 
             <div className="flex flex-wrap gap-4 mb-12">
-              <button className="px-8 py-4 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl">
+              <button onClick={handleOpenAppointmentForm} className="px-8 py-4 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl">
                 Démarrer votre projet
                 <ArrowRight className="w-5 h-5" />
               </button>
-              <a
+              {/* <a
                 href="#portfolio"
                 className="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-semibold rounded-lg transition-all duration-300 border border-white/20"
               >
                 Voir nos réalisations
-              </a>
+              </a> */}
             </div>
 
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid justify-items-start grid-cols-3 gap-6">
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">250+</div>
+                <div className="text-3xl font-bold text-primary mb-1">10+</div>
                 <div className="text-sm text-gray-300">Marques créées</div>
               </div>
               <div className="text-center">
@@ -187,7 +174,7 @@ export default function DesignDeMarquePage() {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-4">
               <Award className="w-4 h-4 text-primary" />
-              <span className="text-sm font-semibold text-primary">
+              <span className="text-sm uppercase font-semibold text-primary">
                 Nos Services
               </span>
             </div>
@@ -228,7 +215,7 @@ export default function DesignDeMarquePage() {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-4">
               <BarChart3 className="w-4 h-4 text-primary" />
-              <span className="text-sm font-semibold text-primary">
+              <span className="text-sm uppercase font-semibold text-primary">
                 Notre Méthodologie
               </span>
             </div>
@@ -257,52 +244,6 @@ export default function DesignDeMarquePage() {
                     <ArrowRight className="w-8 h-8 text-primary/30" />
                   </div>
                 )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Portfolio Section */}
-      <section id="portfolio" className="py-20 px-4 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-4">
-              <Star className="w-4 h-4 text-primary" />
-              <span className="text-sm font-semibold text-primary">
-                Portfolio
-              </span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
-              Nos réalisations en {""}
-              <span className="block text-primary">identité de marque</span>
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {portfolioItems.map((item, index) => (
-              <div
-                key={index}
-                className="group bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300"
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={item.image || "/placeholder.svg"}
-                    alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <span className="inline-block px-3 py-1 bg-primary text-white text-xs font-semibold rounded-full mb-2">
-                      {item.category}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {item.title}
-                  </h3>
-                </div>
               </div>
             ))}
           </div>
@@ -354,22 +295,22 @@ export default function DesignDeMarquePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-br from-secondary via-secondary-light to-primary relative overflow-hidden">
+      <section className="py-20 px-4 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
             Prêt à créer une identité de marque distinctive ?
           </h2>
-          <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-200 mb-8 max-w-2xl mx-auto">
             Discutons de votre projet et concevons une identité qui vous
             ressemble.
           </p>
           <button className="px-8 py-4 bg-white text-secondary hover:bg-gray-100 font-semibold rounded-lg transition-all duration-300 inline-flex items-center gap-2 shadow-xl hover:shadow-2xl hover:scale-105">
-            Planifier un appel stratégique
+            Planifier un appel
             <ArrowRight className="w-5 h-5" />
           </button>
         </div>

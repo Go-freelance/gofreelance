@@ -11,9 +11,15 @@ import {
   GraduationCap,
   Laptop,
 } from "lucide-react";
+import { useAppointment } from "../../contexts/AppointmentContext";
 
 export default function ProgrammesFormationPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const { openAppointmentForm } = useAppointment();
+
+  const handleOpenAppointment = () => {
+    openAppointmentForm("Programmes de Formation (long & court)");
+  };
 
   const programTypes = [
     {
@@ -55,19 +61,18 @@ export default function ProgrammesFormationPage() {
   ];
 
   const platforms = [
-    {
-      name: "HMsmarts.com",
-      description:
-        "Notre plateforme dédiée aux compétences digitales et marketing.",
-      image:
-        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80", // Placeholder
-      features: ["Cours vidéos HD", "Quiz interactifs", "Exercices pratiques"],
-    },
+    // {
+    //   name: "HMsmarts.com",
+    //   description:
+    //     "Notre plateforme dédiée aux compétences digitales et marketing.",
+    //   image:
+    //     "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80",
+    //   features: ["Cours vidéos HD", "Quiz interactifs", "Exercices pratiques"],
+    // },
     {
       name: "mbschool.site",
       description: "L'école en ligne pour les entrepreneurs et dirigeants.",
-      image:
-        "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80", // Placeholder
+      image: "/images/mbs.png",
       features: ["Masterclasses experts", "Études de cas", "Réseau alumni"],
     },
   ];
@@ -101,13 +106,9 @@ export default function ProgrammesFormationPage() {
       <section className="relative pt-32 pb-20 px-4 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/education.jpg" // Placeholder
+            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80"
             alt="Programmes de Formation"
             className="w-full h-full object-cover"
-            onError={(e) => {
-              e.currentTarget.src =
-                "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80";
-            }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/85 to-secondary/75"></div>
         </div>
@@ -125,16 +126,16 @@ export default function ProgrammesFormationPage() {
             </p>
 
             <div className="flex flex-wrap gap-4 mb-12">
-              <button className="px-8 py-4 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl">
-                Consulter le catalogue
-                <ArrowRight className="w-5 h-5" />
-              </button>
-              <button className="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-semibold rounded-lg transition-all duration-300 border border-white/20">
+              <button
+                onClick={handleOpenAppointment}
+                className="px-8 py-4 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl"
+              >
                 Parler à un conseiller
+                <ArrowRight className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid justify-items-start grid-cols-3 gap-6">
               <div className="text-center">
                 <div className="text-3xl font-bold text-primary mb-1">20+</div>
                 <div className="text-sm text-gray-300">Programmes</div>
@@ -209,8 +210,8 @@ export default function ProgrammesFormationPage() {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-4">
               <Monitor className="w-4 h-4 text-primary" />
-              <span className="text-sm font-semibold text-primary">
-                Nos Plateformes
+              <span className="text-sm uppercase font-semibold text-primary">
+                Notre plateforme
               </span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
@@ -219,11 +220,11 @@ export default function ProgrammesFormationPage() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="flex justify-center gap-12">
             {platforms.map((platform, index) => (
               <div
                 key={index}
-                className="group relative overflow-hidden rounded-2xl shadow-lg"
+                className="group relative overflow-hidden rounded-2xl shadow-lg w-full max-w-2xl"
               >
                 <div className="absolute inset-0">
                   <img
@@ -302,21 +303,24 @@ export default function ProgrammesFormationPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-br from-secondary via-secondary-light to-primary relative overflow-hidden">
+      <section className="py-20 px-4 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
             Prêt à commencer votre apprentissage ?
           </h2>
-          <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-200 mb-8 max-w-2xl mx-auto">
             Rejoignez notre communauté d'apprenants et boostez votre carrière
             dès aujourd'hui.
           </p>
-          <button className="px-8 py-4 bg-white text-secondary hover:bg-gray-100 font-semibold rounded-lg transition-all duration-300 inline-flex items-center gap-2 shadow-xl hover:shadow-2xl hover:scale-105">
+          <button
+            onClick={handleOpenAppointment}
+            className="px-8 py-4 bg-white text-secondary hover:bg-gray-100 font-semibold rounded-lg transition-all duration-300 inline-flex items-center gap-2 shadow-xl hover:shadow-2xl hover:scale-105"
+          >
             S'inscrire maintenant
             <ArrowRight className="w-5 h-5" />
           </button>

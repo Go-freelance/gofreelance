@@ -1,200 +1,232 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
 import {
   Target,
-  CheckCircle,
+  CheckCircle2,
   ArrowRight,
-  Clock,
   Share2,
   MessageSquare,
-  BarChart,
+  BarChart3,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { useAppointment } from "../../contexts/AppointmentContext";
 
 export default function CampagneCrossCanalPage() {
   const { openAppointmentForm } = useAppointment();
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const handleOpenAppointment = () => {
     openAppointmentForm("Campagne Cross Canal");
   };
 
-  const handleOpenStrategy = () => {
-    openAppointmentForm("Campagne Cross Canal - Stratégie gratuite");
-  };
-
   const processSteps = [
     {
-      step: 1,
+      step: "01",
       title: "Stratégie omnicanale",
-      description: "Définition de votre stratégie cross-canal personnalisée",
-      duration: "1 semaine",
-      icon: <Target className="w-6 h-6" />,
+      description:
+        "Définition précise de votre stratégie cross-canal pour une cohérence totale.",
     },
     {
-      step: 2,
+      step: "02",
       title: "Création de contenu",
-      description: "Production de contenus adaptés à chaque canal",
-      duration: "2 semaines",
-      icon: <MessageSquare className="w-6 h-6" />,
+      description:
+        "Production de contenus créatifs et impactants déclinés pour chaque canal.",
     },
     {
-      step: 3,
+      step: "03",
       title: "Déploiement",
-      description: "Lancement coordonné sur tous les canaux",
-      duration: "1 semaine",
-      icon: <Share2 className="w-6 h-6" />,
+      description:
+        "Lancement coordonné et synchronisé de vos campagnes sur tous les supports.",
     },
     {
-      step: 4,
-      title: "Optimisation",
-      description: "Suivi des performances et optimisations",
-      duration: "En continu",
-      icon: <BarChart className="w-6 h-6" />,
+      step: "04",
+      title: "Optimisation continue",
+      description:
+        "Suivi des KPIs, A/B testing et ajustements pour maximiser le ROI.",
     },
   ];
 
   const channels = [
-    "Social Media (Facebook, Instagram, LinkedIn)",
-    "Email marketing personnalisé",
-    "SMS et notifications push",
-    "Publicité display et retargeting",
-    "Content marketing et SEO",
-    "Influencer marketing",
-    "Marketing automation",
-    "Analytics cross-canal",
+    {
+      icon: <Share2 className="w-6 h-6" />,
+      title: "Social Media",
+      description:
+        "Présence stratégique sur Facebook, Instagram, LinkedIn, TikTok pour engager votre communauté.",
+    },
+    {
+      icon: <MessageSquare className="w-6 h-6" />,
+      title: "Email & SMS Marketing",
+      description:
+        "Séquences personnalisées pour nourrir la relation et convertir vos prospects.",
+    },
+    {
+      icon: <Target className="w-6 h-6" />,
+      title: "Publicité Digitale",
+      description:
+        "Campagnes Google Ads, Social Ads et Display pour toucher votre cible idéale.",
+    },
+    {
+      icon: <BarChart3 className="w-6 h-6" />,
+      title: "Marketing de Contenu",
+      description:
+        "Articles, vidéos et infographies pour asseoir votre autorité et attirer du trafic organique.",
+    },
+  ];
+
+  const faqs = [
+    {
+      question: "Pourquoi faire une campagne cross-canal ?",
+      answer:
+        "Les consommateurs utilisent aujourd'hui de multiples canaux avant d'acheter. Être présent partout de manière cohérente augmente vos chances de conversion de plus de 250%.",
+    },
+    {
+      question: "Comment assurez-vous la cohérence du message ?",
+      answer:
+        "Nous développons une charte éditoriale et graphique unique qui est ensuite déclinée spécifiquement pour les codes de chaque plateforme.",
+    },
+    {
+      question: "Quel budget prévoir pour une campagne efficace ?",
+      answer:
+        "Le budget dépend de vos objectifs et de la durée. Nous proposons des stratégies adaptées à partir de quelques milliers de dollars jusqu'aux campagnes d'envergure nationale.",
+    },
+    {
+      question: "Fournissez-vous des rapports détaillés ?",
+      answer:
+        "Absolument. Vous recevez un reporting complet intégrant les données de tous les canaux pour une vision unifiée de la performance.",
+    },
   ];
 
   return (
-    <div className="pt-20">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-neutral-100 via-white to-primary/5 py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center">
-                  <Target className="w-6 h-6" />
-                </div>
-                <span className="text-primary font-medium">
-                  Marketing Intégré
-                </span>
-              </div>
+      <section className="relative pt-32 pb-20 px-4 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/crosscanal.jpg"
+            alt="Campagne Cross Canal"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/85 to-secondary/75"></div>
+        </div>
 
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                Campagne{" "}
-                <span className="excellence-gradient">Cross Canal</span>
-              </h1>
+        <div className="relative z-10 max-w-7xl mx-auto my-12">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              Campagne <span className="text-primary">Cross Canal</span>
+            </h1>
 
-              <p className="text-xl text-text mb-8 leading-relaxed">
-                Maximisez votre impact avec des campagnes marketing intégrées
-                sur tous vos canaux de communication. Une expérience client
-                cohérente et performante.
-              </p>
+            <p className="text-xl text-gray-200 mb-8 leading-relaxed">
+              Maximisez votre impact avec une stratégie marketing intégrée. Une
+              expérience client fluide et cohérente sur tous les points de
+              contact.
+            </p>
 
-              <div className="flex flex-wrap gap-4 mb-8">
-                <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
-                  <Share2 className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium">
-                    +8 canaux intégrés
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
-                  <BarChart className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium">+250% engagement</span>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-4">
-                <button
-                  onClick={handleOpenAppointment}
-                  className="bg-primary text-white px-8 py-4 rounded-md text-lg hover:bg-primary-dark transition flex items-center gap-2 font-medium shadow-lg"
-                >
-                  Lancer ma campagne
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={handleOpenStrategy}
-                  className="bg-white text-secondary border border-neutral-200 px-8 py-4 rounded-md text-lg hover:bg-neutral-50 transition font-medium"
-                >
-                  Stratégie gratuite
-                </button>
-              </div>
+            <div className="flex flex-wrap gap-4 mb-12">
+              <button
+                onClick={handleOpenAppointment}
+                className="px-8 py-4 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl"
+              >
+                Lancer ma campagne
+                <ArrowRight className="w-5 h-5" />
+              </button>
             </div>
 
-            <div className="relative">
-              <img
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
-                alt="Campagne Cross Canal"
-                className="rounded-2xl shadow-xl w-full h-[500px] object-cover"
-              />
-              <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg">
-                <div className="text-center">
-                  <p className="text-3xl font-bold text-primary mb-1">8+</p>
-                  <p className="text-sm text-text">Canaux intégrés</p>
-                </div>
+            <div className="grid justify-items-start grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary mb-1">x3</div>
+                <div className="text-sm text-gray-300">Conversion</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary mb-1">360°</div>
+                <div className="text-sm text-gray-300">Visibilité</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary mb-1">+40%</div>
+                <div className="text-sm text-gray-300">Rétention</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Channels */}
-      <section className="py-20 px-4 bg-white">
+      {/* Channels Section */}
+      <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4 gradient-text">
-              Canaux intégrés
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-4">
+              <Share2 className="w-4 h-4 text-primary" />
+              <span className="text-sm uppercase font-semibold text-primary">
+                Canaux Intégrés
+              </span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+              Soyez présent là où sont {""}
+              <span className="block text-primary">vos clients</span>
             </h2>
-            <p className="text-xl text-text max-w-2xl mx-auto">
-              Une présence cohérente sur tous vos points de contact client
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Une présence omnicanale maîtrisée pour ne manquer aucune
+              opportunité.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 gap-8">
             {channels.map((channel, index) => (
               <div
                 key={index}
-                className="flex items-start gap-3 p-4 bg-neutral-50 rounded-lg"
+                className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group flex gap-6"
               >
-                <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-text">{channel}</span>
+                <div className="shrink-0 w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                  {channel.icon}
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    {channel.title}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    {channel.description}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Process */}
-      <section className="py-20 px-4 bg-neutral-100">
+      {/* Process Section */}
+      <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4 gradient-text">
-              Notre méthodologie
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-4">
+              <BarChart3 className="w-4 h-4 text-primary" />
+              <span className="text-sm uppercase font-semibold text-primary">
+                Notre Méthodologie
+              </span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+              Une exécution {""}
+              <span className="block text-primary">millimétrée</span>
             </h2>
-            <p className="text-xl text-text max-w-2xl mx-auto">
-              Une approche structurée pour des campagnes cross-canal réussies
-            </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {processSteps.map((step, index) => (
+            {processSteps.map((item, index) => (
               <div key={index} className="relative">
-                <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition">
-                  <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mb-4">
-                    {step.icon}
+                <div className="bg-gradient-to-br from-primary/5 to-secondary/5 p-8 rounded-xl border border-gray-100 h-full">
+                  <div className="text-5xl font-bold text-primary/20 mb-4">
+                    {item.step}
                   </div>
-                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-secondary text-white rounded-full flex items-center justify-center text-sm font-bold">
-                    {step.step}
-                  </div>
-                  <h3 className="text-xl font-bold mb-2 text-secondary">
-                    {step.title}
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    {item.title}
                   </h3>
-                  <p className="text-text mb-4">{step.description}</p>
-                  <div className="flex items-center gap-2 text-sm text-primary">
-                    <Clock className="w-4 h-4" />
-                    <span>{step.duration}</span>
-                  </div>
+                  <p className="text-gray-600 leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
                 {index < processSteps.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-primary/30"></div>
+                  <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                    <ArrowRight className="w-8 h-8 text-primary/30" />
+                  </div>
                 )}
               </div>
             ))}
@@ -202,31 +234,115 @@ export default function CampagneCrossCanalPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 px-4 bg-primary text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">
-            Prêt à unifier vos canaux marketing ?
-          </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Créons ensemble une stratégie cross-canal qui maximise votre impact
-            et vos conversions.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <button
-              onClick={handleOpenAppointment}
-              className="bg-white text-primary px-8 py-4 rounded-md text-lg hover:bg-neutral-100 transition flex items-center gap-2 font-medium"
-            >
-              Demander un devis
-              <ArrowRight className="w-5 h-5" />
-            </button>
-            <button
-              onClick={handleOpenStrategy}
-              className="bg-transparent border border-white text-white px-8 py-4 rounded-md text-lg hover:bg-white/10 transition font-medium"
-            >
-              Stratégie gratuite
-            </button>
+      {/* Benefits List Section (Dark Mode) */}
+      <section className="py-20 px-4 bg-secondary text-white overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 blur-[100px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/10 blur-[100px] rounded-full pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-6 leading-tight">
+                Maximisez votre <span className="text-primary">impact</span>
+              </h2>
+              <p className="text-white/80 text-lg mb-8">
+                Une stratégie cross-canal bien orchestrée ne se contente pas
+                d'ajouter des canaux, elle multiplie les résultats par la
+                synergie.
+              </p>
+              <ul className="space-y-4">
+                {[
+                  "Amélioration de l'expérience client",
+                  "Augmentation du taux de conversion",
+                  "Fidélisation accrue",
+                  "Meilleure connaissance client",
+                  "Optimisation du budget marketing",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3">
+                    <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0" />
+                    <span className="text-lg">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="relative">
+              <div className="absolute inset-0 bg-primary/20 transform rotate-3 rounded-2xl"></div>
+              <img
+                src="/images/crosscanal.jpg"
+                alt="Marketing Digital"
+                className="relative rounded-2xl shadow-2xl w-full object-cover h-[500px]"
+              />
+            </div>
           </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+              Questions
+              <span className="block text-primary">fréquentes</span>
+            </h2>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+                className="bg-neutral-50 rounded-2xl overflow-hidden border border-neutral-100"
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                  className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-neutral-100 transition-colors duration-200"
+                >
+                  <span className="font-semibold text-secondary text-lg pr-4">
+                    {faq.question}
+                  </span>
+                  {openFaq === index ? (
+                    <ChevronUp className="w-5 h-5 text-primary flex-shrink-0" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5 text-primary flex-shrink-0" />
+                  )}
+                </button>
+                {openFaq === index && (
+                  <div className="px-6 pb-5">
+                    <p className="text-text leading-relaxed">{faq.answer}</p>
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-4 bg-primary relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-4xl font-bold text-white mb-6 leading-tight">
+            Prêt à unifier votre communication ?
+          </h2>
+          <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+            Contactez-nous pour élaborer une stratégie cross-canal performante
+            et sur-mesure.
+          </p>
+          <button
+            onClick={handleOpenAppointment}
+            className="px-8 py-4 bg-white text-secondary hover:bg-gray-100 font-semibold rounded-lg transition-all duration-300 inline-flex items-center gap-2 shadow-xl hover:shadow-2xl hover:scale-105"
+          >
+            Discuter de mon projet
+            <ArrowRight className="w-5 h-5" />
+          </button>
         </div>
       </section>
     </div>

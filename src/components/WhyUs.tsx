@@ -273,7 +273,7 @@ export const WhyUs: React.FC = () => {
                     ease: "easeInOut",
                   }}
                 >
-                  150+
+                  50+
                 </motion.p>
                 <p className="text-sm">Projets réussis</p>
               </div>

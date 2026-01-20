@@ -1,4 +1,3 @@
-// import { useState } from "react"
 import {
   Megaphone,
   Target,
@@ -7,11 +6,17 @@ import {
   Shield,
   ArrowRight,
   MessageSquare,
+  ChevronDown,
 } from "lucide-react";
+import { useAppointment } from "../../contexts/AppointmentContext";
+import { useState } from "react";
 
 export default function BrandingPRPage() {
-  // const [openFaq, setOpenFaq] = useState<number | null>(null)
-
+  const {openAppointmentForm} = useAppointment();
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const handleOpenAppointmentForm = () => {
+    openAppointmentForm("Branding, PR & E-réputation");
+  };
   const features = [
     {
       icon: <Target className="w-8 h-8" />,
@@ -78,54 +83,54 @@ export default function BrandingPRPage() {
     },
   ];
 
-  const portfolio = [
-    {
-      title: "Repositionnement Marque Tech",
-      category: "Stratégie de Marque",
-      image: "/tech-brand-repositioning.jpg",
-      results: "+150% notoriété, +85% engagement",
-    },
-    {
-      title: "Campagne RSE Entreprise",
-      category: "Communication Corporate",
-      image: "/corporate-csr-campaign.jpg",
-      results: "+200% mentions positives, +120% confiance",
-    },
-    {
-      title: "Gestion Crise E-réputation",
-      category: "E-réputation",
-      image: "/reputation-crisis-management.jpg",
-      results: "Sentiment positif restauré en 3 mois",
-    },
-  ];
+  // const portfolio = [
+  //   {
+  //     title: "Repositionnement Marque Tech",
+  //     category: "Stratégie de Marque",
+  //     image: "/tech-brand-repositioning.jpg",
+  //     results: "+150% notoriété, +85% engagement",
+  //   },
+  //   {
+  //     title: "Campagne RSE Entreprise",
+  //     category: "Communication Corporate",
+  //     image: "/corporate-csr-campaign.jpg",
+  //     results: "+200% mentions positives, +120% confiance",
+  //   },
+  //   {
+  //     title: "Gestion Crise E-réputation",
+  //     category: "E-réputation",
+  //     image: "/reputation-crisis-management.jpg",
+  //     results: "Sentiment positif restauré en 3 mois",
+  //   },
+  // ];
 
-  // const faqs = [
-  //   {
-  //     question: "Quelle est la différence entre branding et e-réputation ?",
-  //     answer:
-  //       "Le branding concerne la construction proactive de votre identité de marque et de votre positionnement, tandis que l'e-réputation se concentre sur la gestion de votre image en ligne et la surveillance des conversations vous concernant sur le web.",
-  //   },
-  //   {
-  //     question: "Combien de temps faut-il pour voir des résultats ?",
-  //     answer:
-  //       "Les premiers résultats en termes de notoriété et d'engagement sont visibles dès 2-3 mois. Pour un repositionnement complet de marque et une amélioration significative de l'e-réputation, comptez 6 à 12 mois.",
-  //   },
-  //   {
-  //     question: "Comment gérez-vous une crise d'e-réputation ?",
-  //     answer:
-  //       "Nous mettons en place un protocole de gestion de crise incluant la surveillance en temps réel, la réponse rapide et appropriée, la création de contenu positif, et la mise en place d'une stratégie de communication pour restaurer votre image.",
-  //   },
-  //   {
-  //     question: "Quels canaux surveillez-vous pour l'e-réputation ?",
-  //     answer:
-  //       "Nous surveillons tous les canaux pertinents : réseaux sociaux, sites d'avis, forums, blogs, médias en ligne, moteurs de recherche, et plateformes spécifiques à votre secteur d'activité.",
-  //   },
-  //   {
-  //     question: "Proposez-vous des services de relations presse ?",
-  //     answer:
-  //       "Oui, nos services incluent les relations presse avec la création de communiqués, l'identification de journalistes cibles, l'organisation d'événements presse, et le suivi des retombées médiatiques.",
-  //   },
-  // ]
+  const faqs = [
+    {
+      question: "Quelle est la différence entre branding et e-réputation ?",
+      answer:
+        "Le branding concerne la construction proactive de votre identité de marque et de votre positionnement, tandis que l'e-réputation se concentre sur la gestion de votre image en ligne et la surveillance des conversations vous concernant sur le web.",
+    },
+    {
+      question: "Combien de temps faut-il pour voir des résultats ?",
+      answer:
+        "Les premiers résultats en termes de notoriété et d'engagement sont visibles dès 2-3 mois. Pour un repositionnement complet de marque et une amélioration significative de l'e-réputation, comptez 6 à 12 mois.",
+    },
+    {
+      question: "Comment gérez-vous une crise d'e-réputation ?",
+      answer:
+        "Nous mettons en place un protocole de gestion de crise incluant la surveillance en temps réel, la réponse rapide et appropriée, la création de contenu positif, et la mise en place d'une stratégie de communication pour restaurer votre image.",
+    },
+    {
+      question: "Quels canaux surveillez-vous pour l'e-réputation ?",
+      answer:
+        "Nous surveillons tous les canaux pertinents : réseaux sociaux, sites d'avis, forums, blogs, médias en ligne, moteurs de recherche, et plateformes spécifiques à votre secteur d'activité.",
+    },
+    {
+      question: "Proposez-vous des services de relations presse ?",
+      answer:
+        "Oui, nos services incluent les relations presse avec la création de communiqués, l'identification de journalistes cibles, l'organisation d'événements presse, et le suivi des retombées médiatiques.",
+    },
+  ]
 
   return (
     <div className="min-h-screen bg-white">
@@ -160,12 +165,9 @@ export default function BrandingPRPage() {
             </p>
 
             <div className="flex flex-wrap gap-4 mb-12">
-              <button className="px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl">
+              <button onClick={handleOpenAppointmentForm} className="px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl">
                 Démarrer votre projet
                 <ArrowRight className="w-5 h-5" />
-              </button>
-              <button className="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-bold rounded-lg transition-all duration-300 border border-white/20">
-                Voir nos réalisations
               </button>
             </div>
 
@@ -175,7 +177,7 @@ export default function BrandingPRPage() {
                 <div className="text-sm text-gray-300">Satisfaction client</div>
               </div>
               <div className="">
-                <div className="text-3xl font-bold text-primary mb-1">150+</div>
+                <div className="text-3xl font-bold text-primary mb-1">5+</div>
                 <div className="text-sm text-gray-300">
                   Marques accompagnées
                 </div>
@@ -264,7 +266,7 @@ export default function BrandingPRPage() {
       </section>
 
       {/* Portfolio Section */}
-      <section className="py-20 px-4 bg-gray-50">
+      {/* <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
@@ -306,16 +308,12 @@ export default function BrandingPRPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* FAQ Section */}
-      {/* <section className="py-20 px-4 bg-white">
+      <section className="py-20 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-4">
-              <MessageSquare className="w-4 h-4 text-primary" />
-              <span className="text-sm font-semibold text-primary">FAQ</span>
-            </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
               Questions <span className="block text-primary">fréquentes</span>
             </h2>
@@ -346,25 +344,25 @@ export default function BrandingPRPage() {
             ))}
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-br from-secondary via-secondary-light to-primary relative overflow-hidden">
+      <section className="py-20 px-4 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
             Prêt à construire une marque forte et gérer votre réputation ?
           </h2>
-          <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-200 mb-8 max-w-2xl mx-auto">
             Discutons de votre projet et découvrez comment nous pouvons vous
             aider à développer votre notoriété.
           </p>
-          <button className="px-8 py-4 bg-white text-secondary hover:bg-gray-100 font-semibold rounded-lg transition-all duration-300 inline-flex items-center gap-2 shadow-xl hover:shadow-2xl hover:scale-105">
-            Planifier un appel stratégique
+          <button onClick={handleOpenAppointmentForm} className="px-8 py-4 bg-white text-secondary hover:bg-gray-100 font-semibold rounded-lg transition-all duration-300 inline-flex items-center gap-2 shadow-xl hover:shadow-2xl hover:scale-105">
+            Planifier un appel
             <ArrowRight className="w-5 h-5" />
           </button>
         </div>

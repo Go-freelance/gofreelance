@@ -13,9 +13,15 @@ import {
   BookOpen,
   CheckCircle2,
 } from "lucide-react";
+import { useAppointment } from "../../contexts/AppointmentContext";
 
 export default function UpskillsEquipesPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+    const { openAppointmentForm } = useAppointment();
+  
+    const handleOpenAppointment = () => {
+      openAppointmentForm("Upskills des équipes");
+    };
 
   const features = [
     {
@@ -136,18 +142,15 @@ export default function UpskillsEquipesPage() {
             </p>
 
             <div className="flex flex-wrap gap-4 mb-12">
-              <button className="px-8 py-4 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl">
+              <button onClick={handleOpenAppointment} className="px-8 py-4 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl">
                 Demander un devis
                 <ArrowRight className="w-5 h-5" />
               </button>
-              <button className="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-semibold rounded-lg transition-all duration-300 border border-white/20">
-                Découvrir nos programmes
-              </button>
             </div>
 
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid justify-items-start grid-cols-3 gap-6">
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">50+</div>
+                <div className="text-3xl font-bold text-primary mb-1">10+</div>
                 <div className="text-sm text-gray-300">Entreprises formées</div>
               </div>
               <div className="text-center">
@@ -155,7 +158,7 @@ export default function UpskillsEquipesPage() {
                 <div className="text-sm text-gray-300">Satisfaction</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">500+</div>
+                <div className="text-3xl font-bold text-primary mb-1">150+</div>
                 <div className="text-sm text-gray-300">Apprenants</div>
               </div>
             </div>
@@ -334,21 +337,21 @@ export default function UpskillsEquipesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-br from-secondary via-secondary-light to-primary relative overflow-hidden">
+      <section className="py-20 px-4 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
             Prêt à faire monter vos équipes en compétences ?
           </h2>
-          <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-200 mb-8 max-w-2xl mx-auto">
             Contactez-nous pour construire le plan de formation idéal pour votre
             entreprise.
           </p>
-          <button className="px-8 py-4 bg-white text-secondary hover:bg-gray-100 font-semibold rounded-lg transition-all duration-300 inline-flex items-center gap-2 shadow-xl hover:shadow-2xl hover:scale-105">
+          <button onClick={handleOpenAppointment} className="px-8 py-4 bg-white text-secondary hover:bg-gray-100 font-semibold rounded-lg transition-all duration-300 inline-flex items-center gap-2 shadow-xl hover:shadow-2xl hover:scale-105">
             Discuter de vos besoins
             <ArrowRight className="w-5 h-5" />
           </button>

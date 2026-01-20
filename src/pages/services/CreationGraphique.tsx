@@ -7,9 +7,13 @@ import {
   Video,
   Sparkles,
 } from "lucide-react";
+import { useAppointment } from "../../contexts/AppointmentContext";
 
 export default function CreationGraphiquePage() {
-  // const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const { openAppointmentForm } = useAppointment();
+  const handleOpenAppointmentForm = () => {
+    openAppointmentForm("Création Graphique");
+  };
 
   const features = [
     {
@@ -77,47 +81,6 @@ export default function CreationGraphiquePage() {
     },
   ];
 
-  const portfolio = [
-    {
-      title: "Campagne Print Luxe",
-      category: "Print Design",
-      image: "/luxury-print-campaign-design.jpg",
-    },
-    {
-      title: "Infographie Corporate",
-      category: "Infographie",
-      image: "/corporate-infographic-design.jpg",
-    },
-    {
-      title: "Packaging Produit",
-      category: "Packaging",
-      image: "/modern-product-packaging-design.jpg",
-    },
-  ];
-
-  // const faqs = [
-  //   {
-  //     question: "Quels formats de fichiers sont livrés ?",
-  //     answer:
-  //       "Nous livrons tous les formats nécessaires : AI, PSD, PDF haute résolution pour le print, PNG, JPG, SVG pour le digital, et les formats sources modifiables.",
-  //   },
-  //   {
-  //     question: "Combien de révisions sont incluses ?",
-  //     answer:
-  //       "Chaque projet inclut 3 cycles de révisions. Des révisions supplémentaires peuvent être ajoutées selon vos besoins.",
-  //   },
-  //   {
-  //     question: "Quel est le délai de création ?",
-  //     answer:
-  //       "Le délai varie selon la complexité : 3-5 jours pour des supports simples, 1-2 semaines pour des projets plus élaborés. Nous proposons aussi des services express.",
-  //   },
-  //   {
-  //     question: "Puis-je obtenir les droits de propriété ?",
-  //     answer:
-  //       "Oui, tous les droits de propriété intellectuelle vous sont transférés à la livraison finale du projet.",
-  //   },
-  // ];
-
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section (aligné sur Branding) */}
@@ -143,16 +106,10 @@ export default function CreationGraphiquePage() {
             </p>
 
             <div className="flex flex-wrap gap-4 mb-12">
-              <button className="px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl">
+              <button onClick={() => handleOpenAppointmentForm()} className="px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl">
                 Démarrer votre projet
                 <ArrowRight className="w-5 h-5" />
               </button>
-              <a
-                href="#portfolio"
-                className="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-bold rounded-lg transition-all duration-300 border border-white/20"
-              >
-                Voir nos réalisations
-              </a>
             </div>
 
             <div className="grid grid-cols-3">
@@ -243,112 +200,23 @@ export default function CreationGraphiquePage() {
         </div>
       </section>
 
-      {/* Portfolio Section */}
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
-              Nos réalisations en {""}
-              <span className="block text-primary">création graphique</span>
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {portfolio.map((item, index) => (
-              <div
-                key={index}
-                className="group bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300"
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={item.image || "/placeholder.svg"}
-                    alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <span className="inline-block px-3 py-1 bg-primary text-white text-xs font-semibold rounded-full mb-2">
-                      {item.category}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {item.title}
-                  </h3>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      {/* <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
-                Questions <span className="text-primary">fréquentes</span>
-              </h2>
-            </div>
-
-            <div className="space-y-4">
-              {faqs.map((faq, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="border border-gray-200 rounded-lg overflow-hidden"
-                >
-                  <button
-                    onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                    className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors duration-200"
-                  >
-                    <span className="font-semibold text-gray-900">
-                      {faq.question}
-                    </span>
-                    <ChevronDown
-                      className={`w-5 h-5 text-gray-500 transition-transform duration-300 ${
-                        openFaq === index ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-                  <div
-                    className={`overflow-hidden transition-all duration-300 ${
-                      openFaq === index ? "max-h-48" : "max-h-0"
-                    }`}
-                  >
-                    <div className="px-6 pb-4 text-gray-600 leading-relaxed">
-                      {faq.answer}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section> */}
-
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-br from-secondary via-secondary-light to-primary relative overflow-hidden">
+      <section className="py-20 px-4 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
             Prêt à créer des visuels qui marquent les esprits ?
           </h2>
-          <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-200 mb-8 max-w-2xl mx-auto">
             Discutons de votre projet et créons ensemble des supports graphiques
             impactants.
           </p>
-          <button className="px-8 py-4 bg-white text-secondary hover:bg-gray-100 font-semibold rounded-lg transition-all duration-300 inline-flex items-center gap-2 shadow-xl hover:shadow-2xl hover:scale-105">
-            Planifier un appel stratégique
+          <button onClick={() => handleOpenAppointmentForm()}  className="px-8 py-4 bg-white text-secondary hover:bg-gray-100 font-semibold rounded-lg transition-all duration-300 inline-flex items-center gap-2 shadow-xl hover:shadow-2xl hover:scale-105">
+            Planifier un appel
             <ArrowRight className="w-5 h-5" />
           </button>
         </div>
