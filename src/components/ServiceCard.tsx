@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import type { ServiceCardProps } from "../types/common";
 import { useAppointment } from "../contexts/AppointmentContext";
 import { motion } from "framer-motion";
+import { getServiceSlug } from "../utils/functions";
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({
   icon,
@@ -15,17 +16,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 
   const handleOpenAppointment = () => {
     openAppointmentForm(title);
-  };
-
-  // Generate URL slug from title
-  const getServiceSlug = (title: string) => {
-    return title
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/&/g, "")
-      .replace(/\s+/g, "-")
-      .replace(/[^a-z0-9-]/g, "");
   };
 
   return (
@@ -48,7 +38,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
           {React.cloneElement(icon as React.ReactElement, { className: "w-7 h-7" })}
         </div>
 
-        <h3 className="text-xl font-bold mb-3 text-secondary group-hover:text-primary transition-colors duration-300">
+        <h3 className="text-lg sm:text-xl font-bold mb-3 text-secondary group-hover:text-primary transition-colors duration-300">
           {title}
         </h3>
         <p className="text-text/70 mb-6 text-base leading-relaxed">

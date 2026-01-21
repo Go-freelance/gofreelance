@@ -91,7 +91,7 @@ export const About: React.FC = () => {
               <img
                 src="/images/campagne-publicitaire.png"
                 alt="L'équipe Go Freelance"
-                className="w-full h-[500px] object-cover"
+                className="w-full hidden sm:block h-[500px] object-cover"
               />
             </motion.div>
           </div>

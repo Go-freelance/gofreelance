@@ -1,18 +1,10 @@
 import type React from "react";
 import { useState, useRef, useEffect } from "react";
-import {
-  Circle,
-  ChevronDown,
-  Zap,
-  Target,
-  Code,
-  Smartphone,
-  RefreshCw,
-  Bot,
-  Megaphone,
-  Gem,
-} from "lucide-react";
+import { Circle, ChevronDown, Gem, Menu, X, ChevronRight } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { expertises } from "../data/services";
+import { useAppointment } from "../contexts/AppointmentContext";
+import { getServiceSlug } from "../utils/functions";
 
 const NavSeparator = () => <Circle className="w-1.5 h-1.5 text-neutral-300" />;
 
@@ -21,66 +13,15 @@ interface NavigationProps {
   setIsMenuOpen: (isOpen: boolean) => void;
 }
 
-interface ServiceItem {
-  name: string;
-  href: string;
-  icon: React.ReactNode;
-  description: string;
-  popular?: boolean;
-}
-
-const services: ServiceItem[] = [
-  {
-    name: "Automatisation",
-    href: "/services/automatisation",
-    icon: <Zap className="w-4 h-4" />,
-    description: "Workflows automatisés et intégrations intelligentes",
-    popular: true,
-  },
-  {
-    name: "Campagne Cross Canal",
-    href: "/services/campagne-cross-canal",
-    icon: <Target className="w-4 h-4" />,
-    description: "Marketing intégré sur tous vos canaux",
-  },
-  {
-    name: "WordPress Elementor",
-    href: "/services/developpement-wordpress-elementor",
-    icon: <Code className="w-4 h-4" />,
-    description: "Sites web professionnels avec WordPress",
-  },
-  {
-    name: "Développement Web & Mobile",
-    href: "/services/developpement-web-et-mobile",
-    icon: <Smartphone className="w-4 h-4" />,
-    description: "Applications modernes et performantes",
-  },
-  {
-    name: "Transformation Digitale",
-    href: "/services/transformation-digitale",
-    icon: <RefreshCw className="w-4 h-4" />,
-    description: "Accompagnement dans votre transition digitale",
-  },
-  {
-    name: "Intégration IA",
-    href: "/services/integration-ia",
-    icon: <Bot className="w-4 h-4" />,
-    description: "Solutions d'intelligence artificielle sur mesure",
-  },
-  {
-    name: "Campagne Publicitaire",
-    href: "/services/campagne-publicitaire",
-    icon: <Megaphone className="w-4 h-4" />,
-    description: "Publicité performante sur toutes les plateformes",
-  },
-];
-
 export const Navigation: React.FC<NavigationProps> = ({
   isMenuOpen,
   setIsMenuOpen,
 }) => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
-  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+  const [activeMobileCategory, setActiveMobileCategory] = useState<
+    string | null
+  >(null);
+  const { openAppointmentForm } = useAppointment();
   const navigate = useNavigate();
   const location = useLocation();
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -122,6 +63,12 @@ export const Navigation: React.FC<NavigationProps> = ({
     setIsMenuOpen(false);
   };
 
+  const toggleMobileCategory = (categoryId: string) => {
+    setActiveMobileCategory(
+      activeMobileCategory === categoryId ? null : categoryId,
+    );
+  };
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -144,123 +91,115 @@ export const Navigation: React.FC<NavigationProps> = ({
 
   return (
     <>
-      <nav className="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b">
+      <nav className="fixed w-full bg-white/95 backdrop-blur-md z-50 border-b border-gray-100 shadow-sm transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <div className="flex-shrink-0">
-              <Link to="/">
+            {/* Logo */}
+            <div className="flex-shrink-0 flex items-center">
+              <Link to="/" onClick={() => setIsMenuOpen(false)}>
                 <img
-                  src="./images/go-free.png"
+                  src="/images/go-free.png"
                   alt="Go Freelance"
-                  className="h-10"
+                  className="h-10 w-auto object-contain hover:opacity-90 transition-opacity"
                 />
               </Link>
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden lg:flex items-center space-x-4">
+            <div className="hidden lg:flex items-center space-x-6">
               <Link
                 to="/"
-                className="text-secondary hover:text-primary transition font-bold"
+                className="text-secondary hover:text-primary transition-colors font-medium text-sm lg:text-base"
               >
                 Accueil
               </Link>
               <NavSeparator />
               <button
                 onClick={() => handleAnchorClick("about")}
-                className="text-secondary hover:text-primary transition font-bold"
+                className="text-secondary hover:text-primary transition-colors font-medium text-sm lg:text-base"
               >
                 À propos
               </button>
               <NavSeparator />
 
               {/* Services Dropdown */}
-              <div className="relative" ref={dropdownRef}>
+              <div className="relative group" ref={dropdownRef}>
                 <button
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => handleAnchorClick("services")}
-                  className="flex items-center gap-1 text-secondary hover:text-primary transition font-bold"
+                  onClick={() => setIsServicesOpen(!isServicesOpen)}
+                  className="flex items-center gap-1.5 text-secondary hover:text-primary transition-colors font-medium text-sm lg:text-base"
                 >
                   Services
                   <ChevronDown
-                    className={`w-4 h-4 transition-transform ${
+                    className={`w-4 h-4 transition-transform duration-200 ${
                       isServicesOpen ? "rotate-180" : ""
                     }`}
                   />
                 </button>
 
-                {/* Dropdown Menu - Horizontal Layout */}
+                {/* Mega Menu Dropdown */}
                 {isServicesOpen && (
                   <div
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
-                    className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[720px] bg-white rounded-xl shadow-xl border border-neutral-100 py-6 z-50"
+                    className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 w-[900px] bg-white rounded-xl shadow-2xl border border-neutral-100 overflow-hidden z-[60] animation-fade-in-up"
                   >
-                    {/* Header */}
-                    <div className="px-6 pb-4 border-b border-neutral-100">
-                      <h3 className="text-lg font-bold text-secondary">
-                        Nos Services
-                      </h3>
-                      <p className="text-sm text-neutral-500 mt-1">
-                        Solutions digitales complètes pour votre croissance
-                      </p>
+                    <div className="p-8 grid grid-cols-3 gap-8 bg-white relative">
+                      {/* Background decoration */}
+                      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 pointer-events-none" />
+
+                      {expertises.map((expertise) => (
+                        <div key={expertise.id} className="space-y-4">
+                          <div className="flex items-center gap-2 pb-2 border-b border-gray-100">
+                            <span className="text-primary">
+                              {expertise.icon}
+                            </span>
+                            <h3 className="font-bold text-secondary text-sm uppercase tracking-wider">
+                              {expertise.title}
+                            </h3>
+                          </div>
+                          <ul className="space-y-2">
+                            {expertise.services.map((service) => (
+                              <li key={service.title}>
+                                <Link
+                                  to={`/services/${getServiceSlug(service.title)}`}
+                                  onClick={handleServiceClick}
+                                  className="group flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors"
+                                >
+                                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors flex-shrink-0">
+                                    {/* Ideally rename icon to make it cleaner or use smaller icons */}
+                                    {service.icon ? (
+                                      // Clone element to adjust size if needed, or rely on provided size
+                                      service.icon
+                                    ) : (
+                                      <Circle className="w-2 h-2" />
+                                    )}
+                                  </div>
+                                  <span className="text-sm font-medium text-gray-700 group-hover:text-primary transition-colors line-clamp-1">
+                                    {service.title}
+                                  </span>
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
                     </div>
 
-                    {/* Services Grid - 3 columns */}
-                    <div className="px-6 py-4">
-                      <div className="grid grid-cols-3 gap-4">
-                        {services.map((service) => (
-                          <Link
-                            key={service.name}
-                            to={service.href}
-                            onClick={handleServiceClick}
-                            className="relative flex flex-col items-start p-4 rounded-lg hover:bg-neutral-50 transition-colors group border border-transparent hover:border-neutral-200"
-                          >
-                            {/* Popular Badge */}
-                            {service.popular && (
-                              <div className="absolute -top-2 -right-2 bg-primary text-white text-xs px-2 py-1 rounded-full font-medium">
-                                Populaire
-                              </div>
-                            )}
-
-                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors mb-3">
-                              {service.icon}
-                            </div>
-
-                            <h4 className="text-sm font-semibold text-secondary group-hover:text-primary transition-colors mb-2">
-                              {service.name}
-                            </h4>
-
-                            <p className="text-xs text-neutral-500 leading-relaxed">
-                              {service.description}
-                            </p>
-                          </Link>
-                        ))}
+                    {/* Enterprise / Footer Link */}
+                    <div className="bg-gray-50 px-8 py-4 flex justify-between items-center border-t border-gray-100">
+                      <div className="flex items-center gap-2 text-sm text-gray-500">
+                        <Gem className="w-4 h-4 text-primary" />
+                        <span>Besoin d'une solution sur-mesure ?</span>
                       </div>
-                    </div>
-
-                    {/* Enterprise Section */}
-                    <div className="px-6 pt-4 border-t border-neutral-100">
                       <Link
                         to="/services/solution-enterprise"
                         onClick={handleServiceClick}
-                        className="flex items-center justify-between w-full p-4 bg-gradient-to-r from-primary to-secondary text-white rounded-lg hover:shadow-lg transition-all group"
+                        className="text-sm font-bold text-primary hover:text-primary-dark flex items-center gap-1 transition-colors"
                       >
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
-                            <Gem className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <h4 className="font-semibold">
-                              Solution Enterprise
-                            </h4>
-                            <p className="text-sm opacity-90">
-                              Solutions sur mesure pour grandes entreprises
-                            </p>
-                          </div>
-                        </div>
-                        <ChevronDown className="w-5 h-5 rotate-[-90deg] group-hover:translate-x-1 transition-transform" />
+                        Découvrir l'offre Entreprise{" "}
+                        <ChevronRight className="w-4 h-4" />
                       </Link>
                     </div>
                   </div>
@@ -268,131 +207,146 @@ export const Navigation: React.FC<NavigationProps> = ({
               </div>
 
               <NavSeparator />
-              {/* <button
-                onClick={() => handleAnchorClick("work")}
-                className="text-secondary hover:text-primary transition font-medium"
-              >
-                Réalisations
-              </button> */}
-              {/* <NavSeparator /> */}
               <Link
                 to="/contact"
-                className="text-secondary hover:text-primary transition font-bold"
+                className="text-secondary hover:text-primary transition-colors font-medium text-sm lg:text-base"
               >
                 Contact
               </Link>
             </div>
 
-            <div className="hidden lg:flex items-center space-x-4">
-              <Link
-                to="/contact"
-                className="bg-primary text-white px-6 py-2.5 rounded-xl hover:bg-primary-dark transition font-bold"
+            {/* Desktop CTA */}
+            <div className="hidden lg:flex items-center">
+              <button 
+                onClick={() => openAppointmentForm()}
+                className="bg-primary text-white px-6 py-2.5 rounded-lg hover:bg-primary-dark transition-all shadow-md hover:shadow-lg font-bold text-sm transform hover:-translate-y-0.5"
               >
                 Prendre rendez-vous
-              </Link>
+              </button>
             </div>
 
             {/* Mobile Menu Button */}
             <button
-              className="lg:hidden"
+              className="lg:hidden p-2 text-secondary hover:text-primary transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Menu"
             >
-              <div className="w-6 h-0.5 bg-secondary mb-1.5"></div>
-              <div className="w-6 h-0.5 bg-secondary mb-1.5"></div>
-              <div className="w-6 h-0.5 bg-secondary"></div>
+              {isMenuOpen ? (
+                <X className="w-8 h-8" />
+              ) : (
+                <Menu className="w-8 h-8" />
+              )}
             </button>
           </div>
         </div>
+      </nav>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="lg:hidden bg-white border-b">
-            <div className="px-4 pt-2 pb-6 space-y-4">
-              <Link
-                to="/"
-                className="block text-secondary hover:text-primary transition font-medium py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Accueil
-              </Link>
-              <button
-                onClick={() => handleAnchorClick("about")}
-                className="block text-left text-secondary hover:text-primary transition font-medium py-2"
-              >
-                À propos
-              </button>
+      {/* Mobile Menu Overlay */}
+      {isMenuOpen && (
+        <div className="lg:hidden fixed inset-0 top-20 bg-white z-40 overflow-y-auto">
+          <div className="px-4 py-6 space-y-6 pb-24">
+            <Link
+              to="/"
+              className="block text-xl font-bold text-secondary hover:text-primary"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Accueil
+            </Link>
+            <div className="border-b border-gray-100" />
 
-              {/* Mobile Services Dropdown */}
-              <div>
-                <button
-                  onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                  className="flex items-center justify-between w-full text-left text-secondary hover:text-primary transition font-medium py-2"
-                >
-                  Services
-                  <ChevronDown
-                    className={`w-4 h-4 transition-transform ${
-                      isMobileServicesOpen ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                {isMobileServicesOpen && (
-                  <div className="ml-4 mt-2 space-y-2">
-                    {services.map((service) => (
-                      <Link
-                        key={service.name}
-                        to={service.href}
-                        onClick={() => setIsMenuOpen(false)}
-                        className="flex items-center gap-3 py-2 text-sm text-neutral-600 hover:text-primary transition-colors relative"
-                      >
-                        <div className="w-6 h-6 rounded bg-primary/10 flex items-center justify-center text-primary">
-                          {service.icon}
-                        </div>
-                        {service.name}
-                        {service.popular && (
-                          <span className="bg-primary text-white text-xs px-2 py-0.5 rounded-full font-medium ml-auto">
-                            Populaire
-                          </span>
-                        )}
-                      </Link>
-                    ))}
-                    <Link
-                      to="/services/solution-enterprise"
-                      onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center gap-3 py-2 text-sm bg-gradient-to-r from-primary to-secondary text-white rounded-lg px-3 font-medium mt-3"
+            <button
+              onClick={() => handleAnchorClick("about")}
+              className="block w-full text-left text-xl font-bold text-secondary hover:text-primary"
+            >
+              À propos
+            </button>
+            <div className="border-b border-gray-100" />
+
+            <div className="space-y-4">
+              <span className="block text-xl font-bold text-secondary">
+                Nos Services
+              </span>
+              <div className="space-y-2 pl-2">
+                {expertises.map((expertise) => (
+                  <div
+                    key={expertise.id}
+                    className="border-b border-gray-50 last:border-0 pb-2"
+                  >
+                    <button
+                      onClick={() => toggleMobileCategory(expertise.id)}
+                      className="flex items-center justify-between w-full py-2 text-left font-semibold text-gray-800"
                     >
-                      <div className="w-6 h-6 rounded bg-white/20 flex items-center justify-center">
-                        <Gem className="w-4 h-4" />
+                      <div className="flex items-center gap-3">
+                        <span className="text-primary">{expertise.icon}</span>
+                        {expertise.title}
                       </div>
-                      Solution Enterprise
-                    </Link>
-                  </div>
-                )}
-              </div>
+                      <ChevronDown
+                        className={`w-5 h-5 text-gray-400 transition-transform ${activeMobileCategory === expertise.id ? "rotate-180" : ""}`}
+                      />
+                    </button>
 
-              {/* <button
-                onClick={() => handleAnchorClick("work")}
-                className="block text-left text-secondary hover:text-primary transition font-medium py-2"
-              >
-                Réalisations
-              </button> */}
+                    {activeMobileCategory === expertise.id && (
+                      <div className="mt-2 ml-9 space-y-3 border-l-2 border-primary/10 pl-4 py-2 bg-gray-50/50 rounded-r-lg">
+                        {expertise.services.map((service) => (
+                          <Link
+                            key={service.title}
+                            to={`/services/${getServiceSlug(service.title)}`}
+                            onClick={() => setIsMenuOpen(false)}
+                            className="block text-gray-600 hover:text-primary text-sm font-medium py-1"
+                          >
+                            {service.title}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+
+                {/* Mobile Enterprise Link */}
+                <Link
+                  to="/services/solution-enterprise"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center gap-3 py-3 mt-4 text-primary font-bold"
+                >
+                  <div className="w-6 h-6 rounded bg-primary/10 flex items-center justify-center">
+                    <Gem className="w-4 h-4" />
+                  </div>
+                  Solution Enterprise
+                </Link>
+              </div>
+            </div>
+
+            <div className="border-b border-gray-100" />
+
+            <Link
+              to="/contact"
+              className="block text-xl font-bold text-secondary hover:text-primary"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Contact
+            </Link>
+
+            <div className="pt-6">
               <Link
                 to="/contact"
-                className="block text-secondary hover:text-primary transition font-medium py-2"
                 onClick={() => setIsMenuOpen(false)}
-              >
-                Contact
-              </Link>
-              <Link
-                to="/contact"
-                onClick={() => setIsMenuOpen(false)}
-                className="w-full bg-primary text-white px-6 py-2.5 rounded-full hover:bg-primary-dark transition font-medium mt-4 block text-center"
+                className="block w-full bg-primary text-white text-center text-lg font-bold px-6 py-4 rounded-xl shadow-lg active:scale-95 transition-transform"
               >
                 Prendre rendez-vous
               </Link>
             </div>
           </div>
-        )}
-      </nav>
+        </div>
+      )}
+
+      {/* Mobile Menu Backdrop */}
+      {isMenuOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black/20 z-30 backdrop-blur-sm"
+          onClick={() => setIsMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
     </>
   );
 };

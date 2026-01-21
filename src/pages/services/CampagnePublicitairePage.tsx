@@ -126,11 +126,11 @@ export default function CampagnePublicitairePage() {
 
         <div className="relative z-10 max-w-7xl mx-auto my-12">
           <div className="max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Campagne <span className="text-primary">Publicitaire</span>
             </h1>
 
-            <p className="text-xl text-gray-200 mb-8 leading-relaxed">
+            <p className="text-lg sm:text-xl text-gray-200 mb-8 leading-relaxed">
               Propulsez votre marque devant votre audience idéale. Des
               stratégies d'acquisition payante (Ads) conçues pour un retour sur
               investissement maximal.
@@ -148,17 +148,17 @@ export default function CampagnePublicitairePage() {
 
             <div className="grid justify-items-start grid-cols-3 gap-6">
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">x5</div>
+                <div className="text-xl sm:text-3xl font-bold text-primary mb-1">x5</div>
                 <div className="text-sm text-gray-300">ROAS Cible</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">
+                <div className="text-xl sm:text-3xl font-bold text-primary mb-1">
                   Ciblé
                 </div>
                 <div className="text-sm text-gray-300">Audience</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">
+                <div className="text-xl sm:text-3xl font-bold text-primary mb-1">
                   Immédiat
                 </div>
                 <div className="text-sm text-gray-300">Résultats</div>
@@ -178,11 +178,11 @@ export default function CampagnePublicitairePage() {
                 Canaux d'Acquisition
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
               Soyez visible là où {""}
               <span className="block text-primary">ça compte</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
               Une approche multi-canal pour toucher vos prospects à chaque étape
               de leur parcours.
             </p>
@@ -197,10 +197,10 @@ export default function CampagnePublicitairePage() {
                 <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
                   {platform.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3">
                   {platform.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   {platform.description}
                 </p>
               </div>
@@ -219,7 +219,7 @@ export default function CampagnePublicitairePage() {
                 Notre Méthodologie
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
               De l'investissement au {""}
               <span className="block text-primary">profit</span>
             </h2>
@@ -229,10 +229,10 @@ export default function CampagnePublicitairePage() {
             {processSteps.map((item, index) => (
               <div key={index} className="relative">
                 <div className="bg-gradient-to-br from-primary/5 to-secondary/5 p-8 rounded-xl border border-gray-100 h-full">
-                  <div className="text-5xl font-bold text-primary/20 mb-4">
+                  <div className="text-4xl sm:text-5xl font-bold text-primary/20 mb-4">
                     {item.step}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3">
                     {item.title}
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
@@ -258,10 +258,10 @@ export default function CampagnePublicitairePage() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6 leading-tight">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6 leading-tight">
                 Accélérez votre <span className="text-primary">croissance</span>
               </h2>
-              <p className="text-white/80 text-lg mb-8">
+              <p className="text-white/80 text-lg sm:text-xl mb-8">
                 La publicité digitale est le levier le plus rapide pour acquérir
                 de nouveaux clients. Ne laissez pas vos concurrents prendre
                 toute la place.
@@ -276,7 +276,7 @@ export default function CampagnePublicitairePage() {
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3">
                     <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0" />
-                    <span className="text-lg">{item}</span>
+                    <span className="text-lg sm:text-xl">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -345,10 +345,10 @@ export default function CampagnePublicitairePage() {
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-white mb-6 leading-tight">
             Prêt à exploser votre chiffre d'affaires ?
           </h2>
-          <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
             Contactez-nous pour définir la stratégie d'acquisition qui fera
             décoller votre business.
           </p>

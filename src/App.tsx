@@ -68,7 +68,7 @@ function App() {
           element={<AutomatisationPage />}
         />
         <Route
-          path="/services/design-de-marque"
+          path="/services/design-marque"
           element={<DesignDeMarquePage />}
         />
         <Route
@@ -92,7 +92,7 @@ function App() {
           element={<CreationGraphiquePage />}
         />
         <Route
-          path="/services/branding-pr-e-reputation"
+          path="/services/branding"
           element={<BrandingPRPage />}
         />
         <Route
@@ -108,11 +108,11 @@ function App() {
           element={<WordPressElementorPage />}
         />
         <Route
-          path="/services/upskills-des-equipes"
+          path="/services/upskills-equipes"
           element={<UpskillsEquipesPage />}
         />
         <Route
-          path="/services/programmes-de-formation-long-court"
+          path="/services/programmes-formation"
           element={<ProgrammesFormationPage />}
         />
         <Route path="/cgu" element={<CGUPage />} />

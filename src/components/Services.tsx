@@ -110,7 +110,7 @@ export const Services: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold mb-6 "
+            className="text-2xl sm:text-4xl md:text-5xl font-bold mb-6 "
           >
             Une expertise <span className="gradient-text">360°</span> pour
             <br />
@@ -212,7 +212,7 @@ export const Services: React.FC = () => {
                       className: "w-6 h-6",
                     })}
                   </div>
-                  <h3 className="text-2xl font-bold text-secondary">
+                  <h3 className="text-xl font-bold text-secondary">
                     {expertise.title}
                   </h3>
                 </div>

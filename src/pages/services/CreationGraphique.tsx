@@ -96,11 +96,11 @@ export default function CreationGraphiquePage() {
 
         <div className="relative z-10 max-w-7xl mx-auto my-20">
           <div className="max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Création Graphique
             </h1>
 
-            <p className="text-xl text-gray-200 mb-8 leading-relaxed">
+            <p className="text-lg sm:text-xl text-gray-200 mb-8 leading-relaxed">
               Supports visuels impactants pour votre communication: print,
               digital, motion et plus encore.
             </p>
@@ -114,15 +114,15 @@ export default function CreationGraphiquePage() {
 
             <div className="grid grid-cols-3">
               <div className="">
-                <div className="text-3xl font-bold text-primary mb-1">500+</div>
+                <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">500+</div>
                 <div className="text-sm text-gray-300">Créations livrées</div>
               </div>
               <div className="">
-                <div className="text-3xl font-bold text-primary mb-1">100%</div>
+                <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">100%</div>
                 <div className="text-sm text-gray-300">Satisfaction</div>
               </div>
               <div className="">
-                <div className="text-3xl font-bold text-primary mb-1">15+</div>
+                <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">15+</div>
                 <div className="text-sm text-gray-300">Formats livrés</div>
               </div>
             </div>
@@ -134,11 +134,11 @@ export default function CreationGraphiquePage() {
       <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
               Une expertise complète en {""}
               <span className="block text-primary">création graphique</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
               Du print au digital, nous concevons des visuels cohérents et
               performants.
             </p>
@@ -153,10 +153,10 @@ export default function CreationGraphiquePage() {
                 <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   {feature.description}
                 </p>
               </div>
@@ -169,7 +169,7 @@ export default function CreationGraphiquePage() {
       <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
               Un processus créatif {""}
               <span className="block text-primary">structuré</span>
             </h2>
@@ -179,13 +179,13 @@ export default function CreationGraphiquePage() {
             {process.map((item, index) => (
               <div key={index} className="relative">
                 <div className="bg-gradient-to-br from-primary/5 to-secondary/5 p-8 rounded-xl border border-gray-100 h-full">
-                  <div className="text-5xl font-bold text-primary/20 mb-4">
+                  <div className="text-4xl sm:text-5xl font-bold text-primary/20 mb-4">
                     {item.step}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3">
                     {item.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -208,10 +208,10 @@ export default function CreationGraphiquePage() {
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-white mb-6 leading-tight">
             Prêt à créer des visuels qui marquent les esprits ?
           </h2>
-          <p className="text-lg text-gray-200 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
             Discutons de votre projet et créons ensemble des supports graphiques
             impactants.
           </p>

@@ -112,11 +112,11 @@ export default function CampagneCrossCanalPage() {
 
         <div className="relative z-10 max-w-7xl mx-auto my-12">
           <div className="max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Campagne <span className="text-primary">Cross Canal</span>
             </h1>
 
-            <p className="text-xl text-gray-200 mb-8 leading-relaxed">
+            <p className="text-lg sm:text-xl text-gray-200 mb-8 leading-relaxed">
               Maximisez votre impact avec une stratégie marketing intégrée. Une
               expérience client fluide et cohérente sur tous les points de
               contact.
@@ -134,15 +134,15 @@ export default function CampagneCrossCanalPage() {
 
             <div className="grid justify-items-start grid-cols-3 gap-6">
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">x3</div>
+                <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">x3</div>
                 <div className="text-sm text-gray-300">Conversion</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">360°</div>
+                <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">360°</div>
                 <div className="text-sm text-gray-300">Visibilité</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">+40%</div>
+                <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">+40%</div>
                 <div className="text-sm text-gray-300">Rétention</div>
               </div>
             </div>
@@ -160,11 +160,11 @@ export default function CampagneCrossCanalPage() {
                 Canaux Intégrés
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
               Soyez présent là où sont {""}
               <span className="block text-primary">vos clients</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
               Une présence omnicanale maîtrisée pour ne manquer aucune
               opportunité.
             </p>
@@ -180,10 +180,10 @@ export default function CampagneCrossCanalPage() {
                   {channel.icon}
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
                     {channel.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                     {channel.description}
                   </p>
                 </div>
@@ -203,7 +203,7 @@ export default function CampagneCrossCanalPage() {
                 Notre Méthodologie
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
               Une exécution {""}
               <span className="block text-primary">millimétrée</span>
             </h2>
@@ -213,13 +213,13 @@ export default function CampagneCrossCanalPage() {
             {processSteps.map((item, index) => (
               <div key={index} className="relative">
                 <div className="bg-gradient-to-br from-primary/5 to-secondary/5 p-8 rounded-xl border border-gray-100 h-full">
-                  <div className="text-5xl font-bold text-primary/20 mb-4">
+                  <div className="text-4xl sm:text-5xl font-bold text-primary/20 mb-4">
                     {item.step}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3">
                     {item.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -242,10 +242,10 @@ export default function CampagneCrossCanalPage() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6 leading-tight">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6 leading-tight">
                 Maximisez votre <span className="text-primary">impact</span>
               </h2>
-              <p className="text-white/80 text-lg mb-8">
+              <p className="text-white/80 text-lg sm:text-xl mb-8">
                 Une stratégie cross-canal bien orchestrée ne se contente pas
                 d'ajouter des canaux, elle multiplie les résultats par la
                 synergie.
@@ -260,7 +260,7 @@ export default function CampagneCrossCanalPage() {
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3">
                     <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0" />
-                    <span className="text-lg">{item}</span>
+                    <span className="text-lg sm:text-xl">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -281,7 +281,7 @@ export default function CampagneCrossCanalPage() {
       <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
               Questions
               <span className="block text-primary">fréquentes</span>
             </h2>
@@ -301,7 +301,7 @@ export default function CampagneCrossCanalPage() {
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
                   className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-neutral-100 transition-colors duration-200"
                 >
-                  <span className="font-semibold text-secondary text-lg pr-4">
+                  <span className="font-semibold text-secondary text-lg sm:text-xl pr-4">
                     {faq.question}
                   </span>
                   {openFaq === index ? (
@@ -329,7 +329,7 @@ export default function CampagneCrossCanalPage() {
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-4xl font-bold text-white mb-6 leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
             Prêt à unifier votre communication ?
           </h2>
           <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">

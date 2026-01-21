@@ -125,11 +125,11 @@ export default function AutomatisationPage() {
 
         <div className="relative z-10 max-w-7xl mx-auto my-12">
           <div className="max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Automatisation <span className="text-primary">Intelligente</span>
             </h1>
 
-            <p className="text-xl text-gray-200 mb-8 leading-relaxed">
+            <p className="text-lg sm:text-xl text-gray-200 mb-8 leading-relaxed">
               Optimisez vos processus métier avec des solutions sur mesure.
               Gagnez du temps, réduisez les erreurs et concentrez-vous sur
               l'essentiel : votre croissance.
@@ -147,17 +147,17 @@ export default function AutomatisationPage() {
 
             <div className="grid justify-items-start grid-cols-3 gap-6">
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">+70%</div>
+                <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">+70%</div>
                 <div className="text-sm text-gray-300">Productivité</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">
+                <div className="text-xl sm:text-2xl font-bold text-primary mb-1">
                   3 mois
                 </div>
                 <div className="text-sm text-gray-300">ROI Moyen</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">
+                <div className="text-xl sm:text-2xl font-bold text-primary mb-1">
                   100%
                 </div>
                 <div className="text-sm text-gray-300">Fiabilité</div>
@@ -177,11 +177,11 @@ export default function AutomatisationPage() {
                 Pourquoi automatiser ?
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5 xl font-bold mb-6 text-gray-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-5 xl font-bold mb-6 text-gray-900 leading-tight">
               Des solutions pour booster votre {""}
               <span className="block text-primary">performance</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
               Des outils puissants pour transformer vos opérations quotidiennes.
             </p>
           </div>
@@ -195,10 +195,10 @@ export default function AutomatisationPage() {
                 <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   {feature.description}
                 </p>
               </div>
@@ -217,7 +217,7 @@ export default function AutomatisationPage() {
                 Notre Approche
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
               Une implémentation {""}
               <span className="block text-primary">sans friction</span>
             </h2>
@@ -227,13 +227,13 @@ export default function AutomatisationPage() {
             {processSteps.map((item, index) => (
               <div key={index} className="relative">
                 <div className="bg-gradient-to-br from-primary/5 to-secondary/5 p-8 rounded-xl border border-gray-100 h-full">
-                  <div className="text-5xl font-bold text-primary/20 mb-4">
+                  <div className="text-4xl sm:text-5xl font-bold text-primary/20 mb-4">
                     {item.step}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3">
                     {item.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -256,11 +256,11 @@ export default function AutomatisationPage() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6 leading-tight">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6 leading-tight">
                 Transformez votre{" "}
                 <span className="text-primary">efficacité opérationnelle</span>
               </h2>
-              <p className="text-white/80 text-lg mb-8">
+              <p className="text-white/80 text-lg sm:text-xl mb-8">
                 L'automatisation n'est pas un luxe, c'est une nécessité pour
                 rester compétitif. Elle permet de structurer votre croissance et de soulager vos équipes.
               </p>
@@ -274,7 +274,7 @@ export default function AutomatisationPage() {
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3">
                     <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0" />
-                    <span className="text-lg">{item}</span>
+                    <span className="text-lg sm:text-xl">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -284,7 +284,7 @@ export default function AutomatisationPage() {
               <img
                 src="/images/automation.jpg"
                 alt="Technologie et Automatisation"
-                className="relative rounded-2xl shadow-2xl w-full object-cover h-[500px]"
+                className="relative hidden sm:block rounded-2xl shadow-2xl w-full object-cover h-[500px]"
               />
             </div>
           </div>
@@ -295,7 +295,7 @@ export default function AutomatisationPage() {
       <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
               Questions
               <span className="block text-primary">fréquentes</span>
             </h2>
@@ -315,7 +315,7 @@ export default function AutomatisationPage() {
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
                   className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-neutral-100 transition-colors duration-200"
                 >
-                  <span className="font-semibold text-secondary text-lg pr-4">
+                  <span className="font-semibold text-secondary text-lg sm:text-xl pr-4">
                     {faq.question}
                   </span>
                   {openFaq === index ? (
@@ -326,7 +326,7 @@ export default function AutomatisationPage() {
                 </button>
                 {openFaq === index && (
                   <div className="px-6 pb-5">
-                    <p className="text-text leading-relaxed">{faq.answer}</p>
+                    <p className="text-text sm:text-base leading-relaxed">{faq.answer}</p>
                   </div>
                 )}
               </motion.div>

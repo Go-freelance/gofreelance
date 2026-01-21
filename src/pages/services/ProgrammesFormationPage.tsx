@@ -115,11 +115,11 @@ export default function ProgrammesFormationPage() {
 
         <div className="relative z-10 max-w-7xl mx-auto my-12">
           <div className="max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
               Programmes de <span className="text-primary">Formation</span>
             </h1>
 
-            <p className="text-xl text-gray-200 mb-8 leading-relaxed">
+            <p className="text-lg sm:text-xl text-gray-200 mb-8 leading-relaxed">
               Développez votre potentiel avec nos formations d'excellence. Du
               format court intensif au parcours long certifiant, trouvez la
               formule qui vous correspond.
@@ -137,16 +137,16 @@ export default function ProgrammesFormationPage() {
 
             <div className="grid justify-items-start grid-cols-3 gap-6">
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">20+</div>
+                <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">20+</div>
                 <div className="text-sm text-gray-300">Programmes</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">95%</div>
+                <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">95%</div>
                 <div className="text-sm text-gray-300">Taux de réussite</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">24/7</div>
-                <div className="text-sm text-gray-300">Accès plateforme</div>
+                <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">24/7</div>
+                <div className="text-xs sm:text-sm text-gray-300">Accès plateforme</div>
               </div>
             </div>
           </div>
@@ -163,11 +163,11 @@ export default function ProgrammesFormationPage() {
                 Nos Formats
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
               Des formats adaptés à {""}
               <span className="block text-primary">votre emploi du temps</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
               Flexibilité et efficacité sont au cœur de notre pédagogie.
             </p>
           </div>
@@ -181,17 +181,17 @@ export default function ProgrammesFormationPage() {
                 <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
                   {type.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3">
                   {type.title}
                 </h3>
-                <p className="text-gray-600 mb-6 min-h-[80px]">
+                <p className="text-sm sm:text-base text-gray-600 mb-6 min-h-[80px]">
                   {type.description}
                 </p>
                 <ul className="space-y-3">
                   {type.features.map((feature, idx) => (
                     <li
                       key={idx}
-                      className="flex items-center gap-2 text-sm text-gray-500"
+                      className="flex items-center gap-2 text-xs sm:text-sm text-gray-500"
                     >
                       <CheckCircle2 className="w-4 h-4 text-primary" />
                       {feature}
@@ -214,7 +214,7 @@ export default function ProgrammesFormationPage() {
                 Notre plateforme
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
               Apprenez où vous voulez, {""}
               <span className="block text-primary">quand vous voulez</span>
             </h2>
@@ -235,17 +235,17 @@ export default function ProgrammesFormationPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
                 </div>
                 <div className="relative p-8 h-full flex flex-col justify-end min-h-[400px]">
-                  <h3 className="text-3xl font-bold text-white mb-2">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
                     {platform.name}
                   </h3>
-                  <p className="text-gray-200 mb-6 text-lg">
+                  <p className="text-gray-200 mb-6 text-sm sm:text-base">
                     {platform.description}
                   </p>
                   <div className="flex flex-wrap gap-3">
                     {platform.features.map((feature, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-sm text-white border border-white/10"
+                        className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs sm:text-sm text-white border border-white/10"
                       >
                         {feature}
                       </span>
@@ -262,7 +262,7 @@ export default function ProgrammesFormationPage() {
       <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
               Questions
               <span className="block text-primary">fréquentes</span>
             </h2>
